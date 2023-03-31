@@ -3,21 +3,27 @@ import styled from "styled-components";
 import { IoSearch } from "react-icons/io5";
 
 interface SearchBarProps {
-  restaurantName: string | undefined
+  restaurantName: string | undefined;
+  themeColor: string | undefined;
+}
+
+interface Theme {
+  themeColor: string | undefined;
 }
 
 export default function RestaurantMenuSearchBar({
   restaurantName,
+  themeColor
 }: SearchBarProps) {
   return (
-    <Container>
-      <SearchInput placeholder={`Pesquisar em ${restaurantName}`} />
+    <Container themeColor={themeColor}>
+      <SearchInput placeholder={`Pesquisar em ${restaurantName}`}/>
       <IoSearch />
     </Container>
   );
 }
 
-const Container = styled.div`
+const Container = styled.div<Theme>`
   width: 400px;
   height: 50px;
   display: flex;
@@ -30,7 +36,7 @@ const Container = styled.div`
 
   svg {
     font-size: 17px;
-    color: #9570dd;
+    color: ${props => props.themeColor};
   }
 
   @media (max-width: 758px) {

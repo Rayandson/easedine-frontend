@@ -15,16 +15,12 @@ interface CategoriesProps {
   themeColor: string | undefined;
 }
 
-interface CoverProps {
-  cover: string | undefined;
+interface ImgDivProps {
+  img: string | undefined;
 }
 
 interface Theme {
   themeColor: string | undefined;
-}
-
-interface FontColor {
-  fontColor: string | undefined;
   activeCategory?: string;
   categoryName?: string;
 }
@@ -94,12 +90,16 @@ export default function MenuPage() {
         </LoadingContainer>
       ) : (
         <>
-          <MenuPageNavBar restaurantName={restaurantInfo?.restaurant.name} />
+          <MenuPageNavBar restaurantName={restaurantInfo?.restaurant.name} themeColor={restaurantInfo?.restaurant.themeColor}/>
+          <RestaurantCover img={restaurantInfo?.restaurant.cover}>
+            <OuterCircle>
+              <Picture src={restaurantInfo?.restaurant.picture} />
+            </OuterCircle>
+          </RestaurantCover>
           <RestaurantInfoDiv>
-            <Picture src={restaurantInfo?.restaurant.picture} />
             <Info>
               <MainInfo>
-                <Name>{restaurantInfo?.restaurant.name}</Name>
+                <Name themeColor={restaurantInfo?.restaurant.themeColor}>{restaurantInfo?.restaurant.name}</Name>
                 <Rating>
                   {starsArray.map((s) => (
                     <img src={StarImg} />
@@ -115,7 +115,6 @@ export default function MenuPage() {
               </Address>
             </Info>
           </RestaurantInfoDiv>
-          <RestaurantCover cover={restaurantInfo?.restaurant.cover} />
           <MenuContainer>
             <Categories
               isAtTop={isAtTop}
@@ -130,7 +129,7 @@ export default function MenuPage() {
                 }}
               >
                 <CategoryName
-                  fontColor={restaurantInfo?.restaurant.fontColor}
+                  themeColor={restaurantInfo?.restaurant.themeColor}
                   activeCategory={activeCategory}
                   categoryName="OS MAIS PEDIDOS"
                 >
@@ -148,7 +147,7 @@ export default function MenuPage() {
                     >
                       <CategoryName
                         key={i}
-                        fontColor={restaurantInfo?.restaurant.fontColor}
+                        themeColor={restaurantInfo?.restaurant.themeColor}
                         activeCategory={activeCategory}
                         categoryName={c.name}
                       >
@@ -159,14 +158,14 @@ export default function MenuPage() {
                 );
               })}
             </Categories>
-            <Title fontColor={restaurantInfo?.restaurant.fontColor}>
+            <Title themeColor={restaurantInfo?.restaurant.themeColor}>
               {activeCategory}
             </Title>
             <MenuItemsContainer ref={categoriesRef}>
               {itemsToShow.map((i) => (
                 <MenuItem
                   item={i}
-                  fontColor={restaurantInfo?.restaurant.fontColor}
+                  themeColor={restaurantInfo?.restaurant.themeColor}
                 />
               ))}
             </MenuItemsContainer>
@@ -179,15 +178,19 @@ export default function MenuPage() {
 }
 
 const Container = styled.div<Theme>`
-  width: 100%;
+  width: 85%;
   height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 68px;
-  background-color: ${(props) => `${props.themeColor}`};
+  background-color: #FFF;
+  margin-left: auto;
+  margin-right: auto;
+  /* background-color: ${(props) => `${props.themeColor}`}; */
 
   @media (max-width: 758px) {
+    width: 100%;
     min-height: calc(100vh - 63px - 55px);
     margin-top: 55px;
     margin-bottom: 63px;
@@ -210,13 +213,37 @@ const RestaurantInfoDiv = styled.div`
   background: #f9f9f9;
   padding-left: 12px;
   padding-right: 10px;
+
+  @media (max-width: 758px) {
+    width: 100%;
+  }
 `;
 
-const Picture = styled.img`
-  width: 55px;
-  height: 55px;
+const OuterCircle = styled.div `
+   width: 108px;
+  height: 108px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFFFFF;
+
+  @media (max-width: 900px) {
+    width: 58px;
+  height: 58px;
+  }
+`
+const Picture = styled.img`
+  width: 105px;
+  height: 105px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+
+  @media (max-width: 900px) {
+    width: 55px;
+  height: 55px;
+  }
 `;
 
 const Info = styled.div`
@@ -234,12 +261,13 @@ const MainInfo = styled.div`
   gap: 8px;
 `;
 
-const Name = styled.p`
+const Name = styled.p<Theme>`
   font-family: "Work Sans";
   font-style: normal;
   font-weight: 500;
   font-size: 17px;
-  color: #3e3e3e;
+  /* color: #3e3e3e; */
+  color: ${props => props.themeColor}
 `;
 const Rating = styled.div`
   display: flex;
@@ -257,20 +285,25 @@ const Address = styled.p`
   color: #8a8a8a;
 `;
 
-const RestaurantCover = styled.div<CoverProps>`
+const RestaurantCover = styled.div<ImgDivProps>`
   width: 100%;
-  height: 280px;
-  background: ${(props) => `url(${props.cover})`};
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${(props) => `linear-gradient(180deg, rgba(0, 0, 0, 0) 40.1%, rgba(0, 0, 0, 0.3) 100%), url(${props.img})`};
   background-size: cover;
   background-position: center;
 
+
   @media (max-width: 758px) {
-    height: 127px;
+    height: 150px;
   }
 `;
 
 const MenuContainer = styled.div`
   width: 100%;
+  min-height: calc(100vh - 171px);
   position: relative;
 `;
 
@@ -280,9 +313,9 @@ const Categories = styled.div<CategoriesProps>`
   display: flex;
   border-width: 0.1px 0px;
   border-style: solid;
-  border-color: #bebebe;
-  background-color: ${(props) => `${props.themeColor}`};
+  border-color: #ececec;
   position: ${(props) => (props.isAtTop ? "fixed" : "absolute")};
+  background-color: #FFFFFF;
   top: ${(props) => (props.isAtTop ? "54px" : "0")};
   left: 0;
   z-index: 5;
@@ -314,29 +347,26 @@ const CategoryDiv = styled.div`
   }
 `;
 
-const CategoryName = styled.p<FontColor>`
+const CategoryName = styled.p<Theme>`
   font-family: "Work Sans";
   font-style: normal;
   font-weight: 500;
   font-size: 13.5px;
   color: ${(props) =>
-    props.fontColor === "#FFFFFF"
-      ? props.categoryName === props.activeCategory
-        ? "#FFFFFF"
-        : "#C5C5C5"
-      : props.categoryName === props.activeCategory
-      ? "#000000"
-      : "#6D6D6D"};
+      props.categoryName === props.activeCategory
+        ? `${props.themeColor}`
+        : "#6D6D6D"};
 `;
 
 const MenuItemsContainer = styled.div`
   width: 100%;
-  min-height: calc(100vh - 171px);
+  /* min-height: calc(100vh - 171px); */
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
   padding: 20px 30px;
+  gap: 0px;
 
   @media (max-width: 758px) {
     padding: 20px 10px;
@@ -345,12 +375,13 @@ const MenuItemsContainer = styled.div`
   }
 `;
 
-const Title = styled.h2<FontColor>`
+const Title = styled.h2<Theme>`
   font-family: "Work Sans";
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
-  color: ${(props) => props.fontColor};
+  /* color: ${(props) => props.themeColor}; */
+  color: #2b2b2b;
   margin-top: 80px;
   margin-left: 30px;
 

@@ -5,21 +5,21 @@ import { MenuItemType } from "../types";
 
 interface MenuItemProps {
   item: MenuItemType;
-  fontColor: string | undefined
+  themeColor: string | undefined
 }
 
-interface FontColor {
-  fontColor: string | undefined
+interface ThemeColor {
+  themeColor: string | undefined
 }
 
 interface ItemImgProps {
   img: string | null;
 }
 
-export default function MenuItem({ item, fontColor }:MenuItemProps) {
+export default function MenuItem({ item, themeColor }:MenuItemProps) {
   return (
     <Container>
-      <ItemDiv fontColor={fontColor}>
+      <ItemDiv>
         <ItemImg img={item.image}/>
         <ItemInfo>
           <ItemMainInfo>
@@ -31,7 +31,7 @@ export default function MenuItem({ item, fontColor }:MenuItemProps) {
               </RatingDiv>
             </ItemNameDiv>
             <PriceDiv>
-              {item.price ? <Price>R$ {(item.price/100).toFixed(2)}</Price> : <Price>Ver mais</Price> }
+              {item.price ? <Price themeColor={themeColor}>R$ {(item.price/100).toFixed(2)}</Price> : <Price themeColor={themeColor}>Ver mais</Price> }
             </PriceDiv>
           </ItemMainInfo>
           <DescriptionContainer>
@@ -52,20 +52,26 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 15px;
+  margin-bottom: 20px;
+  background-color: #F9F9F9;
+  border-radius: 10px;
 
   @media (max-width: 758px) {
     width: 100%;
+    margin-bottom: 8px;
   }
 
 `;
-const ItemDiv = styled.div<FontColor>`
-  width: 100%;
+const ItemDiv = styled.div`
+  width: 95%;
   height: 127px;
   display: flex;
   align-items: center;
-  color: ${props => props.fontColor};
+  color: #000000;
   gap: 10px;
+  margin-top: 15px;
 
   &:hover {
     cursor: pointer;
@@ -130,11 +136,12 @@ const PriceDiv = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-const Price = styled.p`
+const Price = styled.p<ThemeColor>`
   font-family: "Work Sans";
   font-style: normal;
   font-weight: 758;
   font-size: 14px;
+  color: ${props => props.themeColor}
 `;
 const DescriptionContainer = styled.div`
   width: 100%;

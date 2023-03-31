@@ -5,10 +5,11 @@ import styled from "styled-components";
 import RestaurantMenuSearchBar from "../SearchBar/RestaurantMenuSearchBar";
 
 interface NavbarProps {
-  restaurantName: string | undefined
+  restaurantName: string | undefined;
+  themeColor: string | undefined;
 }
 
-export default function MenuPageNavBar({ restaurantName }:NavbarProps) {
+export default function MenuPageNavBar({ restaurantName, themeColor }:NavbarProps) {
   const navigate = useNavigate();
 
   return (
@@ -16,14 +17,14 @@ export default function MenuPageNavBar({ restaurantName }:NavbarProps) {
       <GoBackButton onClick={() => navigate("/")}>
         <SlArrowLeft />
       </GoBackButton>
-      <RestaurantMenuSearchBar restaurantName={restaurantName}/>
+      <RestaurantMenuSearchBar restaurantName={restaurantName} themeColor={themeColor}/>
     </Container>
   );
 }
 
 const Container = styled.div`
   width: 100vw;
-  height: 55px;
+  height: 67px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,6 +34,10 @@ const Container = styled.div`
   z-index: 10;
   background: #ffffff;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 900px) {
+    height: 55px;
+  }
 `;
 
 const GoBackButton = styled.div`
