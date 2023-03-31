@@ -114,7 +114,7 @@ const OutsideCircle = styled.div`
 const CartButton = styled.button`
   width: 60px;
   height: 60px;
-  background: linear-gradient(180deg, #9570dd 0%, #7588bb 100%);
+  background: linear-gradient(180deg, #9570dd 0%, #4508BB 100%);
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(7.5px);
   border-radius: 50%;
