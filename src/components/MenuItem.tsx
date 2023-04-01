@@ -6,6 +6,7 @@ import { MenuItemType } from "../types";
 interface MenuItemProps {
   item: MenuItemType;
   themeColor: string | undefined
+  setIsScreenUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface ThemeColor {
@@ -16,12 +17,12 @@ interface ItemImgProps {
   img: string | null;
 }
 
-export default function MenuItem({ item, themeColor }:MenuItemProps) {
+export default function MenuItem({ item, themeColor, setIsScreenUp }:MenuItemProps) {
   return (
-    <Container>
-      <ItemDiv>
+    <Container themeColor={themeColor}>
+      <ItemDiv onClick={() => setIsScreenUp(true)}>
         <ItemImg img={item.image}/>
-        <ItemInfo>
+        <ItemInfo img={item.image}>
           <ItemMainInfo>
             <ItemNameDiv>
               <ItemName>{item.itemName}</ItemName>
@@ -41,14 +42,13 @@ export default function MenuItem({ item, themeColor }:MenuItemProps) {
           </DescriptionContainer>
         </ItemInfo>
       </ItemDiv>
-      <DivisionLine />
     </Container>
   );
 }
 
-const Container = styled.div`
+const Container = styled.div<ThemeColor>`
   width: 48%;
-  height: 128px;
+  min-height: 128px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,6 +57,10 @@ const Container = styled.div`
   margin-bottom: 20px;
   background-color: #F9F9F9;
   border-radius: 10px;
+  
+  /* &:hover {
+    outline: ${props => `solid 1px ${props.themeColor}`};
+  } */
 
   @media (max-width: 758px) {
     width: 100%;
@@ -66,12 +70,10 @@ const Container = styled.div`
 `;
 const ItemDiv = styled.div`
   width: 95%;
-  height: 127px;
   display: flex;
   align-items: center;
   color: #000000;
   gap: 10px;
-  margin-top: 15px;
 
   &:hover {
     cursor: pointer;
@@ -87,8 +89,8 @@ const ItemImg = styled.div<ItemImgProps>`
   border-radius: 5px;
 `;
 
-const ItemInfo = styled.div`
-  width: calc(100% - 120px);
+const ItemInfo = styled.div<ItemImgProps>`
+  width: ${props => props.img ? 'calc(100% - 100px)' : '100%'};
   height: 103px;
   display: flex;
   flex-direction: column;
@@ -110,10 +112,6 @@ const ItemName = styled.p`
   font-weight: 400;
   font-size: 15px;
   line-height: 20px;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 const RatingDiv = styled.div`
   display: flex;
@@ -148,19 +146,10 @@ const DescriptionContainer = styled.div`
 `;
 
 const Description = styled.p`
+  width: 100%;
   font-family: "Work Sans";
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 14px;
-`;
-
-const DivisionLine = styled.div`
-  width: 100%;
-  height: 1px;
-  background-color: #f5f0eb;
-
-  @media (max-width: 758px) {
-    width: 90%;
-  }
 `;

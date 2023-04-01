@@ -82,6 +82,7 @@ const Container = styled.footer`
     position: fixed;
     bottom: 0;
     left: 0;
+    z-index: 20;
   }
 `;
 
@@ -123,6 +124,3 @@ const CartButton = styled.button`
   color: #f1f1f1;
 `;
 
-const LocalIcon = styled.img`
-  width: 27px;
-`;

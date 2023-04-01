@@ -1,14 +1,15 @@
-import React from "react";
-import styled from "styled-components";
-import MenuPageNavBar from "../components/NavBar/MenuPageNavBar";
-import MenuItem from "../components/MenuItem";
-import Footer from "../components/Footer";
-import { useParams } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
-import restaurantsApi from "../services/restaurantsApi";
-import { MenuItemType, MostOrdered, RestaurantInfo } from "../types";
-import StarImg from "../assets/images/star.svg";
-import { Triangle } from "react-loader-spinner";
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
+import MenuPageNavBar from '../components/NavBar/MenuPageNavBar';
+import MenuItem from '../components/MenuItem';
+import Footer from '../components/Footer';
+import { useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import restaurantsApi from '../services/restaurantsApi';
+import { MenuItemType, MostOrdered, RestaurantInfo } from '../types';
+import StarImg from '../assets/images/star.svg';
+import { Triangle } from 'react-loader-spinner';
+// import { useSpring, animated } from 'react-spring';
 
 interface CategoriesProps {
   isAtTop: boolean;
@@ -25,16 +26,19 @@ interface Theme {
   categoryName?: string;
 }
 
+interface addItemDivProps {
+  isScreenUp: boolean;
+}
+
 export default function MenuPage() {
   const { profileName } = useParams();
-  const [itemsToShow, setItemsToShow] = useState<MenuItemType[] | MostOrdered>(
-    []
-  );
+  const [itemsToShow, setItemsToShow] = useState<MenuItemType[] | MostOrdered>([]);
   const categoriesRef = useRef<HTMLDivElement>(null);
   const [restaurantInfo, setRestaurantInfo] = useState<RestaurantInfo>();
   const [isAtTop, setIsAtTop] = useState(false);
-  const [activeCategory, setActiveCategory] = useState("OS MAIS PEDIDOS");
+  const [activeCategory, setActiveCategory] = useState('OS MAIS PEDIDOS');
   const [isLoading, setIsLoading] = useState(true);
+  const [isScreenUp, setIsScreenUp] = useState(false);
 
   useEffect(() => {
     fetchRestaurant();
@@ -50,10 +54,10 @@ export default function MenuPage() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -90,10 +94,13 @@ export default function MenuPage() {
         </LoadingContainer>
       ) : (
         <>
-          <MenuPageNavBar restaurantName={restaurantInfo?.restaurant.name} themeColor={restaurantInfo?.restaurant.themeColor}/>
+          <MenuPageNavBar
+            restaurantName={restaurantInfo?.restaurant.name}
+            themeColor={restaurantInfo?.restaurant.themeColor}
+          />
           <RestaurantCover img={restaurantInfo?.restaurant.cover}>
             <OuterCircle>
-              <Picture src={restaurantInfo?.restaurant.picture} />
+              <Picture src={restaurantInfo?.restaurant.picture} onClick={() => setIsScreenUp(true)} />
             </OuterCircle>
           </RestaurantCover>
           <RestaurantInfoDiv>
@@ -107,25 +114,20 @@ export default function MenuPage() {
                 </Rating>
               </MainInfo>
               <Address>
-                {restaurantInfo?.restaurant.address.street}{" "}
-                {restaurantInfo?.restaurant.address.number},{" "}
-                {restaurantInfo?.restaurant.address.neighborhood} -{" "}
-                {restaurantInfo?.restaurant.address.city}/
+                {restaurantInfo?.restaurant.address.street} {restaurantInfo?.restaurant.address.number},{' '}
+                {restaurantInfo?.restaurant.address.neighborhood} - {restaurantInfo?.restaurant.address.city}/
                 {restaurantInfo?.restaurant.address.state}
               </Address>
             </Info>
           </RestaurantInfoDiv>
-          <MenuContainer>
-            <Categories
-              isAtTop={isAtTop}
-              themeColor={restaurantInfo?.restaurant.themeColor}
-            >
+          <MenuContainer isScreenUp={isScreenUp}>
+            <Categories isAtTop={isAtTop} themeColor={restaurantInfo?.restaurant.themeColor}>
               <CategoryDiv
                 onClick={() => {
                   if (restaurantInfo?.mostOrdered) {
                     setItemsToShow(restaurantInfo?.mostOrdered);
                   }
-                  setActiveCategory("OS MAIS PEDIDOS");
+                  setActiveCategory('OS MAIS PEDIDOS');
                 }}
               >
                 <CategoryName
@@ -158,20 +160,20 @@ export default function MenuPage() {
                 );
               })}
             </Categories>
-            <Title themeColor={restaurantInfo?.restaurant.themeColor}>
-              {activeCategory}
-            </Title>
+            <Title themeColor={restaurantInfo?.restaurant.themeColor}>{activeCategory}</Title>
             <MenuItemsContainer ref={categoriesRef}>
               {itemsToShow.map((i) => (
-                <MenuItem
-                  item={i}
-                  themeColor={restaurantInfo?.restaurant.themeColor}
-                />
+                <MenuItem item={i} themeColor={restaurantInfo?.restaurant.themeColor} setIsScreenUp={setIsScreenUp}/>
               ))}
             </MenuItemsContainer>
           </MenuContainer>
         </>
       )}
+      <AddItemDiv isScreenUp={isScreenUp} onClick={() => setIsScreenUp(false)}>
+        <HeaderDiv>
+          <ChosenItemName>Sanduíche de frango com queijo</ChosenItemName>
+        </HeaderDiv>
+      </AddItemDiv>
       <Footer />
     </Container>
   );
@@ -184,7 +186,7 @@ const Container = styled.div<Theme>`
   flex-direction: column;
   align-items: center;
   margin-top: 68px;
-  background-color: #FFF;
+  background-color: #fff;
   margin-left: auto;
   margin-right: auto;
   /* background-color: ${(props) => `${props.themeColor}`}; */
@@ -219,35 +221,35 @@ const RestaurantInfoDiv = styled.div`
   }
 `;
 
-const OuterCircle = styled.div `
-   width: 108px;
-  height: 108px;
+const OuterCircle = styled.div`
+  width: 128px;
+  height: 128px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 
   @media (max-width: 900px) {
     width: 58px;
-  height: 58px;
+    height: 58px;
   }
-`
+`;
 const Picture = styled.img`
-  width: 105px;
-  height: 105px;
+  width: 125px;
+  height: 125px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
 
   @media (max-width: 900px) {
     width: 55px;
-  height: 55px;
+    height: 55px;
   }
 `;
 
 const Info = styled.div`
-  width: calc(100% - 70px);
+  width: 100%;
   height: 70px;
   display: flex;
   flex-direction: column;
@@ -262,12 +264,12 @@ const MainInfo = styled.div`
 `;
 
 const Name = styled.p<Theme>`
-  font-family: "Work Sans";
+  font-family: 'Work Sans';
   font-style: normal;
   font-weight: 500;
   font-size: 17px;
   /* color: #3e3e3e; */
-  color: ${props => props.themeColor}
+  color: ${(props) => props.themeColor};
 `;
 const Rating = styled.div`
   display: flex;
@@ -279,7 +281,7 @@ const Rating = styled.div`
 `;
 
 const Address = styled.p`
-  font-family: "Work Sans";
+  font-family: 'Work Sans';
   font-weight: 500;
   font-size: 11px;
   color: #8a8a8a;
@@ -291,17 +293,17 @@ const RestaurantCover = styled.div<ImgDivProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${(props) => `linear-gradient(180deg, rgba(0, 0, 0, 0) 40.1%, rgba(0, 0, 0, 0.3) 100%), url(${props.img})`};
+  background: ${(props) =>
+    `linear-gradient(180deg, rgba(0, 0, 0, 0) 40.1%, rgba(0, 0, 0, 0.3) 100%), url(${props.img})`};
   background-size: cover;
   background-position: center;
-
 
   @media (max-width: 758px) {
     height: 150px;
   }
 `;
 
-const MenuContainer = styled.div`
+const MenuContainer = styled.div<addItemDivProps>`
   width: 100%;
   min-height: calc(100vh - 171px);
   position: relative;
@@ -314,9 +316,9 @@ const Categories = styled.div<CategoriesProps>`
   border-width: 0.1px 0px;
   border-style: solid;
   border-color: #ececec;
-  position: ${(props) => (props.isAtTop ? "fixed" : "absolute")};
-  background-color: #FFFFFF;
-  top: ${(props) => (props.isAtTop ? "54px" : "0")};
+  position: ${(props) => (props.isAtTop ? 'fixed' : 'absolute')};
+  background-color: #ffffff;
+  top: ${(props) => (props.isAtTop ? '54px' : '0')};
   left: 0;
   z-index: 5;
   overflow-x: scroll;
@@ -348,14 +350,11 @@ const CategoryDiv = styled.div`
 `;
 
 const CategoryName = styled.p<Theme>`
-  font-family: "Work Sans";
+  font-family: 'Work Sans';
   font-style: normal;
   font-weight: 500;
   font-size: 13.5px;
-  color: ${(props) =>
-      props.categoryName === props.activeCategory
-        ? `${props.themeColor}`
-        : "#6D6D6D"};
+  color: ${(props) => (props.categoryName === props.activeCategory ? `${props.themeColor}` : '#6D6D6D')};
 `;
 
 const MenuItemsContainer = styled.div`
@@ -365,7 +364,7 @@ const MenuItemsContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 20px 30px;
+  padding: 20px 0px;
   gap: 0px;
 
   @media (max-width: 758px) {
@@ -376,7 +375,7 @@ const MenuItemsContainer = styled.div`
 `;
 
 const Title = styled.h2<Theme>`
-  font-family: "Work Sans";
+  font-family: 'Work Sans';
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -390,3 +389,42 @@ const Title = styled.h2<Theme>`
     margin-top: 75px;
   }
 `;
+
+const AddItemDiv = styled.div<addItemDivProps>`
+  width: 50vw;
+  height: 80vh;
+  background-color: #ffffff;
+  z-index: 100;
+  position: fixed;
+  bottom: ${(props) => (props.isScreenUp ? '10vh' : '-100vh')};
+  left: calc(50% - 25vw);
+  transition: bottom 0.3s ease-in-out;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 758px) {
+    width: 100vw;
+  height: 100vh;
+  left: 0;
+  bottom: ${(props) => (props.isScreenUp ? '0' : '-100vh')};
+  }
+`;
+
+const HeaderDiv = styled.div`
+  width: 100%;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: linear-gradient(180deg, #8a4fff 0%, #4508BB 100%); */
+  background-color: #5e2bc4;
+  text-align: center;
+`;
+
+const ChosenItemName = styled.p`
+    width: 65%;
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #FFFFFF
+`
