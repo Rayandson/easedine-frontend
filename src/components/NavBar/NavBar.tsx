@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { IoBagOutline, IoPersonOutline } from "react-icons/io5";
 // import Logo from "../../assets/images/logofood.png";
 import Logo from "../../assets/images/logofood.png";
 import SearchBar from "../SearchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
+import { CartContext } from '../../contexts/CartContext';
+
+interface ItemsQuantityDivProps {
+  quantity: number | null | undefined;
+}
 
 export default function NavBar() {
   const navigate = useNavigate();
+  const cartContext = useContext(CartContext);
 
   return (
     <Container>
@@ -22,7 +28,12 @@ export default function NavBar() {
       <SearchBar />
       <IconsWrapper>
         <IoPersonOutline onClick={() => navigate("/unauthorized")}/>
+        <CartButton>
         <IoBagOutline onClick={() => navigate("/unauthorized")}/>
+        <ItemsQuantityDiv quantity={cartContext?.Cart.quantity}>
+            <ItemsQuantity>{cartContext?.Cart.quantity}</ItemsQuantity>
+          </ItemsQuantityDiv>
+        </CartButton>
       </IconsWrapper>
     </Container>
   );
@@ -99,4 +110,31 @@ const IconsWrapper = styled.div`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const CartButton = styled.div`
+  position: relative;
+`
+
+const ItemsQuantityDiv = styled.div<ItemsQuantityDivProps>`
+  width: 15px;
+  height: 15px;
+  display: ${props => props.quantity !=null && props.quantity > 0 ? 'flex' : 'none'};
+  justify-content: center;
+  align-items: center;
+  background-color: #5836bc;
+  border-radius: 50%;
+  /* border: solid 1px #5836bc; */
+  position: absolute;
+  bottom: 0;
+  right: -6px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const ItemsQuantity = styled.p`
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  color: #FFFFFF;
 `;

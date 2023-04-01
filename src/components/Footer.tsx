@@ -1,68 +1,76 @@
-import React from "react";
-import { useContext } from "react";
-import styled from "styled-components";
-import { IoBag, IoPerson, IoHomeSharp, IoNewspaper } from "react-icons/io5";
-import { FaMapMarkedAlt } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { PageContext, PageContextType } from "../contexts/PageContext"
+import React from 'react';
+import { useContext } from 'react';
+import styled from 'styled-components';
+import { IoBag, IoPerson, IoHomeSharp, IoNewspaper } from 'react-icons/io5';
+import { FaMapMarkedAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { PageContext, PageContextType } from '../contexts/PageContext';
+import { CartContext } from '../contexts/CartContext';
 
 interface MenuItemProps {
   name?: string;
   selectedItem?: string;
 }
 
+interface ItemsQuantityDivProps {
+  quantity: number | null | undefined;
+}
+
 export default function Footer() {
   const navigate = useNavigate();
-  const pageContext = useContext(PageContext)
+  const pageContext = useContext(PageContext);
+  const cartContext = useContext(CartContext);
 
   return (
     <Container>
       <MenuItem
         name="home"
-        selectedItem={pageContext ? pageContext.page : ""}
+        selectedItem={pageContext ? pageContext.page : ''}
         onClick={() => {
-          pageContext?.setPage("home")
-          navigate("/")
+          pageContext?.setPage('home');
+          navigate('/');
         }}
       >
         <IoHomeSharp />
       </MenuItem>
-        <MenuItem
-          name="location"
-          selectedItem={pageContext ? pageContext.page : ""}
-          onClick={() => {
-            pageContext?.setPage("location")
-            navigate("/unauthorized")
-          }
-        }
-        >
-          {/* <LocalIcon src={selectedItem === "location" ? LocalBlackImage : LocalImage} /> */}
-          <FaMapMarkedAlt />
-        </MenuItem>
-      <MenuItem></MenuItem>
-        <MenuItem
-          name="orders"
-          selectedItem={pageContext ? pageContext.page : ""}
-          onClick={() => {
-            pageContext?.setPage("orders")
-            navigate("/unauthorized")
-          }}
-        >
-          <IoNewspaper />
-        </MenuItem>
-        <MenuItem
-          name="profile"
-          selectedItem={pageContext ? pageContext.page : ""}
-          onClick={() => {
-            pageContext?.setPage("profile")
-            navigate("/unauthorized")
+      <MenuItem
+        name="location"
+        selectedItem={pageContext ? pageContext.page : ''}
+        onClick={() => {
+          pageContext?.setPage('location');
+          navigate('/unauthorized');
         }}
-        >
-          <IoPerson />
-        </MenuItem>
+      >
+        {/* <LocalIcon src={selectedItem === "location" ? LocalBlackImage : LocalImage} /> */}
+        <FaMapMarkedAlt />
+      </MenuItem>
+      <MenuItem></MenuItem>
+      <MenuItem
+        name="orders"
+        selectedItem={pageContext ? pageContext.page : ''}
+        onClick={() => {
+          pageContext?.setPage('orders');
+          navigate('/unauthorized');
+        }}
+      >
+        <IoNewspaper />
+      </MenuItem>
+      <MenuItem
+        name="profile"
+        selectedItem={pageContext ? pageContext.page : ''}
+        onClick={() => {
+          pageContext?.setPage('profile');
+          navigate('/unauthorized');
+        }}
+      >
+        <IoPerson />
+      </MenuItem>
       <OutsideCircle>
         <CartButton>
           <IoBag />
+          <ItemsQuantityDiv quantity={cartContext?.Cart.quantity}>
+            <ItemsQuantity>{cartContext?.Cart.quantity}</ItemsQuantity>
+          </ItemsQuantityDiv>
         </CartButton>
       </OutsideCircle>
     </Container>
@@ -94,8 +102,7 @@ const MenuItem = styled.div<MenuItemProps>`
 
   svg {
     font-size: 26px;
-    color: ${(props) =>
-      props.name === props.selectedItem ? "#000000" : "#858585"};
+    color: ${(props) => (props.name === props.selectedItem ? '#000000' : '#858585')};
   }
 `;
 
@@ -115,7 +122,7 @@ const OutsideCircle = styled.div`
 const CartButton = styled.button`
   width: 60px;
   height: 60px;
-  background: linear-gradient(180deg, #9570dd 0%, #4508BB 100%);
+  background: linear-gradient(180deg, #9570dd 0%, #4508bb 100%);
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(7.5px);
   border-radius: 50%;
@@ -124,3 +131,24 @@ const CartButton = styled.button`
   color: #f1f1f1;
 `;
 
+const ItemsQuantityDiv = styled.div<ItemsQuantityDivProps>`
+  width: 20px;
+  height: 20px;
+  display: ${props => props.quantity !=null && props.quantity > 0 ? 'flex' : 'none'};
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const ItemsQuantity = styled.p`
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  color: #000000;
+`;

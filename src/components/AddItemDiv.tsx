@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { SlArrowDown } from 'react-icons/sl';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { ChosenItemContext } from '../contexts/ChosenItemContext';
+import { CartContext } from '../contexts/CartContext';
 
 interface ContainerProps {
   isScreenUp: boolean;
@@ -20,6 +21,7 @@ interface AddItemDivProps {
 export default function AddItemDiv({ isScreenUp, setIsScreenUp }: AddItemDivProps) {
   const [counter, setCounter] = useState(1);
   const chosenItemContext = useContext(ChosenItemContext);
+  const cartContext = useContext(CartContext);
 
   function handleCounter(action: string) {
     if (action === 'increase') {
@@ -58,6 +60,7 @@ export default function AddItemDiv({ isScreenUp, setIsScreenUp }: AddItemDivProp
         <AddButton
           onClick={() => {
             setIsScreenUp(false);
+            cartContext?.setCart({quantity: cartContext.Cart.quantity + counter})
             setTimeout(() => setCounter(1), 500);
           }}
         >
