@@ -1,5 +1,5 @@
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useContext } from 'react';
+import styled from 'styled-components';
 import MenuPageNavBar from '../components/NavBar/MenuPageNavBar';
 import MenuItem from '../components/MenuItem';
 import Footer from '../components/Footer';
@@ -9,7 +9,7 @@ import restaurantsApi from '../services/restaurantsApi';
 import { MenuItemType, MostOrdered, RestaurantInfo } from '../types';
 import StarImg from '../assets/images/star.svg';
 import { Triangle } from 'react-loader-spinner';
-// import { useSpring, animated } from 'react-spring';
+import AddItemDiv from '../components/AddItemDiv';
 
 interface CategoriesProps {
   isAtTop: boolean;
@@ -26,7 +26,7 @@ interface Theme {
   categoryName?: string;
 }
 
-interface addItemDivProps {
+interface MenuContainerProps {
   isScreenUp: boolean;
 }
 
@@ -50,7 +50,6 @@ export default function MenuPage() {
         const elementTop = categoriesRef.current.getBoundingClientRect().top;
         const isTop = elementTop <= 145;
         setIsAtTop(isTop);
-        console.log(elementTop);
       }
     };
 
@@ -163,17 +162,13 @@ export default function MenuPage() {
             <Title themeColor={restaurantInfo?.restaurant.themeColor}>{activeCategory}</Title>
             <MenuItemsContainer ref={categoriesRef}>
               {itemsToShow.map((i) => (
-                <MenuItem item={i} themeColor={restaurantInfo?.restaurant.themeColor} setIsScreenUp={setIsScreenUp}/>
+                <MenuItem item={i} themeColor={restaurantInfo?.restaurant.themeColor} setIsScreenUp={setIsScreenUp} />
               ))}
             </MenuItemsContainer>
           </MenuContainer>
         </>
       )}
-      <AddItemDiv isScreenUp={isScreenUp} onClick={() => setIsScreenUp(false)}>
-        <HeaderDiv>
-          <ChosenItemName>Sanduíche de frango com queijo</ChosenItemName>
-        </HeaderDiv>
-      </AddItemDiv>
+      <AddItemDiv isScreenUp={isScreenUp} setIsScreenUp={setIsScreenUp}/>
       <Footer />
     </Container>
   );
@@ -189,7 +184,6 @@ const Container = styled.div<Theme>`
   background-color: #fff;
   margin-left: auto;
   margin-right: auto;
-  /* background-color: ${(props) => `${props.themeColor}`}; */
 
   @media (max-width: 758px) {
     width: 100%;
@@ -303,7 +297,7 @@ const RestaurantCover = styled.div<ImgDivProps>`
   }
 `;
 
-const MenuContainer = styled.div<addItemDivProps>`
+const MenuContainer = styled.div<MenuContainerProps>`
   width: 100%;
   min-height: calc(100vh - 171px);
   position: relative;
@@ -378,7 +372,7 @@ const Title = styled.h2<Theme>`
   font-family: 'Work Sans';
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   /* color: ${(props) => props.themeColor}; */
   color: #2b2b2b;
   margin-top: 80px;
@@ -390,41 +384,3 @@ const Title = styled.h2<Theme>`
   }
 `;
 
-const AddItemDiv = styled.div<addItemDivProps>`
-  width: 50vw;
-  height: 80vh;
-  background-color: #ffffff;
-  z-index: 100;
-  position: fixed;
-  bottom: ${(props) => (props.isScreenUp ? '10vh' : '-100vh')};
-  left: calc(50% - 25vw);
-  transition: bottom 0.3s ease-in-out;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-
-  @media (max-width: 758px) {
-    width: 100vw;
-  height: 100vh;
-  left: 0;
-  bottom: ${(props) => (props.isScreenUp ? '0' : '-100vh')};
-  }
-`;
-
-const HeaderDiv = styled.div`
-  width: 100%;
-  height: 55px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* background: linear-gradient(180deg, #8a4fff 0%, #4508BB 100%); */
-  background-color: #5e2bc4;
-  text-align: center;
-`;
-
-const ChosenItemName = styled.p`
-    width: 65%;
-  font-family: 'Work Sans';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  color: #FFFFFF
-`

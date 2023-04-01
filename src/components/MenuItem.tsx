@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import StarImg from "../assets/images/star.svg";
 import { MenuItemType } from "../types";
+import { ChosenItemContext } from "../contexts/ChosenItemContext";
 
 interface MenuItemProps {
   item: MenuItemType;
@@ -18,9 +19,16 @@ interface ItemImgProps {
 }
 
 export default function MenuItem({ item, themeColor, setIsScreenUp }:MenuItemProps) {
+  const chosenItemContext = useContext(ChosenItemContext)
+
+  function handleClick() {
+    chosenItemContext?.setChosenItem(item);
+    setIsScreenUp(true)
+  }
+  
   return (
     <Container themeColor={themeColor}>
-      <ItemDiv onClick={() => setIsScreenUp(true)}>
+      <ItemDiv onClick={() => handleClick()}>
         <ItemImg img={item.image}/>
         <ItemInfo img={item.image}>
           <ItemMainInfo>

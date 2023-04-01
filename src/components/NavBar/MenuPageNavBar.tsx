@@ -35,7 +35,7 @@ const Container = styled.div`
   background: #ffffff;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.1);
 
-  @media (max-width: 900px) {
+  @media (max-width: 758px) {
     height: 55px;
   }
 `;
@@ -46,10 +46,14 @@ const GoBackButton = styled.div`
     align-items: center;
     position: absolute;
     left: 22px;
-    top: 18px;
+    top: calc((67px)/2 - 9px);
 
     svg {
         font-size: 18px;
         color: #000000;
     }
+
+    @media (max-width: 758px) {
+      top: calc((55px)/2 - 9px);
+  }
 `
