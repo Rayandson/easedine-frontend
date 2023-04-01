@@ -59,6 +59,10 @@ const SignUpButton = styled.button`
   font-size: 20px;
   color: #FFFFFF;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   @media (max-width: 758px) {
     width: 85vw;
     height: 50px;

@@ -13,8 +13,8 @@ export default function CloseToYouSection({ restaurants }: SectionProps) {
     <Section>
       <Title>Perto de você</Title>
       <CardsContainer>
-        {restaurants.map((r) => (
-          <RestaurantCard data={r} />
+        {restaurants.map((r, i) => (
+          <RestaurantCard key={i} data={r} />
         ))}
       </CardsContainer>
     </Section>

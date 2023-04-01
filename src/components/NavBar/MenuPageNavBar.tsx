@@ -1,23 +1,23 @@
-import React from "react";
-import { SlArrowLeft } from "react-icons/sl";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import RestaurantMenuSearchBar from "../SearchBar/RestaurantMenuSearchBar";
+import React from 'react';
+import { SlArrowLeft } from 'react-icons/sl';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import RestaurantMenuSearchBar from '../SearchBar/RestaurantMenuSearchBar';
 
 interface NavbarProps {
   restaurantName: string | undefined;
   themeColor: string | undefined;
 }
 
-export default function MenuPageNavBar({ restaurantName, themeColor }:NavbarProps) {
+export default function MenuPageNavBar({ restaurantName, themeColor }: NavbarProps) {
   const navigate = useNavigate();
 
   return (
     <Container>
-      <GoBackButton onClick={() => navigate("/")}>
+      <GoBackButton onClick={() => navigate('/')}>
         <SlArrowLeft />
       </GoBackButton>
-      <RestaurantMenuSearchBar restaurantName={restaurantName} themeColor={themeColor}/>
+      <RestaurantMenuSearchBar restaurantName={restaurantName} themeColor={themeColor} />
     </Container>
   );
 }
@@ -41,19 +41,23 @@ const Container = styled.div`
 `;
 
 const GoBackButton = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    left: 22px;
-    top: calc((67px)/2 - 9px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 22px;
+  top: calc((67px) / 2 - 9px);
 
-    svg {
-        font-size: 18px;
-        color: #000000;
-    }
-
-    @media (max-width: 758px) {
-      top: calc((55px)/2 - 9px);
+  svg {
+    font-size: 18px;
+    color: #000000;
   }
-`
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  @media (max-width: 758px) {
+    top: calc((55px) / 2 - 9px);
+  }
+`;

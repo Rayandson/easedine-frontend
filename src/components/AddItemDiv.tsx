@@ -31,7 +31,12 @@ export default function AddItemDiv({ isScreenUp, setIsScreenUp }: AddItemDivProp
   return (
     <Container isScreenUp={isScreenUp}>
       <Header>
-        <SlArrowDown onClick={() => setIsScreenUp(false)} />
+        <SlArrowDown
+          onClick={() => {
+            setIsScreenUp(false);
+            setTimeout(() => setCounter(1), 500);
+          }}
+        />
         <Title>{chosenItemContext?.chosenItem?.itemName}</Title>
       </Header>
       <Content>
@@ -50,7 +55,14 @@ export default function AddItemDiv({ isScreenUp, setIsScreenUp }: AddItemDivProp
           <Quantity>{counter}</Quantity>
           <AiOutlinePlus onClick={() => handleCounter('increase')} />
         </CounterContainer>
-        <AddButton onClick={() => setIsScreenUp(false)}>Adicionar</AddButton>
+        <AddButton
+          onClick={() => {
+            setIsScreenUp(false);
+            setTimeout(() => setCounter(1), 500);
+          }}
+        >
+          Adicionar
+        </AddButton>
       </Footer>
     </Container>
   );
@@ -105,6 +117,10 @@ const Header = styled.div`
     position: absolute;
     left: 20px;
     top: calc(50% - 9px);
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -214,7 +230,9 @@ const Footer = styled.footer`
 `;
 
 const CounterContainer = styled.div`
-  width: 90px;
+  width: 30%;
+  min-width: 90px;
+  max-width: 120px;
   height: 45px;
   display: flex;
   justify-content: space-around;
@@ -225,6 +243,10 @@ const CounterContainer = styled.div`
   svg {
     font-size: 14px;
     color: #5e2bc4;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -248,4 +270,8 @@ const AddButton = styled.button`
   font-weight: 500;
   font-size: 16px;
   color: #ffffff;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;

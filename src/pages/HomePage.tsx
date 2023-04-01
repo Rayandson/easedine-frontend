@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import CloseToYouSection from "../components/CloseToYouSession/CloseToYouSession";
+import CloseToYouSection from "../components/CloseToYouSession/CloseToYouSection";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import MobileSearchBar from "../components/SearchBar/MobileSearchBar";

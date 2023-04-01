@@ -346,14 +346,13 @@ const CategoryDiv = styled.div`
 const CategoryName = styled.p<Theme>`
   font-family: 'Work Sans';
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 13.5px;
   color: ${(props) => (props.categoryName === props.activeCategory ? `${props.themeColor}` : '#6D6D6D')};
 `;
 
 const MenuItemsContainer = styled.div`
   width: 100%;
-  /* min-height: calc(100vh - 171px); */
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
