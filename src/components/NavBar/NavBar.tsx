@@ -15,6 +15,7 @@ export default function NavBar() {
         <LogoImg src={Logo} />
         <Menu>
           <MenuItem onClick={() => navigate("/")}>Home</MenuItem>
+          <MenuItem onClick={() => navigate("/unauthorized")}>Restaurantes</MenuItem>
           <MenuItem onClick={() => navigate("/unauthorized")}>Histórico</MenuItem>
         </Menu>
       </LeftContent>
@@ -48,7 +49,7 @@ const Container = styled.div`
 `;
 
 const LeftContent = styled.div`
-  width: 250px;
+  width: 30%;
   display: flex;
   justify-content: space-between;
   gap: 20px;
@@ -60,10 +61,11 @@ const LogoImg = styled.img`
 `;
 
 const Menu = styled.ul`
+width: 80%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  gap: 25px;
+  gap: 45px;
 `;
 
 const MenuItem = styled.li`
@@ -83,11 +85,11 @@ const MenuItem = styled.li`
 `;
 
 const IconsWrapper = styled.div`
-  width: 250px;
+  width: 30%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 30px;
+  gap: 40px;
 
   svg {
     font-size: 24px;

@@ -12,7 +12,7 @@ export default function SearchBar() {
 }
 
 const Container = styled.div`
-  width: 580px;
+  width: 25%;
   height: 40px;
   display: flex;
   justify-content: space-between;
@@ -23,7 +23,7 @@ const Container = styled.div`
   padding: 10px;
 
   input {
-    width: 758px;
+    width: 90%;
     height: 36px;
     font-family: "Inter";
     font-weight: 500;
