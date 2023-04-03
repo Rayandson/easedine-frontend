@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar/NavBar";
-import SignUpSvg from "../assets/images/signup.svg"
+import SignUpSvg from "../assets/images/signup.svg";
+import Cart from "../components/Cart";
 
 export default function Unauthorized() {
   return (
@@ -12,6 +13,7 @@ export default function Unauthorized() {
       <Msg>Entre agora ou cadastre-se para aproveitar o app ao máximo</Msg>
       <SignUpButton>Entrar ou cadastrar-se</SignUpButton>
       <Footer />
+      <Cart />
     </Container>
   );
 }

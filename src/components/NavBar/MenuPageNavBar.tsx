@@ -28,8 +28,8 @@ export default function MenuPageNavBar({ restaurantName, themeColor }: NavbarPro
       <IconsWrapper>
         <CartButton>
         <IoBagOutline onClick={() => navigate("/unauthorized")}/>
-        <ItemsQuantityDiv quantity={cartContext?.Cart.quantity}>
-            <ItemsQuantity>{cartContext?.Cart.quantity}</ItemsQuantity>
+        <ItemsQuantityDiv quantity={cartContext?.cart.quantity}>
+            <ItemsQuantity>{cartContext?.cart.quantity}</ItemsQuantity>
           </ItemsQuantityDiv>
         </CartButton>
       </IconsWrapper>

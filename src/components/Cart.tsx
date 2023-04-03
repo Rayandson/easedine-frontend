@@ -1,79 +1,39 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { SlArrowDown } from 'react-icons/sl';
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import { ChosenItemContext } from '../contexts/ChosenItemContext';
 import { CartContext } from '../contexts/CartContext';
+import CartItem from "./CartItem";
 
 interface ContainerProps {
-  isScreenUp: boolean;
+  showCart: boolean | undefined;
 }
 
 interface ImgDivProps {
   img: string | null | undefined;
 }
 
-interface AddItemDivProps {
-  isScreenUp: boolean;
-  setIsScreenUp: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export default function AddItemDiv({ isScreenUp, setIsScreenUp }: AddItemDivProps) {
-  const [counter, setCounter] = useState(1);
-  const chosenItemContext = useContext(ChosenItemContext);
+export default function Cart() {
   const cartContext = useContext(CartContext);
 
-  function handleCounter(action: string) {
-    if (action === 'increase') {
-      setCounter(counter + 1);
-    } else {
-      if (counter > 1) setCounter(counter - 1);
-    }
-  }
-
-  function addItem() {
-    setIsScreenUp(false);
-    if(cartContext && chosenItemContext?.chosenItem) {
-      const items = [...cartContext.cart.items, {id: chosenItemContext.chosenItem.id, itemName:  chosenItemContext.chosenItem.itemName, image:  chosenItemContext.chosenItem.image, description:  chosenItemContext.chosenItem.description, price:  chosenItemContext.chosenItem.price, type:  chosenItemContext.chosenItem.type, quantity: counter}]
-      cartContext.setCart({quantity: cartContext.cart.quantity + counter, items: items})
-    }
-    setTimeout(() => setCounter(1), 500);
-  }
-
-  console.log(cartContext?.cart);
-
   return (
-    <Container isScreenUp={isScreenUp}>
+    <Container showCart={cartContext?.showCart}>
       <Header>
         <SlArrowDown
           onClick={() => {
-            setIsScreenUp(false);
-            setTimeout(() => setCounter(1), 500);
+            cartContext?.setShowCart(false);
           }}
         />
-        <Title>{chosenItemContext?.chosenItem?.itemName}</Title>
+        <Title>Sua sacola</Title>
       </Header>
       <Content>
-        <ImgDiv img={chosenItemContext?.chosenItem?.image} />
-        <ItemName>{chosenItemContext?.chosenItem?.itemName}</ItemName>
-        <Description>{chosenItemContext?.chosenItem?.description}</Description>
-        <Price>
-          R$ {chosenItemContext?.chosenItem?.price ? (chosenItemContext?.chosenItem?.price / 100).toFixed(2) : '0,00'}
-        </Price>
-        <NoteLabel>Alguma observação?</NoteLabel>
-        <Note />
+        {cartContext?.cart.items.map((i) => <CartItem itemData={i}/>)}
       </Content>
       <Footer>
-        <CounterContainer>
-          <AiOutlineMinus onClick={() => handleCounter('decrease')} />
-          <Quantity>{counter}</Quantity>
-          <AiOutlinePlus onClick={() => handleCounter('increase')} />
-        </CounterContainer>
-        <AddButton
-          onClick={() => addItem()}
+        <OrderButton
+        //   onClick={() => addItem()}
         >
-          Adicionar
-        </AddButton>
+          Finalizar pedido
+        </OrderButton>
       </Footer>
     </Container>
   );
@@ -86,7 +46,7 @@ const Container = styled.div<ContainerProps>`
   background-color: #ffffff;
   z-index: 100;
   position: fixed;
-  bottom: ${(props) => (props.isScreenUp ? '10vh' : '-100vh')};
+  bottom: ${(props) => (props.showCart ? '10vh' : '-100vh')};
   left: calc(50% - 300px);
   transition: bottom 0.3s ease-in-out;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
@@ -104,8 +64,8 @@ const Container = styled.div<ContainerProps>`
     width: 100vw;
     height: 100vh;
     left: 0;
-    bottom: ${(props) => (props.isScreenUp ? '0' : '-100vh')};
-    padding: 0 5vw;
+    bottom: ${(props) => (props.showCart ? '0' : '-100vh')};
+    padding: 0 2vw;
   }
 `;
 
@@ -222,7 +182,6 @@ const Footer = styled.footer`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 50px;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -234,9 +193,6 @@ const Footer = styled.footer`
   @media (max-width: 600px) {
     width: 100vw;
     height: 83px;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0;
   }
 `;
 
@@ -268,8 +224,8 @@ const Quantity = styled.p`
   font-size: 15px;
 `;
 
-const AddButton = styled.button`
-  width: 65%;
+const OrderButton = styled.button`
+  width: 90%;
   max-width: 500px;
   height: 45px;
   background-color: #5e2bc4;

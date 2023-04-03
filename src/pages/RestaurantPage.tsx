@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar/NavBar";
+import Cart from "../components/Cart";
 
 export default function RestaurantPage() {
   return (
@@ -11,6 +12,7 @@ export default function RestaurantPage() {
       </ImgDiv>
       <RestaurantMenuButton>Ir para o cardápio</RestaurantMenuButton>
       <Footer />
+      <Cart />
     </Container>
   );
 }

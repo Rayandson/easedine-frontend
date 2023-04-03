@@ -27,7 +27,7 @@ export default function MenuItem({ item, themeColor, setIsScreenUp }:MenuItemPro
   }
   
   return (
-    <Container themeColor={themeColor}>
+    <Container>
       <ItemDiv onClick={() => handleClick()}>
         <ItemImg img={item.image}/>
         <ItemInfo img={item.image}>
@@ -54,7 +54,7 @@ export default function MenuItem({ item, themeColor, setIsScreenUp }:MenuItemPro
   );
 }
 
-const Container = styled.div<ThemeColor>`
+const Container = styled.div`
   width: 48%;
   min-height: 128px;
   display: flex;
@@ -65,10 +65,6 @@ const Container = styled.div<ThemeColor>`
   margin-bottom: 20px;
   background-color: #F9F9F9;
   border-radius: 10px;
-  
-  /* &:hover {
-    outline: ${props => `solid 1px ${props.themeColor}`};
-  } */
 
   @media (max-width: 758px) {
     width: 100%;

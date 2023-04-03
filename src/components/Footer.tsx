@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useContext } from 'react';
 import styled from 'styled-components';
 import { IoBag, IoPerson, IoHomeSharp, IoNewspaper } from 'react-icons/io5';
@@ -66,10 +66,10 @@ export default function Footer() {
         <IoPerson />
       </MenuItem>
       <OutsideCircle>
-        <CartButton>
+        <CartButton onClick={() => cartContext?.setShowCart(true)}>
           <IoBag />
-          <ItemsQuantityDiv quantity={cartContext?.Cart.quantity}>
-            <ItemsQuantity>{cartContext?.Cart.quantity}</ItemsQuantity>
+          <ItemsQuantityDiv quantity={cartContext?.cart.quantity}>
+            <ItemsQuantity>{cartContext?.cart.quantity}</ItemsQuantity>
           </ItemsQuantityDiv>
         </CartButton>
       </OutsideCircle>

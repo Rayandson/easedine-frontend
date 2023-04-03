@@ -9,6 +9,7 @@ import { RestaurantResponse } from "../types";
 import { useState, useEffect } from "react";
 import restaurantsApi from "../services/restaurantsApi";
 import { Triangle } from "react-loader-spinner";
+import Cart from "../components/Cart";
 
 export default function HomePage() {
   const [restaurants, setRestaurants] = useState<RestaurantResponse[]>([]);
@@ -47,6 +48,7 @@ export default function HomePage() {
         </>
       )}
       <Footer />
+      <Cart />
     </Container>
   );
 }

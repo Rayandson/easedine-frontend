@@ -10,6 +10,7 @@ import { MenuItemType, MostOrdered, RestaurantInfo } from '../types';
 import StarImg from '../assets/images/star.svg';
 import { Triangle } from 'react-loader-spinner';
 import AddItemDiv from '../components/AddItemDiv';
+import Cart from "../components/Cart";
 
 interface CategoriesProps {
   isAtTop: boolean;
@@ -170,6 +171,7 @@ export default function MenuPage() {
       )}
       <AddItemDiv isScreenUp={isScreenUp} setIsScreenUp={setIsScreenUp}/>
       <Footer />
+      <Cart />
     </Container>
   );
 }

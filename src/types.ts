@@ -56,6 +56,7 @@ export type RestaurantInfo = {
         id: number;
         categoryId: number;
         description: string;
+        type: string;
         image: string | null;
         itHasSubItems: boolean;
         itemName: string;
@@ -71,6 +72,7 @@ export type RestaurantInfo = {
               price: number;
               image: string | null;
               description: string;
+              type: string;
               rating: number;
               orderCount: number;
               itemId: number;
@@ -84,6 +86,7 @@ export type RestaurantInfo = {
     id: number;
     categoryId: number;
     description: string;
+    type: string;
     image: string;
     itHasSubItems: false;
     itemName: string;
@@ -98,6 +101,7 @@ export type MenuItemType = {
   id: number;
   categoryId: number;
   description: string;
+  type: string;
   image: string | null;
   itHasSubItems: boolean;
   itemName: string;
@@ -113,6 +117,7 @@ export type MenuItemType = {
         price: number;
         image: string | null;
         description: string;
+        type: string;
         rating: number;
         orderCount: number;
         itemId: number;
@@ -125,6 +130,7 @@ export type MostOrdered = {
   id: number;
   categoryId: number;
   description: string;
+  type: string;
   image: string;
   itHasSubItems: false;
   itemName: string;
