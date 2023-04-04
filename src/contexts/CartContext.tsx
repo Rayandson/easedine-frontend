@@ -8,6 +8,7 @@ type CartProviderProps = {
 
 type CartType = {
     quantity: number;
+    total: number;
     items: {
       id: number | undefined;
       itemName: string | undefined;
@@ -29,7 +30,7 @@ export type CartContextType = {
 export const CartContext = createContext<CartContextType | null>(null);
 
 export function CartProvider({ children }: CartProviderProps) {
-  const [cart, setCart] = useState<CartType>({quantity: 0, items: []});
+  const [cart, setCart] = useState<CartType>({quantity: 0, total: 0, items: []});
   const [showCart, setShowCart] = useState(false);
 
   return (

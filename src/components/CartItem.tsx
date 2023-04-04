@@ -26,16 +26,26 @@ export default function CartItem({ itemData }:CartProps) {
   function handleCounter(action: string) {
     if (action === 'increase') {
       if(counter) setCounter(counter + 1);
-      if (cartContext) {
+      if (cartContext && itemData.price) {
         const cartCurrentQuantity = cartContext.cart.quantity;
-        cartContext.setCart({ ...cartContext.cart, quantity: cartCurrentQuantity + 1 });
+        cartContext.setCart({ ...cartContext.cart, total: cartContext.cart.total + itemData.price, quantity: cartCurrentQuantity + 1 });
       }
     } else {
       if (counter && counter > 1) setCounter(counter - 1);
-      if (cartContext) {
+      if (cartContext && itemData.price) {
         const cartCurrentQuantity = cartContext.cart.quantity;
-        cartContext.setCart({ ...cartContext.cart, quantity: cartCurrentQuantity - 1 });
+        cartContext.setCart({ ...cartContext.cart, total: cartContext.cart.total - itemData.price, quantity: cartCurrentQuantity - 1 });
       }
+    }
+  }
+
+  function removeItem() {
+    if(itemData.quantity && itemData.price && cartContext?.cart.items) {
+      const newArray = cartContext.cart.items.filter((i) => {
+        if(i.id !== itemData.id) return true;
+        return false;
+      })
+      cartContext.setCart({...cartContext.cart, items: newArray, total: cartContext.cart.total - (itemData.quantity * itemData.price)})
     }
   }
 
@@ -45,7 +55,7 @@ export default function CartItem({ itemData }:CartProps) {
       <MainContent>
         <Info>
           <Name>{itemData.itemName}</Name>
-          <Price>{itemData.price ? `R$ ${(itemData.price)/100}` : ''}</Price>
+          <Price>{itemData.price ? `R$ ${(itemData.price/100).toFixed(2)}` : ''}</Price>
         </Info>
         <ButtonsWrapper>
           <QuantityContainer>
@@ -53,7 +63,7 @@ export default function CartItem({ itemData }:CartProps) {
             <Quantity>{counter}</Quantity>
             <AiOutlinePlus onClick={() => handleCounter('increase')} />
           </QuantityContainer>
-          <RemoveButton>Remover item</RemoveButton>
+          <RemoveButton onClick={() => removeItem()}>Remover item</RemoveButton>
         </ButtonsWrapper>
       </MainContent>
     </Container>

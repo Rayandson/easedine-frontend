@@ -35,7 +35,10 @@ export default function AddItemDiv({ isScreenUp, setIsScreenUp }: AddItemDivProp
     setIsScreenUp(false);
     if(cartContext && chosenItemContext?.chosenItem) {
       const items = [...cartContext.cart.items, {id: chosenItemContext.chosenItem.id, itemName:  chosenItemContext.chosenItem.itemName, image:  chosenItemContext.chosenItem.image, description:  chosenItemContext.chosenItem.description, price:  chosenItemContext.chosenItem.price, type:  chosenItemContext.chosenItem.type, quantity: counter}]
-      cartContext.setCart({quantity: cartContext.cart.quantity + counter, items: items})
+      if(chosenItemContext.chosenItem.price) {
+        const totalPrice = chosenItemContext.chosenItem.price * counter;
+        cartContext.setCart({quantity: cartContext.cart.quantity + counter, total: cartContext.cart.total + totalPrice, items: items})
+      }
     }
     setTimeout(() => setCounter(1), 500);
   }
