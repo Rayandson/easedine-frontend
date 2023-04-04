@@ -19,6 +19,16 @@ interface CartProps {
   };
 }
 
+interface ItemType {
+  id: number | undefined;
+    itemName: string | undefined;
+    image: string | null;
+    description: string | undefined;
+    price: number | null;
+    type: string | undefined;
+    quantity: number | undefined;
+}
+
 export default function CartItem({ itemData }:CartProps) {
   const [counter, setCounter] = useState(itemData.quantity);
   const cartContext = useContext(CartContext);
@@ -28,23 +38,34 @@ export default function CartItem({ itemData }:CartProps) {
       if(counter) setCounter(counter + 1);
       if (cartContext && itemData.price && itemData.quantity) {
         const cartCurrentQuantity = cartContext.cart.quantity;
+        const itemIndex = findIndex(itemData, cartContext.cart.items);
         const newObject = {...itemData, quantity: itemData.quantity + 1}
         const filteredArray = cartContext.cart.items.filter((i) => i.id !== itemData.id ? true : false);
-        filteredArray.push(newObject);
-        const newArray = [...filteredArray]
-        cartContext.setCart({ items: newArray, total: cartContext.cart.total + itemData.price, quantity: cartCurrentQuantity + 1 });
+        filteredArray.splice(itemIndex, 0, newObject)
+        cartContext.setCart({ items: filteredArray, total: cartContext.cart.total + itemData.price, quantity: cartCurrentQuantity + 1 });
       }
     } else {
-      if (counter && counter > 1) setCounter(counter - 1);
-      if (cartContext && itemData.price && itemData.quantity) {
-        const cartCurrentQuantity = cartContext.cart.quantity;
-        const newObject = {...itemData, quantity: itemData.quantity - 1}
-        const filteredArray = cartContext.cart.items.filter((i) => i.id !== itemData.id ? true : false);
-        filteredArray.push(newObject);
-        const newArray = [...filteredArray]
-        cartContext.setCart({items: newArray, total: cartContext.cart.total - itemData.price, quantity: cartCurrentQuantity - 1 });
+      if (counter && counter > 1) {
+        setCounter(counter - 1);
+        if (cartContext && itemData.price && itemData.quantity) {
+          const cartCurrentQuantity = cartContext.cart.quantity;
+          const itemIndex = findIndex(itemData, cartContext.cart.items);
+          const newObject = {...itemData, quantity: itemData.quantity - 1}
+          const filteredArray = cartContext.cart.items.filter((i) => i.id !== itemData.id ? true : false);
+          filteredArray.splice(itemIndex, 0, newObject);
+          cartContext.setCart({items: filteredArray, total: cartContext.cart.total - itemData.price, quantity: cartCurrentQuantity - 1 });
+        }
+      } 
+    }
+  }
+
+  function findIndex(item: ItemType, array: ItemType[]) {
+    for(let i=0; i < array.length; i++) {
+      if(item.id === array[i].id) {
+        return i;
       }
     }
+    return -1;
   }
 
   function removeItem() {
@@ -53,7 +74,7 @@ export default function CartItem({ itemData }:CartProps) {
         if(i.id !== itemData.id) return true;
         return false;
       })
-      cartContext.setCart({...cartContext.cart, items: newArray, total: cartContext.cart.total - (itemData.quantity * itemData.price)})
+      cartContext.setCart({ items: newArray, total: cartContext.cart.total - (itemData.quantity * itemData.price), quantity: cartContext.cart.quantity - itemData.quantity})
     }
   }
 
@@ -148,6 +169,10 @@ const RemoveButton = styled.p`
   font-size: 12px;
   color: red;
   margin-right: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const QuantityContainer = styled.div`

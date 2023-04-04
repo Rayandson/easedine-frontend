@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useContext } from 'react';
 import styled from 'styled-components';
 import { IoBag, IoPerson, IoHomeSharp, IoNewspaper } from 'react-icons/io5';
 import { FaMapMarkedAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { PageContext, PageContextType } from '../contexts/PageContext';
+import { PageContext } from '../contexts/PageContext';
 import { CartContext } from '../contexts/CartContext';
 
 interface MenuItemProps {

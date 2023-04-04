@@ -3,7 +3,7 @@ import { SlArrowLeft } from 'react-icons/sl';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import RestaurantMenuSearchBar from '../SearchBar/RestaurantMenuSearchBar';
-import { IoBagOutline, IoPersonOutline } from "react-icons/io5";
+import { IoBagOutline } from "react-icons/io5";
 import { CartContext } from '../../contexts/CartContext';
 
 interface ItemsQuantityDivProps {

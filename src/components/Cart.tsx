@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { SlArrowDown } from 'react-icons/sl';
 import { VscChromeClose } from "react-icons/vsc";
@@ -30,8 +30,8 @@ export default function Cart() {
       <Content>
         {cartContext?.cart.total !== undefined && cartContext?.cart.total > 0 ? (
           <>
-            {cartContext?.cart.items.map((i) => (
-              <CartItem itemData={i} />
+            {cartContext?.cart.items.map((i, index) => (
+              <CartItem key={index} itemData={i} />
             ))}
             <DivisionLine />
             <TotalContainer>

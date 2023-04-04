@@ -1,6 +1,5 @@
 import React from "react";
 import { createContext, useState } from "react";
-import { MenuItemType } from "../types";
 
 type CartProviderProps = {
     children: React.ReactNode
