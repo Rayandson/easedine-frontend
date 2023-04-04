@@ -148,7 +148,7 @@ const ItemsQuantityDiv = styled.div<ItemsQuantityDivProps>`
 const ItemsQuantity = styled.p`
   font-family: 'Work Sans';
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 13px;
-  color: #000000;
+  color: #5836bc;
 `;
