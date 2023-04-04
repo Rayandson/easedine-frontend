@@ -27,6 +27,7 @@ export default function Cart() {
         </CloseIcon>
         <Title>Sua sacola</Title>
       </Header>
+      <ContentContainer>
       <Content>
         {cartContext?.cart.total !== undefined && cartContext?.cart.total > 0 ? (
           <>
@@ -45,6 +46,7 @@ export default function Cart() {
           </MsgDiv>
         )}
       </Content>
+      </ContentContainer>
       <Footer>
         <OrderButton
         //   onClick={() => addItem()}
@@ -148,10 +150,25 @@ const Title = styled.p`
   color: #ffffff;
 `;
 
+const ContentContainer = styled.div`
+width: 100%;
+height: 100%;
+margin-top: 55px;
+margin-bottom: 83px;
+padding-top: 20px;
+padding-bottom: 50px;
+overflow-y: scroll;
+-ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  overflow: -moz-scrollbars-none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`
+
 const Content = styled.div`
   width: 100%;
-  height: 100%;
-  margin-top: 75px;
 `;
 
 const TotalContainer = styled.div`
@@ -216,6 +233,7 @@ const Footer = styled.footer`
   @media (max-width: 600px) {
     width: 100vw;
     height: 83px;
+    /* position: fixed; */
   }
 `;
 

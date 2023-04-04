@@ -56,6 +56,7 @@ export default function AddItemDiv({ isScreenUp, setIsScreenUp }: AddItemDivProp
         />
         <Title>{chosenItemContext?.chosenItem?.itemName}</Title>
       </Header>
+      <ContentContainer>
       <Content>
         <ImgDiv img={chosenItemContext?.chosenItem?.image} />
         <ItemName>{chosenItemContext?.chosenItem?.itemName}</ItemName>
@@ -66,6 +67,7 @@ export default function AddItemDiv({ isScreenUp, setIsScreenUp }: AddItemDivProp
         <NoteLabel>Alguma observação?</NoteLabel>
         <Note />
       </Content>
+      </ContentContainer>
       <Footer>
         <CounterContainer>
           <AiOutlineMinus onClick={() => handleCounter('decrease')} />
@@ -85,7 +87,7 @@ export default function AddItemDiv({ isScreenUp, setIsScreenUp }: AddItemDivProp
 const Container = styled.div<ContainerProps>`
   width: 50vw;
   max-width: 600px;
-  height: 80vh;
+  height: 80%;
   background-color: #ffffff;
   z-index: 100;
   position: fixed;
@@ -105,7 +107,7 @@ const Container = styled.div<ContainerProps>`
 
   @media (max-width: 600px) {
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     left: 0;
     bottom: ${(props) => (props.isScreenUp ? '0' : '-100vh')};
     padding: 0 5vw;
@@ -147,10 +149,28 @@ const Title = styled.p`
   color: #ffffff;
 `;
 
+const ContentContainer = styled.div`
+width: 100%;
+height: 100%;
+margin-top: 55px;
+margin-bottom: 83px;
+padding-top: 20px;
+padding-bottom: 50px;
+overflow-y: scroll;
+-ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  overflow: -moz-scrollbars-none; /* Firefox */
+  /* background-color: blue; */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`
+
 const Content = styled.div`
   width: 100%;
   height: 100%;
-  margin-top: 75px;
+  /* background-color: red; */
 `;
 
 const ImgDiv = styled.div<ImgDivProps>`
@@ -164,12 +184,13 @@ const ImgDiv = styled.div<ImgDivProps>`
 
   @media (max-width: 1200px) {
     width: 280px;
-    height: 180px;
+    height: 40%;
   }
 
   @media (max-width: 600px) {
     width: 100%;
-    height: 75vw;
+    height: 40%;
+    flex-shrink: 0;
   }
 `;
 
@@ -240,6 +261,7 @@ const Footer = styled.footer`
     justify-content: space-between;
     align-items: center;
     gap: 0;
+    /* position: fixed; */
   }
 `;
 
