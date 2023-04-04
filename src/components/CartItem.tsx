@@ -26,15 +26,23 @@ export default function CartItem({ itemData }:CartProps) {
   function handleCounter(action: string) {
     if (action === 'increase') {
       if(counter) setCounter(counter + 1);
-      if (cartContext && itemData.price) {
+      if (cartContext && itemData.price && itemData.quantity) {
         const cartCurrentQuantity = cartContext.cart.quantity;
-        cartContext.setCart({ ...cartContext.cart, total: cartContext.cart.total + itemData.price, quantity: cartCurrentQuantity + 1 });
+        const newObject = {...itemData, quantity: itemData.quantity + 1}
+        const filteredArray = cartContext.cart.items.filter((i) => i.id !== itemData.id ? true : false);
+        filteredArray.push(newObject);
+        const newArray = [...filteredArray]
+        cartContext.setCart({ items: newArray, total: cartContext.cart.total + itemData.price, quantity: cartCurrentQuantity + 1 });
       }
     } else {
       if (counter && counter > 1) setCounter(counter - 1);
-      if (cartContext && itemData.price) {
+      if (cartContext && itemData.price && itemData.quantity) {
         const cartCurrentQuantity = cartContext.cart.quantity;
-        cartContext.setCart({ ...cartContext.cart, total: cartContext.cart.total - itemData.price, quantity: cartCurrentQuantity - 1 });
+        const newObject = {...itemData, quantity: itemData.quantity - 1}
+        const filteredArray = cartContext.cart.items.filter((i) => i.id !== itemData.id ? true : false);
+        filteredArray.push(newObject);
+        const newArray = [...filteredArray]
+        cartContext.setCart({items: newArray, total: cartContext.cart.total - itemData.price, quantity: cartCurrentQuantity - 1 });
       }
     }
   }
@@ -71,21 +79,16 @@ export default function CartItem({ itemData }:CartProps) {
 }
 
 const Container = styled.div`
-  width: 48%;
+  width: 100%;
   min-height: 100px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   gap: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
   background-color: #f9f9f9;
   border-radius: 10px;
   padding: 0 8px;
-
-  @media (max-width: 758px) {
-    width: 100%;
-    margin-bottom: 8px;
-  }
 `;
 
 const MainContent = styled.div`

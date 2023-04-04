@@ -29,7 +29,7 @@ export default function NavBar() {
       <IconsWrapper>
         <IoPersonOutline onClick={() => navigate("/unauthorized")}/>
         <CartButton>
-        <IoBagOutline onClick={() => navigate("/unauthorized")}/>
+        <IoBagOutline onClick={() => cartContext?.setShowCart(true)}/>
         <ItemsQuantityDiv quantity={cartContext?.cart.quantity}>
             <ItemsQuantity>{cartContext?.cart.quantity}</ItemsQuantity>
           </ItemsQuantityDiv>

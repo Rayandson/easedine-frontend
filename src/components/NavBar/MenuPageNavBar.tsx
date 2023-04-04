@@ -27,7 +27,7 @@ export default function MenuPageNavBar({ restaurantName, themeColor }: NavbarPro
       <RestaurantMenuSearchBar restaurantName={restaurantName} themeColor={themeColor} />
       <IconsWrapper>
         <CartButton>
-        <IoBagOutline onClick={() => navigate("/unauthorized")}/>
+        <IoBagOutline onClick={() => cartContext?.setShowCart(true)}/>
         <ItemsQuantityDiv quantity={cartContext?.cart.quantity}>
             <ItemsQuantity>{cartContext?.cart.quantity}</ItemsQuantity>
           </ItemsQuantityDiv>

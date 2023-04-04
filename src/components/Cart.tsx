@@ -1,15 +1,12 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { SlArrowDown } from 'react-icons/sl';
+import { VscChromeClose } from "react-icons/vsc";
 import { CartContext } from '../contexts/CartContext';
 import CartItem from './CartItem';
 
 interface ContainerProps {
   showCart: boolean | undefined;
-}
-
-interface ImgDivProps {
-  img: string | null | undefined;
 }
 
 export default function Cart() {
@@ -18,11 +15,16 @@ export default function Cart() {
   return (
     <Container showCart={cartContext?.showCart}>
       <Header>
-        <SlArrowDown
-          onClick={() => {
+        <ArrowIcon onClick={() => {
             cartContext?.setShowCart(false);
-          }}
-        />
+          }}>
+        <SlArrowDown/>
+        </ArrowIcon>
+        <CloseIcon onClick={() => {
+            cartContext?.setShowCart(false);
+          }}>
+        <VscChromeClose/>
+        </CloseIcon>
         <Title>Sua sacola</Title>
       </Header>
       <Content>
@@ -55,15 +57,14 @@ export default function Cart() {
 }
 
 const Container = styled.div<ContainerProps>`
-  width: 50vw;
-  max-width: 600px;
-  height: 80vh;
+  width: 500px;
+  height: 100vh;
   background-color: #ffffff;
   z-index: 100;
   position: fixed;
-  bottom: ${(props) => (props.showCart ? '10vh' : '-100vh')};
-  left: calc(50% - 300px);
-  transition: bottom 0.3s ease-in-out;
+  bottom: 0;
+  right: ${(props) => (props.showCart ? '0' : '-500px')};
+  transition: right 0.3s ease-in-out;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -96,6 +97,10 @@ const Header = styled.div`
   background-color: #5e2bc4;
   text-align: center;
   margin-bottom: 20px;
+`;
+
+const ArrowIcon = styled.div`
+  display: none;
 
   svg {
     font-size: 18px;
@@ -108,7 +113,31 @@ const Header = styled.div`
       cursor: pointer;
     }
   }
-`;
+
+  @media (max-width: 600px) {
+    display: block;
+  }
+`
+
+const CloseIcon = styled.div`
+  display: block;
+
+  svg {
+    font-size: 20px;
+    color: #ffffff;
+    position: absolute;
+    left: 20px;
+    top: calc(50% - 10px);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  @media (max-width: 600px) {
+    display: none;
+  }
+`
 
 const Title = styled.p`
   width: 65%;
@@ -130,14 +159,13 @@ const TotalContainer = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
-  margin-top: 30px;
 `;
 
 const DivisionLine = styled.div`
   width: 90%;
   height: 1px;
   background-color: #cfcfcf;
-  margin: 0 auto;
+  margin: 30px auto;
 `;
 
 const Total = styled.p`
