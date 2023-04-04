@@ -71,11 +71,11 @@ const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 30px;
+  /* padding: 0 30px; */
 
   @media (max-width: 1200px) {
     left: calc(50% - 25vw);
-    padding: 0 12px;
+    /* padding: 0 12px; */
   }
 
   @media (max-width: 600px) {
@@ -84,7 +84,6 @@ const Container = styled.div<ContainerProps>`
     left: 0;
     transition: bottom 0.3s ease-in-out;
     bottom: ${(props) => (props.showCart ? '0' : '-100vh')};
-    padding: 0 2vw;
   }
 `;
 
@@ -94,9 +93,9 @@ const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  /* position: absolute;
   top: 0;
-  left: 0;
+  left: 0; */
   background-color: #5e2bc4;
   text-align: center;
   margin-bottom: 20px;
@@ -110,7 +109,7 @@ const ArrowIcon = styled.div`
     color: #ffffff;
     position: absolute;
     left: 20px;
-    top: calc(50% - 9px);
+    top: calc((55px/2) - 9px);
 
     &:hover {
       cursor: pointer;
@@ -130,7 +129,7 @@ const CloseIcon = styled.div`
     color: #ffffff;
     position: absolute;
     left: 20px;
-    top: calc(50% - 10px);
+    top: calc((55px/2) - 9px);
 
     &:hover {
       cursor: pointer;
@@ -154,18 +153,19 @@ const Title = styled.p`
 const ContentContainer = styled.div`
 width: 100%;
 /* height: 100%; */
-margin-top: 55px;
 margin-bottom: 83px;
-padding-top: 20px;
-padding-bottom: 50px;
+padding: 20px 30px 50px 30px;
 overflow-y: scroll;
 -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   overflow: -moz-scrollbars-none; /* Firefox */
-  background-color: green;
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @media (max-width: 1200px) {
+    padding: 0 12px;
   }
 `
 
