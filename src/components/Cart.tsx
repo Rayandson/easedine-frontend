@@ -169,7 +169,8 @@ overflow-y: scroll;
 
 const Content = styled.div`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  /* background-color: green; */
 `;
 
 const TotalContainer = styled.div`
@@ -177,7 +178,6 @@ const TotalContainer = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
-  margin-bottom: 150px;
 `;
 
 const DivisionLine = styled.div`
