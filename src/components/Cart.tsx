@@ -60,7 +60,7 @@ export default function Cart() {
 
 const Container = styled.div<ContainerProps>`
   width: 500px;
-  height: 100vh;
+  height: 100%;
   background-color: #ffffff;
   z-index: 100;
   position: fixed;
@@ -80,8 +80,9 @@ const Container = styled.div<ContainerProps>`
 
   @media (max-width: 600px) {
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     left: 0;
+    transition: bottom 0.3s ease-in-out;
     bottom: ${(props) => (props.showCart ? '0' : '-100vh')};
     padding: 0 2vw;
   }
@@ -152,7 +153,7 @@ const Title = styled.p`
 
 const ContentContainer = styled.div`
 width: 100%;
-height: 100%;
+/* height: 100%; */
 margin-top: 55px;
 margin-bottom: 83px;
 padding-top: 20px;
@@ -161,6 +162,7 @@ overflow-y: scroll;
 -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   overflow: -moz-scrollbars-none; /* Firefox */
+  background-color: green;
 
   &::-webkit-scrollbar {
     display: none;
@@ -170,7 +172,7 @@ overflow-y: scroll;
 const Content = styled.div`
   width: 100%;
   /* height: 100%; */
-  /* background-color: green; */
+  background-color: green;
 `;
 
 const TotalContainer = styled.div`
@@ -207,7 +209,7 @@ const MsgDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: calc(50vh - 72px);
+  /* margin-top: calc(50vh - 72px); */
 `
 
 const EmptyCartMsg = styled.h1`
@@ -216,6 +218,7 @@ const EmptyCartMsg = styled.h1`
   font-weight: 500;
   font-size: 17px;
   color: #000000;
+  background-color: blue;
 `;
 
 const Footer = styled.footer`
