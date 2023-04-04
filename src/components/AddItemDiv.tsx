@@ -106,7 +106,7 @@ const Container = styled.div<ContainerProps>`
   @media (max-width: 600px) {
     width: 100vw;
     height: 100%;
-    left: 0;
+    left: -100px;
     bottom: ${(props) => (props.isScreenUp ? '0' : '-100vh')};
   }
 `;
@@ -148,7 +148,7 @@ const Title = styled.p`
 
 const ContentContainer = styled.div`
 width: 100%;
-height: calc(90% - 55px - 83px);
+height: calc(100% - 55px - 83px);
 margin-bottom: 83px;
 padding: 20px 30px 50px 30px;
 overflow-y: scroll;
@@ -260,7 +260,6 @@ const Footer = styled.footer`
     justify-content: space-between;
     align-items: center;
     gap: 0;
-    /* position: fixed; */
   }
 `;
 
