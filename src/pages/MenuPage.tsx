@@ -196,12 +196,13 @@ const Container = styled.div<ContainerProps>`
 
   @media (max-width: 758px) {
     width: 100%;
-    /* height: ${props => props.isScreenUp || props.showCart ? 'calc(100vh - 63px - 55px)' : 'auto'}; */
-    height: calc(100vh - 63px - 55px);
-    position: absolute;
-    top: 55px;
+    height: ${props => props.isScreenUp || props.showCart ? 'calc(100vh - 63px - 55px)' : 'auto'};
+    /* height: calc(100vh - 63px - 55px); */
+    position: ${props => props.isScreenUp || props.showCart ? 'absolute' : 'static'};
+    /* position: absolute; */
+    top: 0;
     overflow-y: ${props => props.isScreenUp || props.showCart ? 'hidden' : 'auto'};
-    margin-top: 0px;
+    margin-top: 55px;
     margin-bottom: 63px;
   }
 `;
@@ -296,7 +297,7 @@ const Address = styled.p`
 
 const RestaurantCover = styled.div<ImgDivProps>`
   width: 100%;
-  height: 400px;
+  height: 140px;
   display: flex;
   justify-content: center;
   align-items: center;
