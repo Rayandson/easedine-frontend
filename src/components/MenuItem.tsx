@@ -1,52 +1,56 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import StarImg from "../assets/images/star.svg";
-import { MenuItemType } from "../types";
-import { ChosenItemContext } from "../contexts/ChosenItemContext";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import StarImg from '../assets/images/star.svg';
+import { MenuItemType } from '../types';
+import { ChosenItemContext } from '../contexts/ChosenItemContext';
 
 interface MenuItemProps {
   item: MenuItemType;
-  themeColor: string | undefined
-  setIsScreenUp: React.Dispatch<React.SetStateAction<boolean>>
+  themeColor: string | undefined;
+  setIsScreenUp: React.Dispatch<React.SetStateAction<boolean>>;
+  setDisableScrolling: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface ThemeColor {
-  themeColor: string | undefined
+  themeColor: string | undefined;
 }
 
 interface ItemImgProps {
   img: string | null;
 }
 
-export default function MenuItem({ item, themeColor, setIsScreenUp }:MenuItemProps) {
-  const chosenItemContext = useContext(ChosenItemContext)
+export default function MenuItem({ item, themeColor, setIsScreenUp, setDisableScrolling }: MenuItemProps) {
+  const chosenItemContext = useContext(ChosenItemContext);
 
   function handleClick() {
     chosenItemContext?.setChosenItem(item);
-    setIsScreenUp(true)
+    setIsScreenUp(true);
+    setTimeout(() => setDisableScrolling(true), 300);
   }
-  
+
   return (
     <Container>
       <ItemDiv onClick={() => handleClick()}>
-        <ItemImg img={item.image}/>
+        <ItemImg img={item.image} />
         <ItemInfo img={item.image}>
           <ItemMainInfo>
             <ItemNameDiv>
               <ItemName>{item.itemName}</ItemName>
               <RatingDiv>
                 <img src={StarImg} />
-                <p>{(item.rating/10).toFixed(1)}</p>
+                <p>{(item.rating / 10).toFixed(1)}</p>
               </RatingDiv>
             </ItemNameDiv>
             <PriceDiv>
-              {item.price ? <Price themeColor={themeColor}>R$ {(item.price/100).toFixed(2)}</Price> : <Price themeColor={themeColor}>Ver mais</Price> }
+              {item.price ? (
+                <Price themeColor={themeColor}>R$ {(item.price / 100).toFixed(2)}</Price>
+              ) : (
+                <Price themeColor={themeColor}>Ver mais</Price>
+              )}
             </PriceDiv>
           </ItemMainInfo>
           <DescriptionContainer>
-            <Description>
-              {item.description}
-            </Description>
+            <Description>{item.description}</Description>
           </DescriptionContainer>
         </ItemInfo>
       </ItemDiv>
@@ -63,14 +67,13 @@ const Container = styled.div`
   justify-content: center;
   gap: 15px;
   margin-bottom: 20px;
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
   border-radius: 10px;
 
   @media (max-width: 758px) {
     width: 100%;
     margin-bottom: 8px;
   }
-
 `;
 const ItemDiv = styled.div`
   width: 95%;
@@ -87,14 +90,14 @@ const ItemDiv = styled.div`
 const ItemImg = styled.div<ItemImgProps>`
   width: 100px;
   height: 100px;
-  background: ${props => props.img ? `url(${props.img})` : 'none'};
+  background: ${(props) => (props.img ? `url(${props.img})` : 'none')};
   background-size: cover;
   background-position: center;
   border-radius: 5px;
 `;
 
 const ItemInfo = styled.div<ItemImgProps>`
-  width: ${props => props.img ? 'calc(100% - 100px)' : '100%'};
+  width: ${(props) => (props.img ? 'calc(100% - 100px)' : '100%')};
   height: 103px;
   display: flex;
   flex-direction: column;
@@ -111,7 +114,7 @@ const ItemNameDiv = styled.div`
   flex-direction: column;
 `;
 const ItemName = styled.p`
-  font-family: "Work Sans";
+  font-family: 'Work Sans';
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
@@ -125,7 +128,7 @@ const RatingDiv = styled.div`
   }
 
   p {
-    font-family: "Work Sans";
+    font-family: 'Work Sans';
     font-style: normal;
     font-weight: 500;
     font-size: 11px;
@@ -139,11 +142,11 @@ const PriceDiv = styled.div`
   justify-content: flex-end;
 `;
 const Price = styled.p<ThemeColor>`
-  font-family: "Work Sans";
+  font-family: 'Work Sans';
   font-style: normal;
   font-weight: 758;
   font-size: 14px;
-  color: ${props => props.themeColor}
+  color: ${(props) => props.themeColor};
 `;
 const DescriptionContainer = styled.div`
   width: 100%;
@@ -151,7 +154,7 @@ const DescriptionContainer = styled.div`
 
 const Description = styled.p`
   width: 100%;
-  font-family: "Work Sans";
+  font-family: 'Work Sans';
   font-style: normal;
   font-weight: 400;
   font-size: 12px;

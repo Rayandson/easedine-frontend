@@ -16,9 +16,10 @@ interface ImgDivProps {
 interface AddItemDivProps {
   isScreenUp: boolean;
   setIsScreenUp: React.Dispatch<React.SetStateAction<boolean>>;
+  setDisableScrolling: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function AddItemDiv({ isScreenUp, setIsScreenUp }: AddItemDivProps) {
+export default function AddItemDiv({ isScreenUp, setIsScreenUp, setDisableScrolling }: AddItemDivProps) {
   const [counter, setCounter] = useState(1);
   const chosenItemContext = useContext(ChosenItemContext);
   const cartContext = useContext(CartContext);
@@ -43,14 +44,13 @@ export default function AddItemDiv({ isScreenUp, setIsScreenUp }: AddItemDivProp
     setTimeout(() => setCounter(1), 500);
   }
 
-  console.log(cartContext?.cart);
-
   return (
     <Container isScreenUp={isScreenUp}>
       <Header>
         <SlArrowDown
           onClick={() => {
             setIsScreenUp(false);
+            setDisableScrolling(false)
             setTimeout(() => setCounter(1), 500);
           }}
         />

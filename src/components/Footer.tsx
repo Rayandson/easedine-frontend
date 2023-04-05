@@ -16,7 +16,11 @@ interface ItemsQuantityDivProps {
   quantity: number | null | undefined;
 }
 
-export default function Footer() {
+interface FooterProps {
+  setDisableScrolling?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function Footer({setDisableScrolling}: FooterProps) {
   const navigate = useNavigate();
   const pageContext = useContext(PageContext);
   const cartContext = useContext(CartContext);
@@ -66,7 +70,10 @@ export default function Footer() {
         <IoPerson />
       </MenuItem>
       <OutsideCircle>
-        <CartButton onClick={() => cartContext?.setShowCart(true)}>
+        <CartButton onClick={() => {
+          cartContext?.setShowCart(true);
+          setTimeout(() => setDisableScrolling && setDisableScrolling(true), 300)
+        }}>
           <IoBag />
           <ItemsQuantityDiv quantity={cartContext?.cart.quantity}>
             <ItemsQuantity>{cartContext?.cart.quantity}</ItemsQuantity>

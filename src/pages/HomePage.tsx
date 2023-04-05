@@ -20,6 +20,7 @@ export default function HomePage() {
   const [restaurants, setRestaurants] = useState<RestaurantResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const cartContext = useContext(CartContext);
+  const [disableScrolling, setDisableScrolling] = useState(false);
 
   useEffect(() => {
     renderRestaurants();
@@ -53,8 +54,8 @@ export default function HomePage() {
           <CloseToYouSection restaurants={restaurants} />
         </>
       )}
-      <Footer />
-      <Cart />
+      <Footer setDisableScrolling={setDisableScrolling}/>
+      <Cart setDisableScrolling={setDisableScrolling}/>
     </Container>
   );
 }

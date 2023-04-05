@@ -31,11 +31,13 @@ interface Theme {
 interface ContainerProps {
   themeColor: string | undefined;
   isScreenUp: boolean;
+  disableScrolling: boolean;
   showCart: boolean | undefined;
 }
 
 interface MenuContainerProps {
   isScreenUp: boolean;
+  disableScrolling: boolean;
 }
 
 export default function MenuPage() {
@@ -47,6 +49,7 @@ export default function MenuPage() {
   const [activeCategory, setActiveCategory] = useState('OS MAIS PEDIDOS');
   const [isLoading, setIsLoading] = useState(true);
   const [isScreenUp, setIsScreenUp] = useState(false);
+  const [disableScrolling, setDisableScrolling] = useState(false);
   const cartContext = useContext(CartContext);
 
   useEffect(() => {
@@ -87,7 +90,7 @@ export default function MenuPage() {
   }
 
   return (
-    <Container themeColor={restaurantInfo?.restaurant.themeColor} isScreenUp={isScreenUp} showCart={cartContext?.showCart}>
+    <Container themeColor={restaurantInfo?.restaurant.themeColor} isScreenUp={isScreenUp} disableScrolling={disableScrolling} showCart={cartContext?.showCart}>
       {isLoading ? (
         <LoadingContainer>
           <Triangle
@@ -127,7 +130,7 @@ export default function MenuPage() {
               </Address>
             </Info>
           </RestaurantInfoDiv>
-          <MenuContainer isScreenUp={isScreenUp}>
+          <MenuContainer isScreenUp={isScreenUp} disableScrolling={disableScrolling}>
             <Categories isAtTop={isAtTop} themeColor={restaurantInfo?.restaurant.themeColor}>
               <CategoryDiv
                 onClick={() => {
@@ -170,15 +173,15 @@ export default function MenuPage() {
             <Title themeColor={restaurantInfo?.restaurant.themeColor}>{activeCategory}</Title>
             <MenuItemsContainer ref={categoriesRef}>
               {itemsToShow.map((i) => (
-                <MenuItem item={i} themeColor={restaurantInfo?.restaurant.themeColor} setIsScreenUp={setIsScreenUp} />
+                <MenuItem item={i} themeColor={restaurantInfo?.restaurant.themeColor} setIsScreenUp={setIsScreenUp} setDisableScrolling={setDisableScrolling}/>
               ))}
             </MenuItemsContainer>
           </MenuContainer>
         </>
       )}
-      <AddItemDiv isScreenUp={isScreenUp} setIsScreenUp={setIsScreenUp}/>
-      <Footer />
-      <Cart />
+      <AddItemDiv isScreenUp={isScreenUp} setIsScreenUp={setIsScreenUp} setDisableScrolling={setDisableScrolling}/>
+      <Footer setDisableScrolling={setDisableScrolling}/>
+      <Cart setDisableScrolling={setDisableScrolling}/>
     </Container>
   );
 }
@@ -196,12 +199,12 @@ const Container = styled.div<ContainerProps>`
 
   @media (max-width: 758px) {
     width: 100%;
-    height: ${props => props.isScreenUp || props.showCart ? 'calc(100vh - 63px - 55px)' : 'auto'};
+    height: ${props => props.disableScrolling ? 'calc(100vh - 63px - 55px)' : 'auto'};
     /* height: calc(100vh - 63px - 55px); */
-    position: ${props => props.isScreenUp || props.showCart ? 'absolute' : 'static'};
+    position: ${props => props.disableScrolling ? 'absolute' : 'static'};
     /* position: absolute; */
     top: 0;
-    overflow-y: ${props => props.isScreenUp || props.showCart ? 'hidden' : 'auto'};
+    overflow-y: ${props => props.disableScrolling ? 'hidden' : 'auto'};
     margin-top: 55px;
     margin-bottom: 63px;
   }

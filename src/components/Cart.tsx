@@ -9,7 +9,11 @@ interface ContainerProps {
   showCart: boolean | undefined;
 }
 
-export default function Cart() {
+interface CartProps {
+  setDisableScrolling?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function Cart({setDisableScrolling}: CartProps) {
   const cartContext = useContext(CartContext);
 
   return (
@@ -17,11 +21,13 @@ export default function Cart() {
       <Header>
         <ArrowIcon onClick={() => {
             cartContext?.setShowCart(false);
+            setDisableScrolling && setDisableScrolling(false);
           }}>
         <SlArrowDown/>
         </ArrowIcon>
         <CloseIcon onClick={() => {
             cartContext?.setShowCart(false);
+            setDisableScrolling && setDisableScrolling(false);
           }}>
         <VscChromeClose/>
         </CloseIcon>
