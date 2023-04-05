@@ -106,7 +106,7 @@ const Container = styled.div<ContainerProps>`
   @media (max-width: 600px) {
     width: 100vw;
     height: 100%;
-    left: -100px;
+    left: 0;
     bottom: ${(props) => (props.isScreenUp ? '0' : '-100vh')};
   }
 `;
@@ -155,7 +155,6 @@ overflow-y: scroll;
 -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   overflow: -moz-scrollbars-none; /* Firefox */
-  background-color: blue;
 
   &::-webkit-scrollbar {
     display: none;
@@ -236,6 +235,7 @@ const Note = styled.textarea`
   border: solid 1px #cac9c9;
   border-radius: 5px;
   margin-top: 10px;
+  margin-bottom: 20px;
   padding: 5px 10px;
 `;
 

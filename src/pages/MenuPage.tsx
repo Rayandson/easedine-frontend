@@ -11,6 +11,7 @@ import StarImg from '../assets/images/star.svg';
 import { Triangle } from 'react-loader-spinner';
 import AddItemDiv from '../components/AddItemDiv';
 import Cart from "../components/Cart";
+import { CartContext } from '../contexts/CartContext';
 
 interface CategoriesProps {
   isAtTop: boolean;
@@ -27,6 +28,12 @@ interface Theme {
   categoryName?: string;
 }
 
+interface ContainerProps {
+  themeColor: string | undefined;
+  isScreenUp: boolean;
+  showCart: boolean | undefined;
+}
+
 interface MenuContainerProps {
   isScreenUp: boolean;
 }
@@ -40,6 +47,7 @@ export default function MenuPage() {
   const [activeCategory, setActiveCategory] = useState('OS MAIS PEDIDOS');
   const [isLoading, setIsLoading] = useState(true);
   const [isScreenUp, setIsScreenUp] = useState(false);
+  const cartContext = useContext(CartContext);
 
   useEffect(() => {
     fetchRestaurant();
@@ -68,7 +76,6 @@ export default function MenuPage() {
       setRestaurantInfo(response.data);
       setItemsToShow(response.data.mostOrdered);
       setIsLoading(false);
-      console.log(response.data);
     }
   }
 
@@ -80,7 +87,7 @@ export default function MenuPage() {
   }
 
   return (
-    <Container themeColor={restaurantInfo?.restaurant.themeColor}>
+    <Container themeColor={restaurantInfo?.restaurant.themeColor} isScreenUp={isScreenUp} showCart={cartContext?.showCart}>
       {isLoading ? (
         <LoadingContainer>
           <Triangle
@@ -176,21 +183,25 @@ export default function MenuPage() {
   );
 }
 
-const Container = styled.div<Theme>`
+const Container = styled.div<ContainerProps>`
   width: 85%;
   height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 68px;
   background-color: #fff;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 68px;
 
   @media (max-width: 758px) {
     width: 100%;
-    min-height: calc(100vh - 63px - 55px);
-    margin-top: 55px;
+    /* height: ${props => props.isScreenUp || props.showCart ? 'calc(100vh - 63px - 55px)' : 'auto'}; */
+    height: calc(100vh - 63px - 55px);
+    position: absolute;
+    top: 55px;
+    overflow-y: ${props => props.isScreenUp || props.showCart ? 'hidden' : 'auto'};
+    margin-top: 0px;
     margin-bottom: 63px;
   }
 `;
@@ -295,7 +306,7 @@ const RestaurantCover = styled.div<ImgDivProps>`
   background-position: center;
 
   @media (max-width: 758px) {
-    height: 150px;
+    min-height: 150px;
   }
 `;
 

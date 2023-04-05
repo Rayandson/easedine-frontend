@@ -17,7 +17,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: flex-start;
   gap: 8px;
-  margin-top: 40px;
+  /* margin-top: 600px; */
 
   p {
     font-family: "Work Sans";

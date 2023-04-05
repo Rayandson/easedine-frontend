@@ -93,9 +93,6 @@ const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* position: absolute;
-  top: 0;
-  left: 0; */
   background-color: #5e2bc4;
   text-align: center;
   margin-bottom: 20px;
@@ -172,7 +169,6 @@ overflow-y: scroll;
 const Content = styled.div`
   width: 100%;
   /* height: 100%; */
-  background-color: green;
 `;
 
 const TotalContainer = styled.div`
@@ -209,7 +205,7 @@ const MsgDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  /* margin-top: calc(50vh - 72px); */
+  margin-top: calc(50vh - 72px);
 `
 
 const EmptyCartMsg = styled.h1`
@@ -218,7 +214,6 @@ const EmptyCartMsg = styled.h1`
   font-weight: 500;
   font-size: 17px;
   color: #000000;
-  background-color: blue;
 `;
 
 const Footer = styled.footer`

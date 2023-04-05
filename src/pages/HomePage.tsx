@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import CloseToYouSection from "../components/CloseToYouSession/CloseToYouSection";
 import Footer from "../components/Footer";
@@ -10,10 +10,16 @@ import { useState, useEffect } from "react";
 import restaurantsApi from "../services/restaurantsApi";
 import { Triangle } from "react-loader-spinner";
 import Cart from "../components/Cart";
+import { CartContext } from "../contexts/CartContext";
+
+interface ContainerProps {
+  showCart: boolean | undefined;
+}
 
 export default function HomePage() {
   const [restaurants, setRestaurants] = useState<RestaurantResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const cartContext = useContext(CartContext);
 
   useEffect(() => {
     renderRestaurants();
@@ -27,7 +33,7 @@ export default function HomePage() {
   }
 
   return (
-    <Container>
+    <Container showCart={cartContext?.showCart}>
       <NavBar />
       {isLoading ? (
         <LoadingContainer>
@@ -53,17 +59,23 @@ export default function HomePage() {
   );
 }
 
-const Container = styled.div`
+const Container = styled.div<ContainerProps>`
   width: 100vw;
+  height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  padding-top: 40px;
   margin-top: 68px;
 
   @media (max-width: 758px) {
-    justify-content: center;
+    height: calc(100% - 63px);
     align-items: center;
+    position: absolute;
+    top: 0;
+    overflow-y: ${props => props.showCart ? 'hidden' : 'auto'};
+    margin-top: 0;
   }
 `;
 
