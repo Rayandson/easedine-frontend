@@ -173,8 +173,8 @@ export default function MenuPage() {
             </Categories>
             <Title themeColor={restaurantInfo?.restaurant.themeColor}>{activeCategory}</Title>
             <MenuItemsContainer ref={categoriesRef}>
-              {itemsToShow.map((i) => (
-                <MenuItem item={i} themeColor={restaurantInfo?.restaurant.themeColor} setIsScreenUp={setIsScreenUp} setDisableScrolling={setDisableScrolling} setScrollPosition={setScrollPosition}/>
+              {itemsToShow.map((i, index) => (
+                <MenuItem item={i} key={index} themeColor={restaurantInfo?.restaurant.themeColor} setIsScreenUp={setIsScreenUp} setDisableScrolling={setDisableScrolling} setScrollPosition={setScrollPosition}/>
               ))}
             </MenuItemsContainer>
           </MenuContainer>
