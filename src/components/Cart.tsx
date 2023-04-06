@@ -1,9 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { SlArrowDown } from 'react-icons/sl';
-import { VscChromeClose } from "react-icons/vsc";
+import { VscChromeClose } from 'react-icons/vsc';
 import { CartContext } from '../contexts/CartContext';
 import CartItem from './CartItem';
+import SelectComponent from './SelectComponent';
+import TextInput from './TextInput';
 
 interface ContainerProps {
   showCart: boolean | undefined;
@@ -14,55 +16,108 @@ interface CartProps {
   scrollPosition: number;
 }
 
-export default function Cart({setDisableScrolling, scrollPosition}: CartProps) {
+interface FinishOrderButtonProps {
+  userName: string | undefined | unknown;
+  selectedTable: number | undefined | unknown;
+  paymentMethod: string | undefined | unknown;
+}
+
+export default function Cart({ setDisableScrolling, scrollPosition }: CartProps) {
   const cartContext = useContext(CartContext);
+  const [checkoutIsOpen, setCheckoutIsOpen] = useState(false);
+  const [selectedTable, setSelectedTable] = useState<number | undefined | unknown>(undefined);
+  const [userName, setUserName] = useState<string | undefined>(undefined);
+  const [paymentMethod, setPaymentMethod] = useState<string | undefined | unknown>(undefined);
 
   return (
     <Container showCart={cartContext?.showCart}>
-      <Header>
-        <ArrowIcon onClick={() => {
-            cartContext?.setShowCart(false);
-            setDisableScrolling && setDisableScrolling(false);
-            setTimeout(() => window.scrollTo(0, scrollPosition), 50)
-          }}>
-        <SlArrowDown/>
-        </ArrowIcon>
-        <CloseIcon onClick={() => {
-            cartContext?.setShowCart(false);
-            setDisableScrolling && setDisableScrolling(false);
-            setTimeout(() => window.scrollTo(0, scrollPosition), 50)
-          }}>
-        <VscChromeClose/>
-        </CloseIcon>
-        <Title>Sua sacola</Title>
-      </Header>
-      <ContentContainer>
-      <Content>
-        {cartContext?.cart.total !== undefined && cartContext?.cart.total > 0 ? (
-          <>
-            {cartContext?.cart.items.map((i, index) => (
-              <CartItem key={index} itemData={i} />
-            ))}
-            <DivisionLine />
-            <TotalContainer>
-              <Total>TOTAL:</Total>
-              <TotalValue>R$ {(cartContext?.cart.total / 100).toFixed(2)}</TotalValue>
-            </TotalContainer>
-          </>
-        ) : (
-          <MsgDiv>
-            <EmptyCartMsg>Sua Sacola está vazia</EmptyCartMsg>
-          </MsgDiv>
-        )}
-      </Content>
-      </ContentContainer>
-      <Footer>
-        <OrderButton
-        //   onClick={() => addItem()}
-        >
-          Quero pedir
-        </OrderButton>
-      </Footer>
+      {checkoutIsOpen ? (
+        <>
+          <Header>
+            <ArrowIcon
+              onClick={() => {
+                setCheckoutIsOpen(false);
+              }}
+            >
+              <SlArrowDown />
+            </ArrowIcon>
+            <CloseIcon
+              onClick={() => {
+                setCheckoutIsOpen(false);
+              }}
+            >
+              <VscChromeClose />
+            </CloseIcon>
+            <Title>Checkout</Title>
+          </Header>
+          <ContentContainer>
+            <CheckoutContent>
+              <InputWrapper>
+                <InputLabel>{"1) Informe seu nome e sobrenome:"}</InputLabel>
+                <TextInput userName={userName} setUserName={setUserName} />
+              </InputWrapper>
+              <TableSelectWrapper>
+                <SelectLabel>{"2) Selecione a sua mesa:"}</SelectLabel>
+                <SelectComponent values={[1, 2, 3]} label="Mesa" state={selectedTable} setState={setSelectedTable} />
+              </TableSelectWrapper>
+              <PaymentSelectWrapper>
+                <SelectLabel>{"3) Selecione a forma de pagamento:"}</SelectLabel>
+                <SelectComponent values={['Pagar no caixa', 'Pix']} label="Pagamento" state={paymentMethod} setState={setPaymentMethod} />
+              </PaymentSelectWrapper>
+            </CheckoutContent>
+          </ContentContainer>
+          <Footer>
+            <FinishOrderButton userName={userName} selectedTable={selectedTable} paymentMethod={paymentMethod} >Finalizar pedido</FinishOrderButton>
+          </Footer>
+        </>
+      ) : (
+        <>
+          <Header>
+            <ArrowIcon
+              onClick={() => {
+                cartContext?.setShowCart(false);
+                setDisableScrolling && setDisableScrolling(false);
+                setTimeout(() => window.scrollTo(0, scrollPosition), 50);
+              }}
+            >
+              <SlArrowDown />
+            </ArrowIcon>
+            <CloseIcon
+              onClick={() => {
+                cartContext?.setShowCart(false);
+                setDisableScrolling && setDisableScrolling(false);
+                setTimeout(() => window.scrollTo(0, scrollPosition), 50);
+              }}
+            >
+              <VscChromeClose />
+            </CloseIcon>
+            <Title>Sua sacola</Title>
+          </Header>
+          <ContentContainer>
+            <CartContent>
+              {cartContext?.cart.total !== undefined && cartContext?.cart.total > 0 ? (
+                <>
+                  {cartContext?.cart.items.map((i, index) => (
+                    <CartItem key={index} itemData={i} />
+                  ))}
+                  <DivisionLine />
+                  <TotalContainer>
+                    <Total>TOTAL:</Total>
+                    <TotalValue>R$ {(cartContext?.cart.total / 100).toFixed(2)}</TotalValue>
+                  </TotalContainer>
+                </>
+              ) : (
+                <MsgDiv>
+                  <EmptyCartMsg>Sua Sacola está vazia</EmptyCartMsg>
+                </MsgDiv>
+              )}
+            </CartContent>
+          </ContentContainer>
+          <Footer>
+            <OrderButton onClick={() => setCheckoutIsOpen(true)}>Quero pedir</OrderButton>
+          </Footer>
+        </>
+      )}
     </Container>
   );
 }
@@ -80,7 +135,6 @@ const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* padding: 0 30px; */
 
   @media (max-width: 600px) {
     width: 100vw;
@@ -110,7 +164,7 @@ const ArrowIcon = styled.div`
     color: #ffffff;
     position: absolute;
     left: 20px;
-    top: calc((55px/2) - 9px);
+    top: calc((55px / 2) - 9px);
 
     &:hover {
       cursor: pointer;
@@ -120,7 +174,7 @@ const ArrowIcon = styled.div`
   @media (max-width: 600px) {
     display: block;
   }
-`
+`;
 
 const CloseIcon = styled.div`
   display: block;
@@ -130,7 +184,7 @@ const CloseIcon = styled.div`
     color: #ffffff;
     position: absolute;
     left: 20px;
-    top: calc((55px/2) - 9px);
+    top: calc((55px / 2) - 9px);
 
     &:hover {
       cursor: pointer;
@@ -140,24 +194,24 @@ const CloseIcon = styled.div`
   @media (max-width: 600px) {
     display: none;
   }
-`
+`;
 
 const Title = styled.p`
   width: 65%;
   font-family: 'Work Sans';
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
   color: #ffffff;
 `;
 
 const ContentContainer = styled.div`
-width: 100%;
-/* height: 100%; */
-margin-bottom: 83px;
-padding: 20px 30px 50px 30px;
-overflow-y: scroll;
--ms-overflow-style: none; /* IE and Edge */
+  width: 100%;
+  /* height: 100%; */
+  margin-bottom: 83px;
+  padding: 20px 30px 50px 30px;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   overflow: -moz-scrollbars-none; /* Firefox */
 
@@ -168,11 +222,54 @@ overflow-y: scroll;
   @media (max-width: 1200px) {
     padding: 0 12px;
   }
-`
+`;
 
-const Content = styled.div`
+const CartContent = styled.div`
   width: 100%;
   /* height: 100%; */
+`;
+
+const CheckoutContent = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding-top: 25px;
+`;
+
+const InputLabel = styled.p`
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+`;
+
+const InputWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+`;
+
+const TableSelectWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+`;
+
+const PaymentSelectWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+`;
+
+const SelectLabel = styled.p`
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
 `;
 
 const TotalContainer = styled.div`
@@ -210,7 +307,7 @@ const MsgDiv = styled.div`
   display: flex;
   justify-content: center;
   margin-top: calc(50vh - 72px);
-`
+`;
 
 const EmptyCartMsg = styled.h1`
   font-family: 'Work Sans';
@@ -238,6 +335,25 @@ const Footer = styled.footer`
     width: 100vw;
     height: 83px;
     /* position: fixed; */
+  }
+`;
+
+const FinishOrderButton = styled.button<FinishOrderButtonProps>`
+  width: 80%;
+  max-width: 500px;
+  height: 45px;
+  background-color: ${props => (props.userName && props.selectedTable && props.paymentMethod) ? '#5e2bc4' : '#aaaaaa'} ;
+  border: none;
+  border-radius: 5px;
+
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #ffffff;
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 

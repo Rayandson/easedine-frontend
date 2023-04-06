@@ -144,7 +144,7 @@ const Title = styled.p`
   font-family: 'Work Sans';
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
   color: #ffffff;
 `;
 
