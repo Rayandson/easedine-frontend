@@ -13,6 +13,7 @@ type CartType = {
       itemName: string | undefined;
       image: string | null;
       description: string | undefined;
+      note: string;
       price: number | null;
       type: string | undefined;
       quantity: number | undefined;

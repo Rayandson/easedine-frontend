@@ -22,6 +22,7 @@ interface AddItemDivProps {
 
 export default function AddItemDiv({ isScreenUp, setIsScreenUp, setDisableScrolling, scrollPosition }: AddItemDivProps) {
   const [counter, setCounter] = useState(1);
+  const [note, setNote] = useState("");
   const chosenItemContext = useContext(ChosenItemContext);
   const cartContext = useContext(CartContext);
 
@@ -36,12 +37,13 @@ export default function AddItemDiv({ isScreenUp, setIsScreenUp, setDisableScroll
   function addItem() {
     setIsScreenUp(false);
     if(cartContext && chosenItemContext?.chosenItem) {
-      const items = [...cartContext.cart.items, {id: chosenItemContext.chosenItem.id, itemName:  chosenItemContext.chosenItem.itemName, image:  chosenItemContext.chosenItem.image, description:  chosenItemContext.chosenItem.description, price:  chosenItemContext.chosenItem.price, type:  chosenItemContext.chosenItem.type, quantity: counter}]
+      const items = [...cartContext.cart.items, {id: chosenItemContext.chosenItem.id, itemName:  chosenItemContext.chosenItem.itemName, image:  chosenItemContext.chosenItem.image, description:  chosenItemContext.chosenItem.description, note: note, price:  chosenItemContext.chosenItem.price, type:  chosenItemContext.chosenItem.type, quantity: counter}]
       if(chosenItemContext.chosenItem.price) {
         const totalPrice = chosenItemContext.chosenItem.price * counter;
         cartContext.setCart({quantity: cartContext.cart.quantity + counter, total: cartContext.cart.total + totalPrice, items: items})
       }
     }
+    setNote("");
     setTimeout(() => setCounter(1), 500);
   }
 
@@ -67,7 +69,7 @@ export default function AddItemDiv({ isScreenUp, setIsScreenUp, setDisableScroll
           R$ {chosenItemContext?.chosenItem?.price ? (chosenItemContext?.chosenItem?.price / 100).toFixed(2) : '0,00'}
         </Price>
         <NoteLabel>Alguma observação?</NoteLabel>
-        <Note />
+        <Note value={note} onChange={(e) => setNote(e.target.value)}/>
       </Content>
       </ContentContainer>
       <Footer>
