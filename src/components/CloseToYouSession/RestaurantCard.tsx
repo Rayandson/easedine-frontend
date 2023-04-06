@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import StarImg from "../../assets/images/star.svg";
 import { RestaurantResponse } from "../../types";
+import { RestaurantContext } from "../../contexts/RestaurantContext";
 
 interface RestaurantCardProps {
   data: RestaurantResponse
@@ -14,11 +15,13 @@ interface imageDivProps {
 
 export default function RestaurantCard({ data }:RestaurantCardProps) {
   const navigate = useNavigate();
+  const restaurantContext = useContext(RestaurantContext);
 
   return (
     <Container onClick={() => {
       navigate(`/restaurants/${data.profileName}`)
       window.scrollTo(0, 0);
+      restaurantContext?.setRestaurant(data);
     }}>
       <ImageDiv img={data.picture}>
         <RatingDiv>

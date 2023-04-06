@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage';
 import Unauthorized from './pages/Unauthorized';
 import RestaurantPage from './pages/RestaurantPage';
 import MenuPage from './pages/MenuPage';
+import { RestaurantProvider } from './contexts/RestaurantContext';
 
 function App() {
   return (
@@ -18,12 +19,14 @@ function App() {
         <PageProvider>
           <ChosenItemProvider>
             <CartProvider>
+              <RestaurantProvider>
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/unauthorized" element={<Unauthorized />} />
                 {/* <Route path="/restaurants" element={<RestaurantPage />} /> */}
                 <Route path="/restaurants/:profileName" element={<MenuPage />} />
               </Routes>
+              </RestaurantProvider>
             </CartProvider>
           </ChosenItemProvider>
         </PageProvider>

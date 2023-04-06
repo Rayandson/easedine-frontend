@@ -301,7 +301,7 @@ const Address = styled.p`
 
 const RestaurantCover = styled.div<ImgDivProps>`
   width: 100%;
-  height: 140px;
+  height: 340px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -311,6 +311,7 @@ const RestaurantCover = styled.div<ImgDivProps>`
   background-position: center;
 
   @media (max-width: 758px) {
+    height: 150px;
     min-height: 150px;
   }
 `;

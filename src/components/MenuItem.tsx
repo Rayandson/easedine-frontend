@@ -30,6 +30,7 @@ export default function MenuItem({ item, themeColor, setIsScreenUp, setDisableSc
     setScrollPosition(window.pageYOffset);
   }
 
+
   return (
     <Container>
       <ItemDiv onClick={() => handleClick()}>
