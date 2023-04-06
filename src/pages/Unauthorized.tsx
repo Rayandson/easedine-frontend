@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar/NavBar";
@@ -6,14 +6,16 @@ import SignUpSvg from "../assets/images/signup.svg";
 import Cart from "../components/Cart";
 
 export default function Unauthorized() {
+  const [scrollPosition, setScrollPosition] = useState<number>(0);
+
   return (
     <Container>
       <NavBar />
       <SignUpImg src={SignUpSvg}/>
       <Msg>Entre agora ou cadastre-se para aproveitar o app ao máximo</Msg>
       <SignUpButton>Entrar ou cadastrar-se</SignUpButton>
-      <Footer />
-      <Cart />
+      <Footer setScrollPosition={setScrollPosition}/>
+      <Cart scrollPosition={scrollPosition}/>
     </Container>
   );
 }

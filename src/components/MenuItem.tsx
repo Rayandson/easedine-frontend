@@ -9,6 +9,7 @@ interface MenuItemProps {
   themeColor: string | undefined;
   setIsScreenUp: React.Dispatch<React.SetStateAction<boolean>>;
   setDisableScrolling: React.Dispatch<React.SetStateAction<boolean>>;
+  setScrollPosition: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface ThemeColor {
@@ -19,13 +20,14 @@ interface ItemImgProps {
   img: string | null;
 }
 
-export default function MenuItem({ item, themeColor, setIsScreenUp, setDisableScrolling }: MenuItemProps) {
+export default function MenuItem({ item, themeColor, setIsScreenUp, setDisableScrolling, setScrollPosition }: MenuItemProps) {
   const chosenItemContext = useContext(ChosenItemContext);
 
   function handleClick() {
     chosenItemContext?.setChosenItem(item);
     setIsScreenUp(true);
     setTimeout(() => setDisableScrolling(true), 300);
+    setScrollPosition(window.pageYOffset);
   }
 
   return (

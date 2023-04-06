@@ -11,9 +11,10 @@ interface ContainerProps {
 
 interface CartProps {
   setDisableScrolling?: React.Dispatch<React.SetStateAction<boolean>>;
+  scrollPosition: number;
 }
 
-export default function Cart({setDisableScrolling}: CartProps) {
+export default function Cart({setDisableScrolling, scrollPosition}: CartProps) {
   const cartContext = useContext(CartContext);
 
   return (
@@ -22,12 +23,14 @@ export default function Cart({setDisableScrolling}: CartProps) {
         <ArrowIcon onClick={() => {
             cartContext?.setShowCart(false);
             setDisableScrolling && setDisableScrolling(false);
+            setTimeout(() => window.scrollTo(0, scrollPosition), 50)
           }}>
         <SlArrowDown/>
         </ArrowIcon>
         <CloseIcon onClick={() => {
             cartContext?.setShowCart(false);
             setDisableScrolling && setDisableScrolling(false);
+            setTimeout(() => window.scrollTo(0, scrollPosition), 50)
           }}>
         <VscChromeClose/>
         </CloseIcon>
@@ -78,11 +81,6 @@ const Container = styled.div<ContainerProps>`
   flex-direction: column;
   align-items: center;
   /* padding: 0 30px; */
-
-  @media (max-width: 1200px) {
-    left: calc(50% - 25vw);
-    /* padding: 0 12px; */
-  }
 
   @media (max-width: 600px) {
     width: 100vw;

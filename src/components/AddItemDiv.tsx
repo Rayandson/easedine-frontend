@@ -17,9 +17,10 @@ interface AddItemDivProps {
   isScreenUp: boolean;
   setIsScreenUp: React.Dispatch<React.SetStateAction<boolean>>;
   setDisableScrolling: React.Dispatch<React.SetStateAction<boolean>>;
+  scrollPosition: number;
 }
 
-export default function AddItemDiv({ isScreenUp, setIsScreenUp, setDisableScrolling }: AddItemDivProps) {
+export default function AddItemDiv({ isScreenUp, setIsScreenUp, setDisableScrolling, scrollPosition }: AddItemDivProps) {
   const [counter, setCounter] = useState(1);
   const chosenItemContext = useContext(ChosenItemContext);
   const cartContext = useContext(CartContext);
@@ -52,6 +53,7 @@ export default function AddItemDiv({ isScreenUp, setIsScreenUp, setDisableScroll
             setIsScreenUp(false);
             setDisableScrolling(false)
             setTimeout(() => setCounter(1), 500);
+            setTimeout(() => window.scrollTo(0, scrollPosition), 50)
           }}
         />
         <Title>{chosenItemContext?.chosenItem?.itemName}</Title>

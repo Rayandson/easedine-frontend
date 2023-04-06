@@ -51,6 +51,7 @@ export default function MenuPage() {
   const [isScreenUp, setIsScreenUp] = useState(false);
   const [disableScrolling, setDisableScrolling] = useState(false);
   const cartContext = useContext(CartContext);
+  const [scrollPosition, setScrollPosition] = useState<number>(0);
 
   useEffect(() => {
     fetchRestaurant();
@@ -173,15 +174,15 @@ export default function MenuPage() {
             <Title themeColor={restaurantInfo?.restaurant.themeColor}>{activeCategory}</Title>
             <MenuItemsContainer ref={categoriesRef}>
               {itemsToShow.map((i) => (
-                <MenuItem item={i} themeColor={restaurantInfo?.restaurant.themeColor} setIsScreenUp={setIsScreenUp} setDisableScrolling={setDisableScrolling}/>
+                <MenuItem item={i} themeColor={restaurantInfo?.restaurant.themeColor} setIsScreenUp={setIsScreenUp} setDisableScrolling={setDisableScrolling} setScrollPosition={setScrollPosition}/>
               ))}
             </MenuItemsContainer>
           </MenuContainer>
         </>
       )}
-      <AddItemDiv isScreenUp={isScreenUp} setIsScreenUp={setIsScreenUp} setDisableScrolling={setDisableScrolling}/>
-      <Footer setDisableScrolling={setDisableScrolling}/>
-      <Cart setDisableScrolling={setDisableScrolling}/>
+      <AddItemDiv isScreenUp={isScreenUp} setIsScreenUp={setIsScreenUp} setDisableScrolling={setDisableScrolling} scrollPosition={scrollPosition}/>
+      <Footer setDisableScrolling={setDisableScrolling} setScrollPosition={setScrollPosition}/>
+      <Cart setDisableScrolling={setDisableScrolling} scrollPosition={scrollPosition}/>
     </Container>
   );
 }

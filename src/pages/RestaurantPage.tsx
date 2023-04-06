@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar/NavBar";
 import Cart from "../components/Cart";
 
 export default function RestaurantPage() {
+  const [scrollPosition, setScrollPosition] = useState<number>(0);
+
   return (
     <Container>
       <NavBar />
       <ImgDiv>
       </ImgDiv>
       <RestaurantMenuButton>Ir para o cardápio</RestaurantMenuButton>
-      <Footer />
-      <Cart />
-    </Container>
+      <Footer setScrollPosition={setScrollPosition}/> 
+      <Cart scrollPosition={scrollPosition}/>
+    </Container> 
   );
 }
 

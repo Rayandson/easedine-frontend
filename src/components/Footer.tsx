@@ -18,9 +18,10 @@ interface ItemsQuantityDivProps {
 
 interface FooterProps {
   setDisableScrolling?: React.Dispatch<React.SetStateAction<boolean>>;
+  setScrollPosition: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function Footer({setDisableScrolling}: FooterProps) {
+export default function Footer({setDisableScrolling, setScrollPosition}: FooterProps) {
   const navigate = useNavigate();
   const pageContext = useContext(PageContext);
   const cartContext = useContext(CartContext);
@@ -45,7 +46,6 @@ export default function Footer({setDisableScrolling}: FooterProps) {
           navigate('/unauthorized');
         }}
       >
-        {/* <LocalIcon src={selectedItem === "location" ? LocalBlackImage : LocalImage} /> */}
         <FaMapMarkedAlt />
       </MenuItem>
       <MenuItem></MenuItem>
@@ -73,6 +73,7 @@ export default function Footer({setDisableScrolling}: FooterProps) {
         <CartButton onClick={() => {
           cartContext?.setShowCart(true);
           setTimeout(() => setDisableScrolling && setDisableScrolling(true), 300)
+          setScrollPosition(window.pageYOffset);
         }}>
           <IoBag />
           <ItemsQuantityDiv quantity={cartContext?.cart.quantity}>
