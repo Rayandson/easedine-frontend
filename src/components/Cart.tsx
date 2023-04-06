@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { SlArrowDown } from 'react-icons/sl';
+import { SlArrowDown, SlArrowLeft } from 'react-icons/sl';
 import { VscChromeClose } from 'react-icons/vsc';
 import { CartContext } from '../contexts/CartContext';
 import CartItem from './CartItem';
@@ -39,7 +39,7 @@ export default function Cart({ setDisableScrolling, scrollPosition }: CartProps)
                 setCheckoutIsOpen(false);
               }}
             >
-              <SlArrowDown />
+              <SlArrowLeft />
             </ArrowIcon>
             <CloseIcon
               onClick={() => {

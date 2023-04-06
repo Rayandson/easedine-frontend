@@ -140,12 +140,13 @@ const CartButton = styled.button`
 `;
 
 const ItemsQuantityDiv = styled.div<ItemsQuantityDivProps>`
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   display: ${props => props.quantity !=null && props.quantity > 0 ? 'flex' : 'none'};
   justify-content: center;
   align-items: center;
   background-color: #ffffff;
+  border: solid 1px #5e2bc4;
   border-radius: 50%;
   position: absolute;
   bottom: 0;
@@ -157,6 +158,6 @@ const ItemsQuantity = styled.p`
   font-family: 'Work Sans';
   font-style: normal;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 14px;
   color: #5836bc;
 `;
