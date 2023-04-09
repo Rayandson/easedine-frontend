@@ -28,7 +28,7 @@ export type RestaurantResponse = {
 };
 
 export type RestaurantInfo = {
-  restaurant: {
+  restaurantInfo: {
     id: number;
     name: string;
     profileName: string;
@@ -80,6 +80,10 @@ export type RestaurantInfo = {
               categoryId: number;
             }[];
       }[];
+    }[];
+    tables: {
+      id: number;
+      number: number;
     }[];
   };
   mostOrdered: {
@@ -139,3 +143,31 @@ export type MostOrdered = {
   rating: number;
   restaurantId: number;
 }[];
+
+export type OrderBody = {
+  orderInfo: {
+    userName?: string;
+    userCpf?: string;
+    total: number | undefined;
+    userId?: number;
+    restaurantId: number | undefined;
+    tableId: number | undefined;
+  },
+  items: {
+    itemId: number | undefined,
+    quantity: number | undefined
+  }[] | undefined
+}
+
+export type OrderResponse = {
+  id: number;
+  userName: string | null;
+  userCpf: string | null;
+  total: number;
+  status: string;
+  userId: number | null;
+  restaurantId: number;
+  tableId: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
