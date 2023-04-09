@@ -28,10 +28,14 @@ export default function HomePage() {
   }, []);
 
   async function renderRestaurants() {
-    const response = await restaurantsApi.getRestaurants();
-    const data: RestaurantResponse[] = response.data;
-    setRestaurants(data);
-    setIsLoading(false);
+    try {
+      const response = await restaurantsApi.getRestaurants();
+      const data: RestaurantResponse[] = response.data;
+      setRestaurants(data);
+      setIsLoading(false);
+    } catch (err) {
+      console.log((err as Error).message);
+    }
   }
 
   return (

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Select, MenuItem } from '@material-ui/core';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
+import { Select, MenuItem } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 import styled from 'styled-components';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/material/styles';
 
 interface TableSelectProps {
-  values: Array<number | string>;
+  values: Array<number | string> | undefined;
   label: string;
   state: number | string | undefined | unknown;
   setState: React.Dispatch<React.SetStateAction<number | string | undefined | unknown>>;
@@ -20,7 +20,7 @@ export default function SelectComponent({ values, label, state, setState }: Tabl
       <FormControl variant="outlined">
         <InputLabel id="select-label">{label}</InputLabel>
         <Select labelId="select-label" id="select" value={state} onChange={(event) => setState(event.target.value)} label={label} MenuProps={{ disableScrollLock: true }}>
-          {values.map((value) => (
+          {values?.map((value) => (
             <MenuItem key={value} value={value}>
               {value}
             </MenuItem>

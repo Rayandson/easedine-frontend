@@ -12,6 +12,7 @@ import { Triangle } from 'react-loader-spinner';
 import AddItemDiv from '../components/AddItemDiv';
 import Cart from "../components/Cart";
 import { CartContext } from '../contexts/CartContext';
+import { RestaurantContext } from '../contexts/RestaurantContext';
 
 interface CategoriesProps {
   isAtTop: boolean;
@@ -44,7 +45,7 @@ export default function MenuPage() {
   const { profileName } = useParams();
   const [itemsToShow, setItemsToShow] = useState<MenuItemType[] | MostOrdered>([]);
   const categoriesRef = useRef<HTMLDivElement>(null);
-  const [restaurantInfo, setRestaurantInfo] = useState<RestaurantInfo>();
+  const restaurantContext = useContext(RestaurantContext);
   const [isAtTop, setIsAtTop] = useState(false);
   const [activeCategory, setActiveCategory] = useState('OS MAIS PEDIDOS');
   const [isLoading, setIsLoading] = useState(true);
@@ -77,21 +78,21 @@ export default function MenuPage() {
     if (profileName) {
       const response = await restaurantsApi.getRestaurantInfo(profileName);
 
-      setRestaurantInfo(response.data);
+      restaurantContext?.setRestaurant(response.data);
       setItemsToShow(response.data.mostOrdered);
       setIsLoading(false);
     }
   }
 
   const starsArray = [];
-  if (restaurantInfo?.restaurant.rating) {
-    for (let i = 1; i <= restaurantInfo?.restaurant.rating; i++) {
+  if (restaurantContext?.restaurant?.restaurantInfo) {
+    for (let i = 1; i <= restaurantContext?.restaurant?.restaurantInfo.rating; i++) {
       starsArray.push(i);
     }
   }
 
   return (
-    <Container themeColor={restaurantInfo?.restaurant.themeColor} isScreenUp={isScreenUp} disableScrolling={disableScrolling} showCart={cartContext?.showCart}>
+    <Container themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor} isScreenUp={isScreenUp} disableScrolling={disableScrolling} showCart={cartContext?.showCart}>
       {isLoading ? (
         <LoadingContainer>
           <Triangle
@@ -106,50 +107,50 @@ export default function MenuPage() {
       ) : (
         <>
           <MenuPageNavBar
-            restaurantName={restaurantInfo?.restaurant.name}
-            themeColor={restaurantInfo?.restaurant.themeColor}
+            restaurantName={restaurantContext?.restaurant?.restaurantInfo.name}
+            themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}
           />
-          <RestaurantCover img={restaurantInfo?.restaurant.cover}>
+          <RestaurantCover img={restaurantContext?.restaurant?.restaurantInfo.cover}>
             <OuterCircle>
-              <Picture src={restaurantInfo?.restaurant.picture} onClick={() => setIsScreenUp(true)} />
+              <Picture src={restaurantContext?.restaurant?.restaurantInfo.picture} onClick={() => setIsScreenUp(true)} />
             </OuterCircle>
           </RestaurantCover>
           <RestaurantInfoDiv>
             <Info>
               <MainInfo>
-                <Name themeColor={restaurantInfo?.restaurant.themeColor}>{restaurantInfo?.restaurant.name}</Name>
+                <Name themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}>{restaurantContext?.restaurant?.restaurantInfo.name}</Name>
                 <Rating>
-                  {starsArray.map((s) => (
-                    <img src={StarImg} />
+                  {starsArray.map((s, index) => (
+                    <img key={index} src={StarImg} />
                   ))}
                 </Rating>
               </MainInfo>
               <Address>
-                {restaurantInfo?.restaurant.address.street} {restaurantInfo?.restaurant.address.number},{' '}
-                {restaurantInfo?.restaurant.address.neighborhood} - {restaurantInfo?.restaurant.address.city}/
-                {restaurantInfo?.restaurant.address.state}
+                {restaurantContext?.restaurant?.restaurantInfo.address.street} {restaurantContext?.restaurant?.restaurantInfo.address.number},{' '}
+                {restaurantContext?.restaurant?.restaurantInfo.address.neighborhood} - {restaurantContext?.restaurant?.restaurantInfo.address.city}/
+                {restaurantContext?.restaurant?.restaurantInfo.address.state}
               </Address>
             </Info>
           </RestaurantInfoDiv>
           <MenuContainer isScreenUp={isScreenUp} disableScrolling={disableScrolling}>
-            <Categories isAtTop={isAtTop} themeColor={restaurantInfo?.restaurant.themeColor}>
+            <Categories isAtTop={isAtTop} themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}>
               <CategoryDiv
                 onClick={() => {
-                  if (restaurantInfo?.mostOrdered) {
-                    setItemsToShow(restaurantInfo?.mostOrdered);
+                  if (restaurantContext?.restaurant?.mostOrdered) {
+                    setItemsToShow(restaurantContext?.restaurant.mostOrdered);
                   }
                   setActiveCategory('OS MAIS PEDIDOS');
                 }}
               >
                 <CategoryName
-                  themeColor={restaurantInfo?.restaurant.themeColor}
+                  themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}
                   activeCategory={activeCategory}
                   categoryName="OS MAIS PEDIDOS"
                 >
                   OS MAIS PEDIDOS
                 </CategoryName>
               </CategoryDiv>
-              {restaurantInfo?.restaurant.itemCategories.map((c, i) => {
+              {restaurantContext?.restaurant?.restaurantInfo.itemCategories.map((c, i) => {
                 return (
                   <>
                     <CategoryDiv
@@ -160,7 +161,7 @@ export default function MenuPage() {
                     >
                       <CategoryName
                         key={i}
-                        themeColor={restaurantInfo?.restaurant.themeColor}
+                        themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}
                         activeCategory={activeCategory}
                         categoryName={c.name}
                       >
@@ -171,10 +172,10 @@ export default function MenuPage() {
                 );
               })}
             </Categories>
-            <Title themeColor={restaurantInfo?.restaurant.themeColor}>{activeCategory}</Title>
+            <Title themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}>{activeCategory}</Title>
             <MenuItemsContainer ref={categoriesRef}>
               {itemsToShow.map((i, index) => (
-                <MenuItem item={i} key={index} themeColor={restaurantInfo?.restaurant.themeColor} setIsScreenUp={setIsScreenUp} setDisableScrolling={setDisableScrolling} setScrollPosition={setScrollPosition}/>
+                <MenuItem item={i} key={index} themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor} setIsScreenUp={setIsScreenUp} setDisableScrolling={setDisableScrolling} setScrollPosition={setScrollPosition}/>
               ))}
             </MenuItemsContainer>
           </MenuContainer>

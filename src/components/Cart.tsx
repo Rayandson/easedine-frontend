@@ -3,9 +3,14 @@ import styled from 'styled-components';
 import { SlArrowDown, SlArrowLeft } from 'react-icons/sl';
 import { VscChromeClose } from 'react-icons/vsc';
 import { CartContext } from '../contexts/CartContext';
+import { OrderContext } from "../contexts/OrderContext"
 import CartItem from './CartItem';
 import SelectComponent from './SelectComponent';
 import TextInput from './TextInput';
+import { RestaurantContext } from '../contexts/RestaurantContext';
+import { useNavigate } from 'react-router-dom';
+import ordersApi from '../services/ordersApi';
+import { Oval } from 'react-loader-spinner';
 
 interface ContainerProps {
   showCart: boolean | undefined;
@@ -28,6 +33,54 @@ export default function Cart({ setDisableScrolling, scrollPosition }: CartProps)
   const [selectedTable, setSelectedTable] = useState<number | undefined | unknown>(undefined);
   const [userName, setUserName] = useState<string | undefined>(undefined);
   const [paymentMethod, setPaymentMethod] = useState<string | undefined | unknown>(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const restaurantContext = useContext(RestaurantContext);
+  const orderContext = useContext(OrderContext);
+  const navigate = useNavigate();
+
+  const tables = restaurantContext?.restaurant?.restaurantInfo.tables.map((t) => t.number);
+  const tablesId = restaurantContext?.restaurant?.restaurantInfo.tables.map((t) => t.id);
+
+  async function finishOrder() {
+    console.log(orderContext?.order);
+
+    let tableId;
+    
+    if (tables && tablesId) {
+      for (let i = 0; i < tables.length; i++) {
+        if (tables[i] === selectedTable) {
+          tableId = tablesId[i]
+          break;
+        } 
+      }
+    }
+    
+
+    const items = cartContext?.cart.items.map((i) => {
+      return { itemId: i.id, quantity: i.quantity };
+    });
+    
+    const body = {
+      orderInfo: {
+        userName: userName,
+        total: cartContext?.cart.total,
+        restaurantId: restaurantContext?.restaurant?.restaurantInfo.id,
+        tableId: tableId
+      },
+      items: items,
+    };
+
+    try {
+      const response = await ordersApi.postOrder(body);
+      setIsLoading(false);
+      orderContext?.setOrder(response.data.order);
+      cartContext?.setShowCart(false);
+      cartContext?.setCart({ quantity: 0, total: 0, items: [] });
+      navigate(`/restaurants/${restaurantContext?.restaurant?.restaurantInfo.profileName}/order`);
+    } catch (err) {
+      console.log((err as Error).message);
+    }
+  }
 
   return (
     <Container showCart={cartContext?.showCart}>
@@ -46,28 +99,54 @@ export default function Cart({ setDisableScrolling, scrollPosition }: CartProps)
                 setCheckoutIsOpen(false);
               }}
             >
-              <VscChromeClose />
+              <SlArrowLeft />
             </CloseIcon>
             <Title>Checkout</Title>
           </Header>
           <ContentContainer>
             <CheckoutContent>
               <InputWrapper>
-                <InputLabel>{"1) Informe seu nome e sobrenome:"}</InputLabel>
+                <InputLabel>{'1) Informe seu nome e sobrenome:'}</InputLabel>
                 <TextInput userName={userName} setUserName={setUserName} />
               </InputWrapper>
               <TableSelectWrapper>
-                <SelectLabel>{"2) Selecione a sua mesa:"}</SelectLabel>
-                <SelectComponent values={[1, 2, 3]} label="Mesa" state={selectedTable} setState={setSelectedTable} />
+                <SelectLabel>{'2) Selecione a sua mesa:'}</SelectLabel>
+                <SelectComponent values={tables} label="Mesa" state={selectedTable} setState={setSelectedTable} />
               </TableSelectWrapper>
               <PaymentSelectWrapper>
-                <SelectLabel>{"3) Selecione a forma de pagamento:"}</SelectLabel>
-                <SelectComponent values={['Pagar no caixa', 'Pix']} label="Pagamento" state={paymentMethod} setState={setPaymentMethod} />
+                <SelectLabel>{'3) Selecione a forma de pagamento:'}</SelectLabel>
+                <SelectComponent
+                  values={['Pagar no caixa', 'Pix']}
+                  label="Pagamento"
+                  state={paymentMethod}
+                  setState={setPaymentMethod}
+                />
               </PaymentSelectWrapper>
             </CheckoutContent>
           </ContentContainer>
           <Footer>
-            <FinishOrderButton userName={userName} selectedTable={selectedTable} paymentMethod={paymentMethod} >Finalizar pedido</FinishOrderButton>
+            <FinishOrderButton
+              userName={userName}
+              selectedTable={selectedTable}
+              paymentMethod={paymentMethod}
+              onClick={() => {
+                setIsLoading(true)
+                finishOrder()
+              }}
+            >{isLoading ?  <Oval
+              height={30}
+              width={30}
+              color="#FEFEFE"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel='oval-loading'
+              secondaryColor="#cfcfcf"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            /> : 
+            "Finalizar pedido"}
+            </FinishOrderButton>
           </Footer>
         </>
       ) : (
@@ -342,9 +421,12 @@ const FinishOrderButton = styled.button<FinishOrderButtonProps>`
   width: 80%;
   max-width: 500px;
   height: 45px;
-  background-color: ${props => (props.userName && props.selectedTable && props.paymentMethod) ? '#5e2bc4' : '#aaaaaa'} ;
+  background-color: ${(props) => props.userName && props.selectedTable && props.paymentMethod ? '#5e2bc4' : '#aaaaaa'};
   border: none;
   border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   font-family: 'Work Sans';
   font-style: normal;
