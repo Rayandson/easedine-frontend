@@ -79,7 +79,12 @@ export default function AddItemDiv({ isScreenUp, setIsScreenUp, setDisableScroll
           <AiOutlinePlus onClick={() => handleCounter('increase')} />
         </CounterContainer>
         <AddButton
-          onClick={() => addItem()}
+          onClick={() => {
+            addItem();
+            if(setDisableScrolling) {
+              setDisableScrolling(false);
+            }
+          }}
         >
           Adicionar
         </AddButton>
