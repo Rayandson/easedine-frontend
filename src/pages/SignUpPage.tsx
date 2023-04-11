@@ -162,13 +162,22 @@ const SmallInputContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    @media (max-width: 500px) {
+    width: 45%;
+  }
 `
 
 const DoubleInputContainer = styled.div`
     width: 450px;
     height: 75px;
     display: flex;
+    justify-content: space-between;
     gap: 20px;
+
+    @media (max-width: 500px) {
+    width: 100%;
+  }
 `
 
 const SmallInput = styled.input`
