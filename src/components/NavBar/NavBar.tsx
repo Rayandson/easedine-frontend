@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { IoBagOutline, IoPersonOutline } from "react-icons/io5";
-// import Logo from "../../assets/images/logofood.png";
 import Logo from "../../assets/images/logofood.png";
 import SearchBar from "../SearchBar/SearchBar";
 import { useNavigate } from "react-router-dom";

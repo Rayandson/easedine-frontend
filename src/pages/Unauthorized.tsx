@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import NavBar from "../components/NavBar/NavBar";
 import SignUpSvg from "../assets/images/signup.svg";
 import Cart from "../components/Cart";
+import { Link } from "react-router-dom";
 
 export default function Unauthorized() {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
@@ -13,7 +14,7 @@ export default function Unauthorized() {
       <NavBar />
       <SignUpImg src={SignUpSvg}/>
       <Msg>Entre agora ou cadastre-se para aproveitar o app ao máximo</Msg>
-      <SignUpButton>Entrar ou cadastrar-se</SignUpButton>
+      <Link to="/signin"><SignUpButton>Entrar ou cadastrar-se</SignUpButton></Link>
       <Footer setScrollPosition={setScrollPosition}/>
       <Cart scrollPosition={scrollPosition}/>
     </Container>
@@ -55,7 +56,7 @@ const Msg = styled.p`
 const SignUpButton = styled.button`
   width: 260px;
   height: 50px;
-  background-color: #7C347A;
+  background-color: #5e2bc4;
   border-radius: 10px;
   border: none;
   font-family: "Work Sans";
