@@ -9,6 +9,8 @@ import HomePage from './pages/HomePage';
 import Unauthorized from './pages/Unauthorized';
 import OrderPage from './pages/OrderPage';
 import MenuPage from './pages/MenuPage';
+import SignUpPage from "./pages/SignUpPage";
+import SignInPage from "./pages/SignInPage";
 import { RestaurantProvider } from './contexts/RestaurantContext';
 import { OrderProvider } from './contexts/OrderContext';
 
@@ -25,6 +27,8 @@ function App() {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/unauthorized" element={<Unauthorized />} />
+                <Route path="/signup" element={<SignUpPage />} />
+                <Route path="/signin" element={<SignInPage />} />
                 {/* <Route path="/restaurants" element={<RestaurantPage />} /> */}
                 <Route path="/restaurants/:profileName" element={<MenuPage />} />
                 <Route path="/restaurants/:profileName/order" element={<OrderPage />} />

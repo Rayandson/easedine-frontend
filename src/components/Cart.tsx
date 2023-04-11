@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { SlArrowDown, SlArrowLeft } from 'react-icons/sl';
 import { VscChromeClose } from 'react-icons/vsc';
 import { CartContext } from '../contexts/CartContext';
-import { OrderContext } from "../contexts/OrderContext"
+import { OrderContext } from '../contexts/OrderContext';
 import CartItem from './CartItem';
 import SelectComponent from './SelectComponent';
 import TextInput from './TextInput';
@@ -42,30 +42,27 @@ export default function Cart({ setDisableScrolling, scrollPosition }: CartProps)
   const tablesId = restaurantContext?.restaurant?.restaurantInfo.tables.map((t) => t.id);
 
   async function finishOrder() {
-    console.log(orderContext?.order);
-
     let tableId;
-    
+
     if (tables && tablesId) {
       for (let i = 0; i < tables.length; i++) {
         if (tables[i] === selectedTable) {
-          tableId = tablesId[i]
+          tableId = tablesId[i];
           break;
-        } 
+        }
       }
     }
-    
 
     const items = cartContext?.cart.items.map((i) => {
       return { itemId: i.id, quantity: i.quantity };
     });
-    
+
     const body = {
       orderInfo: {
         userName: userName,
         total: cartContext?.cart.total,
         restaurantId: restaurantContext?.restaurant?.restaurantInfo.id,
-        tableId: tableId
+        tableId: tableId,
       },
       items: items,
     };
@@ -87,18 +84,15 @@ export default function Cart({ setDisableScrolling, scrollPosition }: CartProps)
       {checkoutIsOpen ? (
         <>
           <Header>
-            <ArrowIcon
-              onClick={() => {
-                setCheckoutIsOpen(false);
-              }}
-            >
+            <ArrowIcon onClick={() => {
+              setCheckoutIsOpen(false);
+              if(setDisableScrolling) {
+                setDisableScrolling(false);
+              }
+            }}>
               <SlArrowLeft />
             </ArrowIcon>
-            <CloseIcon
-              onClick={() => {
-                setCheckoutIsOpen(false);
-              }}
-            >
+            <CloseIcon onClick={() => setCheckoutIsOpen(false)}>
               <SlArrowLeft />
             </CloseIcon>
             <Title>Checkout</Title>
@@ -130,22 +124,24 @@ export default function Cart({ setDisableScrolling, scrollPosition }: CartProps)
               selectedTable={selectedTable}
               paymentMethod={paymentMethod}
               onClick={() => {
-                setIsLoading(true)
-                finishOrder()
+                setIsLoading(true);
+                finishOrder();
               }}
-            >{isLoading ?  <Oval
-              height={30}
-              width={30}
-              color="#FEFEFE"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-              ariaLabel='oval-loading'
-              secondaryColor="#cfcfcf"
-              strokeWidth={2}
-              strokeWidthSecondary={2}
-            /> : 
-            "Finalizar pedido"}
+            >
+              {isLoading ? (
+                <Oval
+                  height={30}
+                  width={30}
+                  color="#FEFEFE"
+                  visible={true}
+                  ariaLabel="oval-loading"
+                  secondaryColor="#cfcfcf"
+                  strokeWidth={2}
+                  strokeWidthSecondary={2}
+                />
+              ) : (
+                'Finalizar pedido'
+              )}
             </FinishOrderButton>
           </Footer>
         </>
@@ -421,7 +417,8 @@ const FinishOrderButton = styled.button<FinishOrderButtonProps>`
   width: 80%;
   max-width: 500px;
   height: 45px;
-  background-color: ${(props) => props.userName && props.selectedTable && props.paymentMethod ? '#5e2bc4' : '#aaaaaa'};
+  background-color: ${(props) =>
+    props.userName && props.selectedTable && props.paymentMethod ? '#5e2bc4' : '#aaaaaa'};
   border: none;
   border-radius: 5px;
   display: flex;

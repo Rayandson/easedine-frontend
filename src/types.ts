@@ -171,3 +171,16 @@ export type OrderResponse = {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type signUpBody = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  cpf: string;
+  password: string;
+}
+
+export type signInBody = {
+  email: string;
+  password: string
+}

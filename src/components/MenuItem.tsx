@@ -48,7 +48,7 @@ export default function MenuItem({ item, themeColor, setIsScreenUp, setDisableSc
               {item.price ? (
                 <Price themeColor={themeColor}>R$ {(item.price / 100).toFixed(2)}</Price>
               ) : (
-                <Price themeColor={themeColor}>Ver mais</Price>
+                <Price themeColor={themeColor}>Ver opções</Price>
               )}
             </PriceDiv>
           </ItemMainInfo>
