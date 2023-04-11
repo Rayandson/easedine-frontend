@@ -87,7 +87,7 @@ export default function SignUpPage() {
       </Footer>
     </Container>
   );
-}
+} 
 
 const Container = styled.div`
   width: 100vw;
