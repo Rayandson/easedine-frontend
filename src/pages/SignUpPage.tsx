@@ -57,16 +57,16 @@ export default function SignUpPage() {
       <Form onSubmit={signUp}>
         <DoubleInputContainer>
           <SmallInputContainer>
-            <InputTitle>Qual é o seu nome?</InputTitle>
+            <InputTitle>Nome</InputTitle>
             <SmallInput placeholder="Nome" name="firstName" required onChange={handleChange} />
           </SmallInputContainer>
           <SmallInputContainer>
-            <InputTitle>Qual é o seu sobrenome?</InputTitle>
+            <InputTitle>Sobrenome</InputTitle>
             <SmallInput placeholder="Sobrenome" name="lastName" required onChange={handleChange} />
           </SmallInputContainer>
         </DoubleInputContainer>
         <InputContainer>
-          <InputTitle>Qual é o seu email?</InputTitle>
+          <InputTitle>Informe o seu email</InputTitle>
           <Input placeholder="Informe o email" type="email" name="email" required onChange={handleChange} />
         </InputContainer>
         <InputContainer>
@@ -87,7 +87,7 @@ export default function SignUpPage() {
       </Footer>
     </Container>
   );
-}
+} 
 
 const Container = styled.div`
   width: 100vw;
@@ -162,13 +162,23 @@ const SmallInputContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
+    flex-shrink: 0;
+
+    @media (max-width: 500px) {
+    width: 48%;
+  }
 `
 
 const DoubleInputContainer = styled.div`
     width: 450px;
     height: 75px;
     display: flex;
+    justify-content: space-between;
     gap: 20px;
+
+    @media (max-width: 500px) {
+    width: 100%;
+  }
 `
 
 const SmallInput = styled.input`
@@ -178,6 +188,7 @@ const SmallInput = styled.input`
     border: 1px solid #d8d2d2;
     border-radius: 4px;
     padding-left: 14px;
+    flex-shrink: 0;
 
     &::placeholder {
         font-family: 'Poppins', sans-serif;
