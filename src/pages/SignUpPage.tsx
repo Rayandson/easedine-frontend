@@ -3,14 +3,12 @@ import styled from "styled-components";
 import LogoImg from "../assets/images/logofood.png";
 import { Link, useNavigate } from "react-router-dom";
 import { signUpBody } from "../types";
+import { Oval } from "react-loader-spinner";
 import usersApi from "../services/usersApi";
 
 export default function SignUpPage() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-
-  function setLocalStorage(obj: {}) {
-    localStorage.setItem("userData", JSON.stringify(obj));
-  }
 
   const defaultFormData: signUpBody = {
     firstName: "",
@@ -25,9 +23,11 @@ export default function SignUpPage() {
   async function signUp(e: React.FormEvent<HTMLFormElement>) {
     try {
       e.preventDefault();
+      setIsLoading(true);
 
       await usersApi.signUpUser(formData);
 
+      setIsLoading(false);
       navigate("/signin");
     } catch (err) {
       console.log(err);
@@ -77,7 +77,22 @@ export default function SignUpPage() {
           <InputTitle>Crie uma senha</InputTitle>
           <Input placeholder="Crie uma senha" type="password" name="password" required onChange={handleChange} />
         </InputContainer>
-        <Button>Cadastrar</Button>
+        <Button>
+        {isLoading ? (
+            <Oval
+              height={30}
+              width={30}
+              color="#FEFEFE"
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#cfcfcf"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
+          ) : (
+            "Cadastrar"
+          )}
+        </Button>
       </Form>
       <Footer>
         Já tem um conta?{" "}
@@ -236,6 +251,9 @@ const Input = styled.input`
 const Button = styled.button`
   width: 286px;
   height: 54px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: #5e2bc4;
   border-radius: 500px;
   border: none;

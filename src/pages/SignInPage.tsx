@@ -6,8 +6,10 @@ import { signInBody } from "../types";
 import authApi from "../services/authApi";
 import { UserContext } from "../contexts/UserContext";
 import { TokenContext } from "../contexts/TokenContext";
+import { Oval } from "react-loader-spinner";
 
 export default function SignUpPage() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const userContext = useContext(UserContext);
   const tokenContext = useContext(TokenContext);
 
@@ -27,13 +29,15 @@ export default function SignUpPage() {
   async function signIn(e: React.FormEvent<HTMLFormElement>) {
     try {
       e.preventDefault();
+      setIsLoading(true);
 
       const signIn = await authApi.signInUser(formData);
       setLocalStorage(signIn.data);
 
       userContext?.setUser(signIn.data.user);
       tokenContext?.setToken(signIn.data.token);
-        
+      
+      setIsLoading(false);
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -71,7 +75,22 @@ export default function SignUpPage() {
           <InputTitle>Digite a sua senha</InputTitle>
           <Input placeholder="Digite a sua senha" type="password" name="password" required onChange={handleChange} />
         </InputContainer>
-        <Button>Cadastrar</Button>
+        <Button>
+        {isLoading ? (
+            <Oval
+              height={30}
+              width={30}
+              color="#FEFEFE"
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#cfcfcf"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
+          ) : (
+            "Entrar"
+          )}
+        </Button>
       </Form>
       <Footer>
         Não possui uma conta?{" "}
@@ -186,6 +205,9 @@ const Input = styled.input`
 const Button = styled.button`
   width: 286px;
   height: 54px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: #5e2bc4;
   border-radius: 500px;
   border: none;
