@@ -184,3 +184,11 @@ export type signInBody = {
   email: string;
   password: string
 }
+
+export type UserInfo = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  cpf: string;
+}

@@ -14,6 +14,7 @@ export const PageContext = createContext<PageContextType | null>(null);
 
 export function PageProvider({ children }: PageProviderProps) {
   const [page, setPage] = useState<string>("home");
+  // const [lastPage]
 
   return (
     <PageContext.Provider value={{ page, setPage }}>

@@ -6,6 +6,7 @@ import { FaMapMarkedAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { PageContext } from '../contexts/PageContext';
 import { CartContext } from '../contexts/CartContext';
+import { UserContext } from '../contexts/UserContext';
 
 interface MenuItemProps {
   name?: string;
@@ -25,6 +26,7 @@ export default function Footer({setDisableScrolling, setScrollPosition}: FooterP
   const navigate = useNavigate();
   const pageContext = useContext(PageContext);
   const cartContext = useContext(CartContext);
+  const userContext = useContext(UserContext);
 
   return (
     <Container>
@@ -43,7 +45,7 @@ export default function Footer({setDisableScrolling, setScrollPosition}: FooterP
         selectedItem={pageContext ? pageContext.page : ''}
         onClick={() => {
           pageContext?.setPage('location');
-          navigate('/unauthorized');
+          userContext?.user === undefined && navigate('/unauthorized');
         }}
       >
         <FaMapMarkedAlt />
@@ -54,7 +56,7 @@ export default function Footer({setDisableScrolling, setScrollPosition}: FooterP
         selectedItem={pageContext ? pageContext.page : ''}
         onClick={() => {
           pageContext?.setPage('orders');
-          navigate('/unauthorized');
+          userContext?.user === undefined && navigate("/unauthorized")
         }}
       >
         <IoNewspaper />
@@ -64,7 +66,7 @@ export default function Footer({setDisableScrolling, setScrollPosition}: FooterP
         selectedItem={pageContext ? pageContext.page : ''}
         onClick={() => {
           pageContext?.setPage('profile');
-          navigate('/unauthorized');
+          userContext?.user === undefined && navigate("/unauthorized")
         }}
       >
         <IoPerson />

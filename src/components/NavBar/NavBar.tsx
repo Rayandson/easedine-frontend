@@ -5,6 +5,7 @@ import Logo from "../../assets/images/logofood.png";
 import SearchBar from "../SearchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from '../../contexts/CartContext';
+import { UserContext } from "../../contexts/UserContext";
 
 interface ItemsQuantityDivProps {
   quantity: number | null | undefined;
@@ -13,6 +14,7 @@ interface ItemsQuantityDivProps {
 export default function NavBar() {
   const navigate = useNavigate();
   const cartContext = useContext(CartContext);
+  const userContext = useContext(UserContext);
 
   return (
     <Container>
@@ -20,13 +22,13 @@ export default function NavBar() {
         <LogoImg src={Logo} />
         <Menu>
           <MenuItem onClick={() => navigate("/")}>Home</MenuItem>
-          <MenuItem onClick={() => navigate("/unauthorized")}>Restaurantes</MenuItem>
-          <MenuItem onClick={() => navigate("/unauthorized")}>Histórico</MenuItem>
+          <MenuItem onClick={() => userContext?.user === undefined && navigate("/unauthorized")}>Restaurantes</MenuItem>
+          <MenuItem onClick={() => userContext?.user === undefined && navigate("/unauthorized")}>Histórico</MenuItem>
         </Menu>
       </LeftContent>
       <SearchBar />
       <IconsWrapper>
-        <IoPersonOutline onClick={() => navigate("/unauthorized")}/>
+        {userContext?.user ? <IoPersonOutline /> : <SignInOption onClick={() => navigate("/signin")}>Entrar ou cadastrar-se</SignInOption>}
         <CartButton>
         <IoBagOutline onClick={() => cartContext?.setShowCart(true)}/>
         <ItemsQuantityDiv quantity={cartContext?.cart.quantity}>
@@ -88,6 +90,17 @@ const MenuItem = styled.li`
     font-size: 24px;
     color: #5836bc;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const SignInOption = styled.p`
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 13px;
+  color: #000000;
 
   &:hover {
     cursor: pointer;
