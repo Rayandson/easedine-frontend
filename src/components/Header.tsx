@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { UserContext } from "../contexts/UserContext";
 
 export default function Header() {
+  const userContext = useContext(UserContext);
   return (
     <Container>
-      <p>Bem-vindo!</p>
+      {userContext?.user?.firstName ? <p>Olá, {userContext.user?.firstName}</p> : <p>Bem-vindo!</p>}
       <h1>Onde quer comer hoje?</h1>
     </Container>
   );

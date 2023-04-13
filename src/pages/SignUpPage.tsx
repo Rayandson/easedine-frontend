@@ -92,7 +92,7 @@ export default function SignUpPage() {
 const Container = styled.div`
   width: 100vw;
   min-height: 100vh;
-  background-color: #f8f9fa;
+  /* background-color: #f8f9fa; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -184,7 +184,7 @@ const DoubleInputContainer = styled.div`
 const SmallInput = styled.input`
     width: 100%;
     height: 48px;
-    background: #FFFFFF;
+    background: #fcfcfc;
     border: 1px solid #d8d2d2;
     border-radius: 4px;
     padding-left: 14px;
@@ -220,7 +220,7 @@ const InputTitle = styled.p`
 const Input = styled.input`
   width: 100%;
   height: 48px;
-  background: #ffffff;
+  background: #fcfcfc;
   border: 1px solid #d8d2d2;
   border-radius: 4px;
   padding-left: 14px;

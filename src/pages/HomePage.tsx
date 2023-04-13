@@ -22,6 +22,7 @@ export default function HomePage() {
   const cartContext = useContext(CartContext);
   const [disableScrolling, setDisableScrolling] = useState(false);
   const [scrollPosition, setScrollPosition] = useState<number>(0);
+  
 
   useEffect(() => {
     renderRestaurants();
