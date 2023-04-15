@@ -3,16 +3,17 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar/NavBar";
 import Cart from "../components/Cart";
-import { Link } from "react-router-dom";
 import { TokenContext } from "../contexts/TokenContext";
 import usersApi from "../services/usersApi";
 import { HistoryItemType } from "../types";
 import HistoryItem from "../components/HistoryItem";
+import { Triangle } from "react-loader-spinner";
 
 export default function HistoryPage() {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const tokenContext = useContext(TokenContext);
   const [items, setItems] = useState<HistoryItemType[] | []>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchItems();
@@ -23,23 +24,48 @@ export default function HistoryPage() {
       const response = await usersApi.getUserHistory(tokenContext?.token);
       console.log(response.data);
       setItems(response.data);
+      setIsLoading(false);
     }
   }
 
   return (
     <Container>
       <NavBar />
+      {isLoading ? (
+        <LoadingContainer>
+          <Triangle
+            height="50"
+            width="50"
+            color="#5836bc"
+            ariaLabel="triangle-loading"
+            wrapperStyle={{}}
+            visible={true}
+          />
+        </LoadingContainer>
+      ) : (
       <Content>
         <Title>Histórico</Title>
         <ItemsContainer>
-        {items.map((item) => <HistoryItem item={item}/>)}
+        {items.length === 0 ? (
+          <NoOrdersMsg>Você não possui pedidos</NoOrdersMsg>
+        ) : (
+          items.map((item) => <HistoryItem item={item}/>)
+        )}
         </ItemsContainer>
       </Content>
+      )}
       <Footer setScrollPosition={setScrollPosition} />
       <Cart scrollPosition={scrollPosition} />
     </Container>
   );
 }
+
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: calc((100vh)/2 - 88px);
+`;
 
 const Container = styled.div`
   width: 100vw;
@@ -71,11 +97,18 @@ const Content = styled.div`
 const Title = styled.h1`
   font-family: "Work Sans";
   font-style: normal;
-  font-weight: 758;
+  font-weight: 700;
   font-size: 26px;
   color: #000000;
   margin-bottom: 30px;
 `;
+
+const NoOrdersMsg = styled.p`
+font-family: "Work Sans";
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+`
 
 const ItemsContainer = styled.div`
     width: 100%;
@@ -83,7 +116,7 @@ const ItemsContainer = styled.div`
     justify-content: space-between;
     flex-wrap: wrap;
 
-    @media (max-width: 700px) {
+    @media (max-width: 758px) {
       flex-direction: column;
       justify-content: flex-start;
     }

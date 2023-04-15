@@ -11,7 +11,6 @@ import restaurantsApi from "../services/restaurantsApi";
 import { Triangle } from "react-loader-spinner";
 import Cart from "../components/Cart";
 import { CartContext } from "../contexts/CartContext";
-import { TokenContext } from "../contexts/TokenContext";
 
 interface ContainerProps {
   showCart: boolean | undefined;
