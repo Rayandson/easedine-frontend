@@ -9,6 +9,7 @@ import { Oval } from "react-loader-spinner";
 import { RestaurantContext } from "../contexts/RestaurantContext";
 import { OrderContext } from "../contexts/OrderContext";
 import { CartContext } from "../contexts/CartContext";
+import { UserContext } from "../contexts/UserContext";
 
 interface CheckoutProps {
   setCheckoutIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,7 +30,8 @@ export default function Checkout({ setCheckoutIsOpen, setDisableScrolling }: Che
   const restaurantContext = useContext(RestaurantContext);
   const orderContext = useContext(OrderContext);
   const cartContext = useContext(CartContext);
-  const navigate = useNavigate();
+  const userContext = useContext(UserContext);
+  const navigate = useNavigate(); 
 
   const tables = restaurantContext?.restaurant?.restaurantInfo.tables.map((t) => t.number);
   const tablesId = restaurantContext?.restaurant?.restaurantInfo.tables.map((t) => t.id);
@@ -53,16 +55,17 @@ export default function Checkout({ setCheckoutIsOpen, setDisableScrolling }: Che
 
     const body = {
       orderInfo: {
+        userId: userContext?.user?.id ? userContext?.user?.id : null,
         userName: userName,
         total: cartContext?.cart.total,
         restaurantId: restaurantContext?.restaurant?.restaurantInfo.id,
         tableId: tableId,
       },
       items: items,
-    };
+    };  
 
     try {
-      const response = await ordersApi.postOrder(body);
+      const response = await ordersApi.postOrder(body); 
       setIsLoading(false);
       orderContext?.setOrder(response.data.order);
       cartContext?.setShowCart(false);
@@ -71,7 +74,7 @@ export default function Checkout({ setCheckoutIsOpen, setDisableScrolling }: Che
     } catch (err) {
       console.log((err as Error).message);
     }
-  }
+  } 
 
   return (
     <>
