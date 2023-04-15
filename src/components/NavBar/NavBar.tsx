@@ -23,7 +23,7 @@ export default function NavBar() {
         <Menu>
           <MenuItem onClick={() => navigate("/")}>Home</MenuItem>
           <MenuItem onClick={() => userContext?.user === undefined && navigate("/unauthorized")}>Restaurantes</MenuItem>
-          <MenuItem onClick={() => userContext?.user === undefined && navigate("/unauthorized")}>Histórico</MenuItem>
+          <MenuItem onClick={() => userContext?.user === undefined ? navigate("/unauthorized") : navigate("/history")}>Histórico</MenuItem>
         </Menu>
       </LeftContent>
       <SearchBar />

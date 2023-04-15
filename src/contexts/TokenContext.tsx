@@ -15,7 +15,7 @@ export function TokenProvider({children}: TokenProviderProps) {
 
     const [token, setToken] = useState<string>("");
     useEffect(() => {
-        const storageString = localStorage.getItem("token")
+        const storageString = localStorage.getItem("userData")
         if(storageString) {
             const userData = JSON.parse(storageString)
             if(userData) {

@@ -149,15 +149,17 @@ export type OrderBody = {
     userName?: string;
     userCpf?: string;
     total: number | undefined;
-    userId?: number;
+    userId: number | null;
     restaurantId: number | undefined;
     tableId: number | undefined;
-  },
-  items: {
-    itemId: number | undefined,
-    quantity: number | undefined
-  }[] | undefined
-}
+  };
+  items:
+    | {
+        itemId: number | undefined;
+        quantity: number | undefined;
+      }[]
+    | undefined;
+};
 
 export type OrderResponse = {
   id: number;
@@ -170,7 +172,34 @@ export type OrderResponse = {
   tableId: number;
   createdAt: Date;
   updatedAt: Date;
-}
+};
+
+export type HistoryItemType = {
+  id: number;
+  userName: string | null;
+  userCpf: string | null;
+  total: number;
+  status: string;
+  isPaid: boolean;
+  userId: number | null;
+  restaurantId: number;
+  tableId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  Restaurant: {
+    id: number;
+    name: string;
+    profileName: string;
+    picture: string;
+    cnpj: string;
+    cover: string;
+    themeColor: string;
+    fontColor: string;
+    rating: number;
+    createdAt: Date;
+    updatedAt: Date;
+  };
+};
 
 export type signUpBody = {
   firstName: string;
@@ -178,12 +207,12 @@ export type signUpBody = {
   email: string;
   cpf: string;
   password: string;
-}
+};
 
 export type signInBody = {
   email: string;
-  password: string
-}
+  password: string;
+};
 
 export type UserInfo = {
   id: number;
@@ -191,4 +220,4 @@ export type UserInfo = {
   lastName: string;
   email: string;
   cpf: string;
-}
+};

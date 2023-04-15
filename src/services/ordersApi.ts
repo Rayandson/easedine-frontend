@@ -1,4 +1,4 @@
-import { OrderBody, OrderResponse } from "../types";
+import { OrderBody } from "../types";
 import api from "./api"
 
 async function postOrder(body: OrderBody) {
@@ -16,6 +16,6 @@ async function getOrder(orderId: number) {
 const ordersApi = {
     postOrder,
     getOrder
-}
+} 
 
 export default ordersApi;
