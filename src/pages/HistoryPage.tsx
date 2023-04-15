@@ -53,6 +53,7 @@ const Container = styled.div`
 
   @media (max-width: 758px) {
     margin-top: 0px;
+    padding: 50px 12px;
   }
 `;
 
@@ -61,6 +62,10 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  @media (max-width: 758px) {
+    width: 100%;
+  }
 `;
 
 const Title = styled.h1`
@@ -77,5 +82,10 @@ const ItemsContainer = styled.div`
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+
+    @media (max-width: 700px) {
+      flex-direction: column;
+      justify-content: flex-start;
+    }
 `
 

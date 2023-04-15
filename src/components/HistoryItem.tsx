@@ -12,17 +12,17 @@ export default function HistoryItem({ item }: HistoryItemProps) {
       <Image src={item.Restaurant.picture} />
       <InfoContainer>
         <OrderInfo>
-        <MainInfo>
+        <TopInfo>
           <RestaurantName>{item.Restaurant.name}</RestaurantName>
-          <Date>Data do pedido: 12/04/2023</Date>
-        </MainInfo>
-      <Status>{`Status: ${
-          item.status === "FINISHED" && item.isPaid === true ? "Concluido" : "Em andamento"
-        }`}</Status>
+          <Status>{`${
+            item.status === "FINISHED" && item.isPaid === true ? "Concluido" : "Em andamento"
+          }`}</Status>
+        </TopInfo>
+        <Date>Data: 12/04/2023</Date>
         </OrderInfo>
         <ButtonsContainer>
-            <Button>Detalhes</Button>
-            <Button>Pedir novamente</Button>
+          <p>Detalhes</p>
+          <p>Pedir novamente</p>
         </ButtonsContainer>
       </InfoContainer>
     </ItemContainer>
@@ -31,7 +31,7 @@ export default function HistoryItem({ item }: HistoryItemProps) {
 
 const ItemContainer = styled.div`
   width: 48%;
-  height: 150px;
+  min-height: 150px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -39,32 +39,54 @@ const ItemContainer = styled.div`
   background: #f7f7f7;
   border-radius: 10px;
   margin-bottom: 35px;
-  padding: 0 15px;
+  padding: 15px 15px;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+    min-height: 130px;
+    align-items: flex-start;
+  }
 `;
 
 const Image = styled.img`
   width: 120px;
   height: 120px;
   border-radius: 5px;
+
+  @media (max-width: 1200px) {
+    width: 80px;
+    height: 80px;
+  }
 `;
 
 const InfoContainer = styled.div`
   width: calc(100% - 120px);
-  height: 120px;
+  min-height: 120px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media (max-width: 1200px) {
+    width: calc(100% - 80px);
+    min-height: 100px;
+  }
+`;
+
+const TopInfo = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
 `;
 
 const OrderInfo = styled.div`
   width: 100%;
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const MainInfo = styled.div`
-  width: 50%;
   height: 60px;
   display: flex;
   flex-direction: column;
@@ -92,36 +114,51 @@ const Status = styled.p`
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
-  line-height: 20px;
-  margin-bottom: 15px;
   flex-shrink: 0;
 `;
 
 const ButtonsContainer = styled.div`
   width: 100%;
   display: flex;
-  gap: 25px;
-  margin-bottom: 5px;
-`;
+  gap: 5%;
+  margin-bottom: 10px;
 
-const Button = styled.button`
-  width: 25%;
-  min-width: 120px;
-  height: 30px;
-  background-color: #5e2bc4;
-  border: none;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-family: "Work Sans";
+  p {
+    font-family: "Work Sans";
   font-style: normal;
-  font-weight: 500;
-  font-size: 13px;
-  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  color: #5e2bc4;
 
   &:hover {
     cursor: pointer;
   }
+
+  }
+
+  @media (max-width: 1200px) {
+    margin-bottom: 0;
+  }
 `;
+
+// const Button = styled.button`
+//   width: 25%;
+//   min-width: 120px;
+//   height: 30px;
+//   background-color: #5e2bc4;
+//   border: none;
+//   border-radius: 5px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+
+//   font-family: "Work Sans";
+//   font-style: normal;
+//   font-weight: 500;
+//   font-size: 13px;
+//   color: #ffffff;
+
+//   &:hover {
+//     cursor: pointer;
+//   }
+// `;
