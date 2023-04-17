@@ -47,7 +47,7 @@ export default function SignUpPage() {
         <Link to="/"><Logo src={LogoImg} /></Link>
         <Title>Cadastre-se agora</Title>
         {/* <div id="buttonDiv"></div>  GOOGLE VAI VIR AQUI*/}
-        <p>{"Entrar com o google (Em breve)"}</p>
+        <p>{"Entrar com o google"}</p>
       </HeaderDiv>
       <ContentDivisor>
         <div></div>

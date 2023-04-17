@@ -59,7 +59,7 @@ export default function SignUpPage() {
         </Link>
         <Title>Entrar agora</Title>
         {/* <div id="buttonDiv"></div>  GOOGLE VAI VIR AQUI*/}
-        <p>{"Entrar com o google (Em breve)"}</p>
+        <p>{"Entrar com o google"}</p>
       </HeaderDiv>
       <ContentDivisor>
         <div></div>
@@ -95,7 +95,7 @@ export default function SignUpPage() {
       <Footer>
         Não possui uma conta?{" "}
         <Link to="/signup" style={{ color: "#5e2bc4", textDecoration: "none" }}>
-          Entrar
+          Cadastrar
         </Link>
       </Footer>
     </Container>
