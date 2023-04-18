@@ -140,7 +140,7 @@ const RatingDiv = styled.div`
 `;
 
 const PriceDiv = styled.div`
-  width: 30%;
+  width: 35%;
   display: flex;
   justify-content: flex-end;
 `;
