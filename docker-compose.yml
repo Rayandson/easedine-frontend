@@ -1,0 +1,28 @@
+services:
+  react:
+    container_name: react
+    build: ./front-end
+    image: easedine/frontend
+    volumes:
+      - react-volume:/var/www/html
+    
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    image: easedine/nginx
+    networks:
+      - easedine-network
+    ports:
+      - 8080:80
+    volumes:
+      - react-volume:/var/www/html
+    depends_on:
+      - react
+
+networks:
+  easedine-network:
+    name: easedine-network
+    external: true
+
+volumes:
+  react-volume:
