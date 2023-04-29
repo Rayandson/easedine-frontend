@@ -11,7 +11,11 @@ interface ItemsQuantityDivProps {
   quantity: number | null | undefined;
 }
 
-export default function NavBar() {
+type NavbarProps = {
+  onPersonIconClick?: () => void;
+};
+
+export default function NavBar({ onPersonIconClick }: NavbarProps) {
   const navigate = useNavigate();
   const cartContext = useContext(CartContext);
   const userContext = useContext(UserContext);
@@ -28,7 +32,7 @@ export default function NavBar() {
       </LeftContent>
       <SearchBar />
       <IconsWrapper>
-        {userContext?.user ? <IoPersonOutline /> : <SignInOption onClick={() => navigate("/signin")}>Entrar ou cadastrar-se</SignInOption>}
+        {userContext?.user ? <IoPersonOutline onClick={onPersonIconClick}/> : <SignInOption onClick={() => navigate("/signin")}>Entrar ou cadastrar-se</SignInOption>}
         <CartButton>
         <IoBagOutline onClick={() => cartContext?.setShowCart(true)}/>
         <ItemsQuantityDiv quantity={cartContext?.cart.quantity}>

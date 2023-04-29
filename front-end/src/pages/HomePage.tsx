@@ -11,6 +11,7 @@ import restaurantsApi from "../services/restaurantsApi";
 import { Triangle } from "react-loader-spinner";
 import Cart from "../components/Cart";
 import { CartContext } from "../contexts/CartContext";
+import ProfileDrawer from "../components/ProfileDrawer";
 
 interface ContainerProps {
   showCart: boolean | undefined;
@@ -22,11 +23,21 @@ export default function HomePage() {
   const cartContext = useContext(CartContext);
   const [disableScrolling, setDisableScrolling] = useState(false);
   const [scrollPosition, setScrollPosition] = useState<number>(0);
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
   
 
   useEffect(() => {
     renderRestaurants();
   }, []);
+
+  const handleDrawerOpen = () => {
+    setDrawerOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setDrawerOpen(false);
+  };
 
   async function renderRestaurants() {
     try {
@@ -41,7 +52,8 @@ export default function HomePage() {
 
   return (
     <Container showCart={cartContext?.showCart}>
-      <NavBar />
+      <NavBar onPersonIconClick={handleDrawerOpen}/>
+      <ProfileDrawer open={drawerOpen} onClose={handleDrawerClose} />
       {isLoading ? (
         <LoadingContainer>
           <Triangle
