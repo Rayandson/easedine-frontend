@@ -74,12 +74,12 @@ const OptionContainer = styled.div`
   gap: 15px;
 
   svg {
-    font-size: 20px;
+    font-size: 25px;
   }
 `;
 
 const OptionTitle = styled.p`
   font-family: "Inter";
-  font-size: "18px";
+  font-size: "22px";
   color: "black";
 `;
