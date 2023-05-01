@@ -12,11 +12,15 @@ export default function Unauthorized() {
   return (
     <Container>
       <NavBar />
-      <SignUpImg src={SignUpSvg}/>
+      <ImgWrapper>
+        <SignUpImg src={SignUpSvg} />
+      </ImgWrapper>
       <Msg>Entre agora ou cadastre-se para aproveitar o app ao máximo</Msg>
-      <Link to="/signin"><SignUpButton>Entrar ou cadastrar-se</SignUpButton></Link>
-      <Footer setScrollPosition={setScrollPosition}/>
-      <Cart scrollPosition={scrollPosition}/>
+      <Link to="/signin">
+        <SignUpButton>Entrar ou cadastrar-se</SignUpButton>
+      </Link>
+      <Footer setScrollPosition={setScrollPosition} />
+      <Cart scrollPosition={scrollPosition} />
     </Container>
   );
 }
@@ -34,14 +38,26 @@ const Container = styled.div`
     margin-top: 0px;
   }
 `;
-const SignUpImg = styled.img`
-  width: 300px;
-  margin-bottom: 50px;
 
-   @media (max-width: 758px) {
+const ImgWrapper = styled.div`
+  width: 500px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 758px) {
+    width: 85vw;
+    height: 75vw;
+  }
+`;
+
+const SignUpImg = styled.img`
+  width: 500px;
+  @media (max-width: 758px) {
     width: 80vw;
   }
-`
+`;
 
 const Msg = styled.p`
   width: 85vw;
@@ -51,7 +67,7 @@ const Msg = styled.p`
   color: #000000;
   text-align: center;
   margin-bottom: 50px;
-`
+`;
 
 const SignUpButton = styled.button`
   width: 260px;
@@ -62,7 +78,7 @@ const SignUpButton = styled.button`
   font-family: "Work Sans";
   font-weight: 500;
   font-size: 20px;
-  color: #FFFFFF;
+  color: #ffffff;
 
   &:hover {
     cursor: pointer;
