@@ -38,7 +38,7 @@ const Title = styled.h1`
 const CardsContainer = styled.div`
   width: 88vw;
   display: flex;
-  gap: 22px;
+  gap: 25px;
 
   @media (max-width: 758px) {
     width: 82vw;

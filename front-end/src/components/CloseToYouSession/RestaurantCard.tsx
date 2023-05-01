@@ -37,7 +37,7 @@ export default function RestaurantCard({ data }:RestaurantCardProps) {
 }
 
 const Container = styled.div`
-  width: 300px;
+  width: 260px;
 
   &:hover {
     cursor: pointer;
@@ -49,8 +49,8 @@ const Container = styled.div`
 `;
 
 const ImageDiv = styled.div<imageDivProps>`
-  width: 300px;
-  height: 180px;
+  width: 260px;
+  height: 160px;
   position: relative;
   background: ${(props) => `url(${props.img})`};
   background-repeat: no-repeat;
@@ -91,8 +91,8 @@ const Rating = styled.p`
 `;
 
 const InfoDiv = styled.div`
-  width: 300px;
-  height: 85px;
+  width: 260px;
+  height: 70px;
   background: #F7F7F7;
   border-radius: 0px 0px 10px 10px;
   padding: 9px 12px;
@@ -109,7 +109,7 @@ const Name = styled.p`
   font-weight: 500;
   font-size: 16px;
   color: #000000;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 `;
 
 const CategoriesContainer = styled.div`
