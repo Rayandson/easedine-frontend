@@ -12,6 +12,7 @@ import MenuPage from "./pages/MenuPage";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import HistoryPage from "./pages/HistoryPage";
+import BookmarksPage from "./pages/BookmarksPage";
 import { RestaurantProvider } from "./contexts/RestaurantContext";
 import { OrderProvider } from "./contexts/OrderContext";
 import { UserProvider } from "./contexts/UserContext";
@@ -35,6 +36,7 @@ function App() {
                       <Route path="/signup" element={<SignUpPage />} />
                       <Route path="/signin" element={<SignInPage />} />
                       <Route path="/history" element={<HistoryPage />} />
+                      <Route path="/bookmarks" element={<BookmarksPage />} />
                       {/* <Route path="/restaurants" element={<RestaurantPage />} /> */}
                       <Route path="/restaurants/:profileName" element={<MenuPage />} />
                       <Route path="/restaurants/:profileName/order" element={<OrderPage />} />
