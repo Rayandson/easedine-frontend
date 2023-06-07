@@ -45,7 +45,7 @@ export default function Footer({setDisableScrolling, setScrollPosition}: FooterP
         selectedItem={pageContext ? pageContext.page : ''}
         onClick={() => {
           pageContext?.setPage('location');
-          userContext?.user === undefined && navigate('/unauthorized');
+          userContext?.user === undefined ? navigate('/unauthorized') : navigate('/map');
         }}
       >
         <FaMapMarkedAlt />
