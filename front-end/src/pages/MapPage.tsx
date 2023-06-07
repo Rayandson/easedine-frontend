@@ -7,7 +7,12 @@ import { useJsApiLoader } from "@react-google-maps/api";
 import Map from "../components/Map";
 // import { mapOptions } from "./components/MapConfiguration";
 
-export default function MapPage() {
+interface MapPageProps {
+  lat: number;
+  lng: number;
+}
+
+export default function MapPage({lat, lng}: MapPageProps) {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
@@ -19,7 +24,7 @@ export default function MapPage() {
   return (
     <Container>
       <NavBar />
-      <Map isLoaded={isLoaded} />
+      <Map isLoaded={isLoaded} lat={lat} lng={lng}/>
       <Footer setScrollPosition={setScrollPosition} />
       <Cart scrollPosition={scrollPosition} />
     </Container>
