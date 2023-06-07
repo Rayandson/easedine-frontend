@@ -8,14 +8,20 @@ import usersApi from "../services/usersApi";
 import { HistoryItemType } from "../types";
 import HistoryItem from "../components/HistoryItem";
 import { Triangle } from "react-loader-spinner";
+import { PageContext } from "../contexts/PageContext";
 
 export default function HistoryPage() {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const tokenContext = useContext(TokenContext);
   const [items, setItems] = useState<HistoryItemType[] | []>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const pageContext = useContext(PageContext);
+
 
   useEffect(() => {
+    if(pageContext?.page !== "orders") {
+      pageContext?.setPage("orders");
+    }
     fetchItems();
   }, [tokenContext?.token]);
 

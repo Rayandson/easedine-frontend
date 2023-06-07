@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { IoPersonOutline } from "react-icons/io5";
 import { RiLogoutBoxLine, RiFileList3Line } from "react-icons/ri";
@@ -14,6 +14,14 @@ export default function BookmarksPage() {
   const pageContext = useContext(PageContext);
   const tokenContext = useContext(TokenContext);
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if(pageContext?.page !== "profile") {
+      pageContext?.setPage("profile");
+    }
+  }, [tokenContext?.token]);
+  
 
   const options = [
     { title: "Conta", icon: IoPersonOutline },
