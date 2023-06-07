@@ -1,15 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar/NavBar";
 import Cart from "../components/Cart";
 import { useJsApiLoader } from "@react-google-maps/api";
 import Map from "../components/Map";
+import { PageContext } from '../contexts/PageContext';
 // import { mapOptions } from "./components/MapConfiguration";
 
-export default function MapPage() {
+interface MapPageProps {
+  lat: number;
+  lng: number;
+}
+
+export default function MapPage({lat, lng}: MapPageProps) {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
+  const pageContext = useContext(PageContext);
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+
+  useEffect(() => {
+    if(pageContext?.page !== "location") {
+      pageContext?.setPage("location");
+    }
+  }, [])
 
   const { isLoaded } = useJsApiLoader({
     id: apiKey,
@@ -19,7 +32,7 @@ export default function MapPage() {
   return (
     <Container>
       <NavBar />
-      <Map isLoaded={isLoaded} />
+      <Map isLoaded={isLoaded} lat={lat} lng={lng}/>
       <Footer setScrollPosition={setScrollPosition} />
       <Cart scrollPosition={scrollPosition} />
     </Container>

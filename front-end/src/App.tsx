@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "./assets/styles/GlobalStyle";
 import PageView from "./components/PageView";
@@ -20,6 +20,15 @@ import { UserProvider } from "./contexts/UserContext";
 import { TokenProvider } from "./contexts/TokenContext";
 
 function App() {
+  const [coords, setCoords] = useState({lat: 0, lng: 0});
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position);
+      setCoords({lat: position.coords.latitude, lng: position.coords.longitude});
+  })
+  }, []);
+
   return (
     <BrowserRouter>
       <PageView>
@@ -38,7 +47,7 @@ function App() {
                       <Route path="/signin" element={<SignInPage />} />
                       <Route path="/history" element={<HistoryPage />} />
                       <Route path="/bookmarks" element={<BookmarksPage />} />
-                      <Route path="/map" element={<MapPage />} />
+                      <Route path="/map" element={<MapPage lat={coords.lat} lng={coords.lng}/>} />
                       {/* <Route path="/restaurants" element={<RestaurantPage />} /> */}
                       <Route path="/restaurants/:profileName" element={<MenuPage />} />
                       <Route path="/restaurants/:profileName/order" element={<OrderPage />} />
