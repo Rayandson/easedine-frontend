@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import { useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import restaurantsApi from '../services/restaurantsApi';
-import { MenuItemType, MostOrdered, RestaurantInfo } from '../types';
+import { MenuItemType, MostOrdered } from '../types';
 import StarImg from '../assets/images/star.svg';
 import { Triangle } from 'react-loader-spinner';
 import AddItemDiv from '../components/AddItemDiv';
@@ -79,12 +79,13 @@ export default function MenuPage() {
       const response = await restaurantsApi.getRestaurantInfo(profileName);
 
       restaurantContext?.setRestaurant(response.data);
+
       setItemsToShow(response.data.mostOrdered);
-      setIsLoading(false);
+      setTimeout(() => setIsLoading(false), 1000);
     }
   }
 
-  const starsArray = [];
+  const starsArray = [1];
   if (restaurantContext?.restaurant?.restaurantInfo) {
     for (let i = 1; i <= restaurantContext?.restaurant?.restaurantInfo.rating; i++) {
       starsArray.push(i);
@@ -152,15 +153,14 @@ export default function MenuPage() {
               </CategoryDiv>
               {restaurantContext?.restaurant?.restaurantInfo.itemCategories.map((c, i) => {
                 return (
-                  <>
                     <CategoryDiv
+                      key={i}
                       onClick={() => {
                         setItemsToShow(c.items);
                         setActiveCategory(c.name);
                       }}
                     >
                       <CategoryName
-                        key={i}
                         themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}
                         activeCategory={activeCategory}
                         categoryName={c.name}
@@ -168,7 +168,6 @@ export default function MenuPage() {
                         {c.name}
                       </CategoryName>
                     </CategoryDiv>
-                  </>
                 );
               })}
             </Categories>
