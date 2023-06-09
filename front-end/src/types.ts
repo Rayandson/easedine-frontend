@@ -46,6 +46,8 @@ export type RestaurantInfo = {
       country: string;
       neighborhood: string;
       number: string;
+      latitute: string;
+      longitude: string;
       restaurantId: number;
       state: string;
     };
