@@ -27,4 +27,4 @@ To start a development server, run the following command:
 npm run dev
 ```
 
-This will start the development server on `http://localhost:5000`.
+This will start the development server on `http://localhost:3000`.
