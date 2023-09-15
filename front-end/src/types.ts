@@ -20,6 +20,10 @@ export type RestaurantResponse = {
   rating: number;
   createdAt: Date;
   updatedAt: Date;
+  address: {
+    latitute: string;
+    longitude: string;
+  };
   restaurantCategories: {
     id: number;
     name: string;

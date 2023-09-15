@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GoogleMap, Marker } from "@react-google-maps/api";
 import Cutlery from "../assets/images/cutlery.png";
+import { RestaurantResponse } from "../types";
+import restaurantsApi from "../services/restaurantsApi";
 
 const markers = [
   {
@@ -104,13 +106,26 @@ interface MapProps {
   lng: number;
 }
 
-const Map: React.FC<MapProps> = ({ isLoaded, lat, lng }) => {
-  return isLoaded ? (
+function Map ({ isLoaded, lat, lng }: MapProps) {
+  const [restaurants, setRestaurants] = useState<RestaurantResponse[] | []>([]);
+
+  useEffect(() => {
+    fetchRestaurants();
+  }, [])
+
+  async function fetchRestaurants() {
+      const response = await restaurantsApi.getRestaurants();
+      setRestaurants(response.data);
+  }
+
+  console.log(restaurants.length)
+  return (isLoaded && restaurants.length > 0) ? (
     <GoogleMap center={{ lat, lng }} zoom={15} mapContainerStyle={mapStyles} options={mapOptions}>
-      {markers.map((marker, index) => (
+      {restaurants.map((restaurant, index) => (
+        restaurant.address?.latitute &&
         <Marker
           key={index}
-          position={marker.location}
+          position={{lat: Number(restaurant.address.latitute), lng: Number(restaurant.address.longitude)}}
           options={{
             icon: {
               url: Cutlery,
