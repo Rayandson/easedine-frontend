@@ -6,6 +6,7 @@ import Cart from "../components/Cart";
 import { useJsApiLoader } from "@react-google-maps/api";
 import Map from "../components/Map";
 import { PageContext } from '../contexts/PageContext';
+import restaurantsApi from "../services/restaurantsApi";
 // import { mapOptions } from "./components/MapConfiguration";
 
 interface MapPageProps {
@@ -15,6 +16,7 @@ interface MapPageProps {
 
 export default function MapPage({lat, lng}: MapPageProps) {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
+  // const [restaurants, setRestaurants] = useState([]);
   const pageContext = useContext(PageContext);
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
@@ -22,6 +24,8 @@ export default function MapPage({lat, lng}: MapPageProps) {
     if(pageContext?.page !== "location") {
       pageContext?.setPage("location");
     }
+
+    // fetchRestaurants();
   }, [])
 
   const { isLoaded } = useJsApiLoader({
@@ -29,10 +33,16 @@ export default function MapPage({lat, lng}: MapPageProps) {
     googleMapsApiKey: apiKey ? apiKey : "",
   });
 
+  // async function fetchRestaurants() {
+  //     const response = await restaurantsApi.getRestaurants();
+  //     setRestaurants(response.data);
+  // }
+
   return (
     <Container>
       <NavBar />
-      <Map isLoaded={isLoaded} lat={lat} lng={lng}/>
+      {/* <Map isLoaded={isLoaded} lat={lat} lng={lng} restaurants={restaurants}/> */}
+      <Map isLoaded={isLoaded} lat={lat} lng={lng} />
       <Footer setScrollPosition={setScrollPosition} />
       <Cart scrollPosition={scrollPosition} />
     </Container>

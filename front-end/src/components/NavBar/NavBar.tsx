@@ -26,7 +26,7 @@ export default function NavBar({ onPersonIconClick }: NavbarProps) {
         <LogoImg src={Logo} />
         <Menu>
           <MenuItem onClick={() => navigate("/")}>Home</MenuItem>
-          <MenuItem onClick={() => userContext?.user === undefined && navigate("/unauthorized")}>Restaurantes</MenuItem>
+          <MenuItem onClick={() => navigate("/map")}>Mapa</MenuItem>
           <MenuItem onClick={() => userContext?.user === undefined ? navigate("/unauthorized") : navigate("/history")}>Histórico</MenuItem>
         </Menu>
       </LeftContent>
