@@ -190,7 +190,7 @@ const QuantityContainer = styled.div`
 
   svg {
     font-size: 14px;
-    color: #5e2bc4;
+    color: #2065D1;
 
     &:hover {
       cursor: pointer;

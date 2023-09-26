@@ -121,6 +121,7 @@ export default function Checkout({ setCheckoutIsOpen, setDisableScrolling }: Che
           selectedTable={selectedTable}
           paymentMethod={paymentMethod}
           onClick={finishOrder}
+          disabled={userName && selectedTable && paymentMethod ? false : true}
         >
           {isLoading ? (
             <Oval
@@ -148,7 +149,7 @@ const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #5e2bc4;
+  background: linear-gradient(120deg, #0177ff 0%, #2065D1 100%);
   text-align: center;
   margin-bottom: 20px;
 `;
@@ -289,8 +290,8 @@ const FinishOrderButton = styled.button<FinishOrderButtonProps>`
   width: 80%;
   max-width: 500px;
   height: 45px;
-  background-color: ${(props) =>
-    props.userName && props.selectedTable && props.paymentMethod ? "#5e2bc4" : "#aaaaaa"};
+  background: ${(props) =>
+    props.userName && props.selectedTable && props.paymentMethod ? "linear-gradient(120deg, #0177ff 0%, #2065D1 100%)" : "#c0c4c7"};
   border: none;
   border-radius: 5px;
   display: flex;

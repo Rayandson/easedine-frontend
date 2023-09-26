@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import StarImg from "../../assets/images/star.svg";
@@ -64,15 +64,15 @@ const ImageDiv = styled.div<imageDivProps>`
 `;
 
 const RatingDiv = styled.div`
-  width: 88px;
-  height: 40px;
+  width: 80px;
+  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 13px;
   position: absolute;
   right: 13px;
-  bottom: 13px;
+  bottom: 11px;
   background: rgba(82, 82, 82, 0.8);
   backdrop-filter: blur(2.5px);
   border-radius: 8px;
@@ -93,7 +93,7 @@ const Rating = styled.p`
 const InfoDiv = styled.div`
   width: 260px;
   height: 70px;
-  background: #F7F7F7;
+  background: #fff;
   border-radius: 0px 0px 10px 10px;
   padding: 9px 12px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);

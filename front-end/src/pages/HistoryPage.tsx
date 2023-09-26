@@ -42,7 +42,7 @@ export default function HistoryPage() {
           <Triangle
             height="50"
             width="50"
-            color="#5836bc"
+            color="#2065D1"
             ariaLabel="triangle-loading"
             wrapperStyle={{}}
             visible={true}
@@ -82,6 +82,7 @@ const Container = styled.div`
   align-items: center;
   margin-top: 68px;
   padding: 50px 0;
+  background: #f9fafb;
 
   @media (max-width: 758px) {
     margin-top: 0px;

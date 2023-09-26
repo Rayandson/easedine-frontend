@@ -1,18 +1,18 @@
-import React, { useContext } from 'react';
-import styled from 'styled-components';
-import MenuPageNavBar from '../components/NavBar/MenuPageNavBar';
-import MenuItem from '../components/MenuItem';
-import Footer from '../components/Footer';
-import { useParams } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
-import restaurantsApi from '../services/restaurantsApi';
-import { MenuItemType, MostOrdered } from '../types';
-import StarImg from '../assets/images/star.svg';
-import { Triangle } from 'react-loader-spinner';
-import AddItemDiv from '../components/AddItemDiv';
+import React, { useContext } from "react";
+import styled from "styled-components";
+import MenuPageNavBar from "../components/NavBar/MenuPageNavBar";
+import MenuItem from "../components/MenuItem";
+import Footer from "../components/Footer";
+import { useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import restaurantsApi from "../services/restaurantsApi";
+import { MenuItemType, MostOrdered } from "../types";
+import StarImg from "../assets/images/star.svg";
+import { Triangle } from "react-loader-spinner";
+import AddItemDiv from "../components/AddItemDiv";
 import Cart from "../components/Cart";
-import { CartContext } from '../contexts/CartContext';
-import { RestaurantContext } from '../contexts/RestaurantContext';
+import { CartContext } from "../contexts/CartContext";
+import { RestaurantContext } from "../contexts/RestaurantContext";
 
 interface CategoriesProps {
   isAtTop: boolean;
@@ -36,6 +36,10 @@ interface ContainerProps {
   showCart: boolean | undefined;
 }
 
+interface MainProps {
+  isLoading: boolean;
+}
+
 interface MenuContainerProps {
   isScreenUp: boolean;
   disableScrolling: boolean;
@@ -47,7 +51,7 @@ export default function MenuPage() {
   const categoriesRef = useRef<HTMLDivElement>(null);
   const restaurantContext = useContext(RestaurantContext);
   const [isAtTop, setIsAtTop] = useState(false);
-  const [activeCategory, setActiveCategory] = useState('OS MAIS PEDIDOS');
+  const [activeCategory, setActiveCategory] = useState("OS MAIS PEDIDOS");
   const [isLoading, setIsLoading] = useState(true);
   const [isScreenUp, setIsScreenUp] = useState(false);
   const [disableScrolling, setDisableScrolling] = useState(false);
@@ -67,10 +71,10 @@ export default function MenuPage() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -93,66 +97,79 @@ export default function MenuPage() {
   }
 
   return (
-    <Container themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor} isScreenUp={isScreenUp} disableScrolling={disableScrolling} showCart={cartContext?.showCart}>
-      {isLoading ? (
-        <LoadingContainer>
-          <Triangle
-            height="50"
-            width="50"
-            color="#5836bc"
-            ariaLabel="triangle-loading"
-            wrapperStyle={{}}
-            visible={true}
-          />
-        </LoadingContainer>
-      ) : (
-        <>
-          <MenuPageNavBar
-            restaurantName={restaurantContext?.restaurant?.restaurantInfo.name}
-            themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}
-          />
-          <RestaurantCover img={restaurantContext?.restaurant?.restaurantInfo.cover}>
-            <OuterCircle>
-              <Picture src={restaurantContext?.restaurant?.restaurantInfo.picture} onClick={() => setIsScreenUp(true)} />
-            </OuterCircle>
-          </RestaurantCover>
-          <RestaurantInfoDiv>
-            <Info>
-              <MainInfo>
-                <Name themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}>{restaurantContext?.restaurant?.restaurantInfo.name}</Name>
-                <Rating>
-                  {starsArray.map((s, index) => (
-                    <img key={index} src={StarImg} />
-                  ))}
-                </Rating>
-              </MainInfo>
-              <Address>
-                {restaurantContext?.restaurant?.restaurantInfo.address.street} {restaurantContext?.restaurant?.restaurantInfo.address.number},{' '}
-                {restaurantContext?.restaurant?.restaurantInfo.address.neighborhood} - {restaurantContext?.restaurant?.restaurantInfo.address.city}/
-                {restaurantContext?.restaurant?.restaurantInfo.address.state}
-              </Address>
-            </Info>
-          </RestaurantInfoDiv>
-          <MenuContainer isScreenUp={isScreenUp} disableScrolling={disableScrolling}>
-            <Categories isAtTop={isAtTop} themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}>
-              <CategoryDiv
-                onClick={() => {
-                  if (restaurantContext?.restaurant?.mostOrdered) {
-                    setItemsToShow(restaurantContext?.restaurant.mostOrdered);
-                  }
-                  setActiveCategory('OS MAIS PEDIDOS');
-                }}
-              >
-                <CategoryName
-                  themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}
-                  activeCategory={activeCategory}
-                  categoryName="OS MAIS PEDIDOS"
+    <Main isLoading>
+      <Container
+        themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}
+        isScreenUp={isScreenUp}
+        disableScrolling={disableScrolling}
+        showCart={cartContext?.showCart}
+      >
+        {isLoading ? (
+          <LoadingContainer>
+            <Triangle
+              height="50"
+              width="50"
+              color="#2065D1"
+              ariaLabel="triangle-loading"
+              wrapperStyle={{}}
+              visible={true}
+            />
+          </LoadingContainer>
+        ) : (
+          <>
+            <MenuPageNavBar
+              restaurantName={restaurantContext?.restaurant?.restaurantInfo.name}
+              themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}
+            />
+            <RestaurantCover img={restaurantContext?.restaurant?.restaurantInfo.cover}>
+              <OuterCircle>
+                <Picture
+                  src={restaurantContext?.restaurant?.restaurantInfo.picture}
+                  onClick={() => setIsScreenUp(true)}
+                />
+              </OuterCircle>
+            </RestaurantCover>
+            <RestaurantInfoDiv>
+              <Info>
+                <MainInfo>
+                  <Name themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}>
+                    {restaurantContext?.restaurant?.restaurantInfo.name}
+                  </Name>
+                  <Rating>
+                    {starsArray.map((s, index) => (
+                      <img key={index} src={StarImg} />
+                    ))}
+                  </Rating>
+                </MainInfo>
+                <Address>
+                  {restaurantContext?.restaurant?.restaurantInfo.address.street}{" "}
+                  {restaurantContext?.restaurant?.restaurantInfo.address.number},{" "}
+                  {restaurantContext?.restaurant?.restaurantInfo.address.neighborhood} -{" "}
+                  {restaurantContext?.restaurant?.restaurantInfo.address.city}/
+                  {restaurantContext?.restaurant?.restaurantInfo.address.state}
+                </Address>
+              </Info>
+            </RestaurantInfoDiv>
+            <MenuContainer isScreenUp={isScreenUp} disableScrolling={disableScrolling}>
+              <Categories isAtTop={isAtTop} themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}>
+                <CategoryDiv
+                  onClick={() => {
+                    if (restaurantContext?.restaurant?.mostOrdered) {
+                      setItemsToShow(restaurantContext?.restaurant.mostOrdered);
+                    }
+                    setActiveCategory("OS MAIS PEDIDOS");
+                  }}
                 >
-                  OS MAIS PEDIDOS
-                </CategoryName>
-              </CategoryDiv>
-              {restaurantContext?.restaurant?.restaurantInfo.itemCategories.map((c, i) => {
-                return (
+                  <CategoryName
+                    themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}
+                    activeCategory={activeCategory}
+                    categoryName="OS MAIS PEDIDOS"
+                  >
+                    OS MAIS PEDIDOS
+                  </CategoryName>
+                </CategoryDiv>
+                {restaurantContext?.restaurant?.restaurantInfo.itemCategories.map((c, i) => {
+                  return (
                     <CategoryDiv
                       key={i}
                       onClick={() => {
@@ -168,24 +185,43 @@ export default function MenuPage() {
                         {c.name}
                       </CategoryName>
                     </CategoryDiv>
-                );
-              })}
-            </Categories>
-            <Title themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}>{activeCategory}</Title>
-            <MenuItemsContainer ref={categoriesRef}>
-              {itemsToShow.map((i, index) => (
-                <MenuItem item={i} key={index} themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor} setIsScreenUp={setIsScreenUp} setDisableScrolling={setDisableScrolling} setScrollPosition={setScrollPosition}/>
-              ))}
-            </MenuItemsContainer>
-          </MenuContainer>
-        </>
-      )}
-      <AddItemDiv isScreenUp={isScreenUp} setIsScreenUp={setIsScreenUp} setDisableScrolling={setDisableScrolling} scrollPosition={scrollPosition}/>
-      <Footer setDisableScrolling={setDisableScrolling} setScrollPosition={setScrollPosition}/>
-      <Cart setDisableScrolling={setDisableScrolling} scrollPosition={scrollPosition}/>
-    </Container>
+                  );
+                })}
+              </Categories>
+              <Title themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}>{activeCategory}</Title>
+              <MenuItemsContainer ref={categoriesRef}>
+                {itemsToShow.map((i, index) => (
+                  <MenuItem
+                    item={i}
+                    key={index}
+                    themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}
+                    setIsScreenUp={setIsScreenUp}
+                    setDisableScrolling={setDisableScrolling}
+                    setScrollPosition={setScrollPosition}
+                  />
+                ))}
+              </MenuItemsContainer>
+            </MenuContainer>
+          </>
+        )}
+        <AddItemDiv
+          isScreenUp={isScreenUp}
+          setIsScreenUp={setIsScreenUp}
+          setDisableScrolling={setDisableScrolling}
+          scrollPosition={scrollPosition}
+        />
+        <Footer setDisableScrolling={setDisableScrolling} setScrollPosition={setScrollPosition} />
+        <Cart setDisableScrolling={setDisableScrolling} scrollPosition={scrollPosition} />
+      </Container>
+    </Main>
   );
 }
+
+const Main = styled.div<MainProps>`
+  width: 100vw;
+  min-height: ${props => props.isLoading ? "100vh" : "calc(100vh - 68px)"};
+  background: #f9fafb;
+`;
 
 const Container = styled.div<ContainerProps>`
   width: 85%;
@@ -193,19 +229,18 @@ const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fff;
   margin-left: auto;
   margin-right: auto;
   margin-top: 68px;
 
   @media (max-width: 758px) {
     width: 100%;
-    height: ${props => props.disableScrolling ? 'calc(100vh - 63px - 55px)' : 'auto'};
+    height: ${(props) => (props.disableScrolling ? "calc(100vh - 63px - 55px)" : "auto")};
     /* height: calc(100vh - 63px - 55px); */
-    position: ${props => props.disableScrolling ? 'absolute' : 'static'};
+    position: ${(props) => (props.disableScrolling ? "absolute" : "static")};
     /* position: absolute; */
     top: 0;
-    overflow-y: ${props => props.disableScrolling ? 'hidden' : 'auto'};
+    overflow-y: ${(props) => (props.disableScrolling ? "hidden" : "auto")};
     margin-top: 55px;
     margin-bottom: 63px;
   }
@@ -224,7 +259,7 @@ const RestaurantInfoDiv = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #f9f9f9;
+  background: #fff;
   padding-left: 12px;
   padding-right: 10px;
 
@@ -276,7 +311,7 @@ const MainInfo = styled.div`
 `;
 
 const Name = styled.p<Theme>`
-  font-family: 'Work Sans';
+  font-family: "Work Sans";
   font-style: normal;
   font-weight: 500;
   font-size: 17px;
@@ -293,7 +328,7 @@ const Rating = styled.div`
 `;
 
 const Address = styled.p`
-  font-family: 'Work Sans';
+  font-family: "Work Sans";
   font-weight: 500;
   font-size: 11px;
   color: #8a8a8a;
@@ -329,9 +364,9 @@ const Categories = styled.div<CategoriesProps>`
   border-width: 0.1px 0px;
   border-style: solid;
   border-color: #ececec;
-  position: ${(props) => (props.isAtTop ? 'fixed' : 'absolute')};
+  position: ${(props) => (props.isAtTop ? "fixed" : "absolute")};
   background-color: #ffffff;
-  top: ${(props) => (props.isAtTop ? '54px' : '0')};
+  top: ${(props) => (props.isAtTop ? "54px" : "0")};
   left: 0;
   z-index: 5;
   overflow-x: scroll;
@@ -363,11 +398,11 @@ const CategoryDiv = styled.div`
 `;
 
 const CategoryName = styled.p<Theme>`
-  font-family: 'Work Sans';
+  font-family: "Work Sans";
   font-style: normal;
   font-weight: 600;
   font-size: 13.5px;
-  color: ${(props) => (props.categoryName === props.activeCategory ? `${props.themeColor}` : '#6D6D6D')};
+  color: ${(props) => (props.categoryName === props.activeCategory ? `${props.themeColor}` : "#6D6D6D")};
 `;
 
 const MenuItemsContainer = styled.div`
@@ -387,7 +422,7 @@ const MenuItemsContainer = styled.div`
 `;
 
 const Title = styled.h2<Theme>`
-  font-family: 'Work Sans';
+  font-family: "Work Sans";
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -401,4 +436,3 @@ const Title = styled.h2<Theme>`
     margin-top: 75px;
   }
 `;
-

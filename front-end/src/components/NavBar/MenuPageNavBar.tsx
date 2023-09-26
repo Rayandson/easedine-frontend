@@ -65,7 +65,7 @@ const GoBackButton = styled.div`
 
   svg {
     font-size: 18px;
-    color: #000000;
+    color: #2065D1;
   }
 
   &:hover {
@@ -89,7 +89,7 @@ const IconsWrapper = styled.div`
 
   svg {
     font-size: 24px;
-    color: #5836bc;
+    color: #2065D1;
   }
 
   &:hover {
@@ -115,7 +115,7 @@ const ItemsQuantityDiv = styled.div<ItemsQuantityDivProps>`
   display: ${props => props.quantity !=null && props.quantity > 0 ? 'flex' : 'none'};
   justify-content: center;
   align-items: center;
-  background-color: #5836bc;
+  background-color: #2065D1;
   border-radius: 50%;
   position: absolute;
   bottom: 0px;

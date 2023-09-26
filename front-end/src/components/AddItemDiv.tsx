@@ -107,6 +107,7 @@ const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 8px;
 
   @media (max-width: 1200px) {
     left: calc(50% - 25vw);
@@ -129,9 +130,12 @@ const Header = styled.div`
   /* position: absolute;
   top: 0;
   left: 0; */
-  background-color: #5e2bc4;
+  /* background-color: #2065D1; */
+  background: linear-gradient(120deg, #0177ff 0%, #2065D1 100%);
   text-align: center;
   margin-bottom: 20px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 
   svg {
     font-size: 18px;
@@ -262,6 +266,8 @@ const Footer = styled.footer`
   box-shadow: 0px -2px 20px rgba(0, 0, 0, 0.08);
   background: #ffffff;
   padding: 0 18px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 
   @media (max-width: 600px) {
     width: 100vw;
@@ -285,7 +291,7 @@ const CounterContainer = styled.div`
 
   svg {
     font-size: 14px;
-    color: #5e2bc4;
+    color: #2065D1;
 
     &:hover {
       cursor: pointer;
@@ -304,7 +310,7 @@ const AddButton = styled.button`
   width: 65%;
   max-width: 500px;
   height: 45px;
-  background-color: #5e2bc4;
+  background: linear-gradient(120deg, #0177ff 0%, #2065D1 100%);
   border: none;
   border-radius: 5px;
 
