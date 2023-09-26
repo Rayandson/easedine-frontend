@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import LogoImg from "../assets/images/logofood.png";
+import LogoImg from "../assets/images/logo-blue.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { signInBody } from "../types";
 import authApi from "../services/authApi";
@@ -94,8 +94,8 @@ export default function SignUpPage() {
       </Form>
       <Footer>
         Não possui uma conta?{" "}
-        <Link to="/signup" style={{ color: "#5e2bc4", textDecoration: "none" }}>
-          Cadastrar
+        <Link to="/signup" style={{ color: "#2065D1", textDecoration: "none" }}>
+          Cadastre-se
         </Link>
       </Footer>
     </Container>
@@ -105,7 +105,7 @@ export default function SignUpPage() {
 const Container = styled.div`
   width: 100vw;
   min-height: 100vh;
-  /* background-color: #F8F9FA; */
+  /* background: #F9FAFB; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -122,7 +122,7 @@ const HeaderDiv = styled.div`
 
 const Logo = styled.img`
   width: 120px;
-  margin-bottom: 40px;
+  margin-bottom: 35px;
 `;
 const Title = styled.h1`
   font-family: "Poppins", sans-serif;
@@ -189,8 +189,8 @@ const InputTitle = styled.p`
 const Input = styled.input`
   width: 100%;
   height: 48px;
-  background: #fcfcfc;
-  border: 1px solid #d8d2d2;
+  background-color: #F7F8F9;
+  border: 1px solid #f0f0f0;
   border-radius: 4px;
   padding-left: 14px;
   &::placeholder {
@@ -198,7 +198,7 @@ const Input = styled.input`
     font-style: normal;
     font-weight: 400;
     font-size: 13px;
-    color: #6a6a6a;
+    color: #99a3ad;
   }
 `;
 
@@ -208,7 +208,7 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #5e2bc4;
+  background: linear-gradient(120deg, #0177ff 0%, #2065D1 100%);
   border-radius: 500px;
   border: none;
   font-family: "Poppins";
