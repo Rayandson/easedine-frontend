@@ -100,12 +100,12 @@ export default function OrderPage() {
 
 const Container = styled.div`
   width: 100vw;
-  min-height: calc(100vh - 68px);
+  min-height: calc(100vh - 75px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 68px;
+  margin-top: 75px;
   padding: 40px 0;
 
   @media (max-width: 758px) {

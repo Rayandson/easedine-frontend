@@ -219,7 +219,7 @@ export default function MenuPage() {
 
 const Main = styled.div<MainProps>`
   width: 100vw;
-  min-height: ${props => props.isLoading ? "100vh" : "calc(100vh - 68px)"};
+  min-height: ${props => props.isLoading ? "100vh" : "calc(100vh - 75px)"};
   background: #f9fafb;
 `;
 
@@ -231,7 +231,7 @@ const Container = styled.div<ContainerProps>`
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 68px;
+  margin-top: 75px;
 
   @media (max-width: 758px) {
     width: 100%;

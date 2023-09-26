@@ -39,7 +39,7 @@ export default function MenuPageNavBar({ restaurantName, themeColor }: NavbarPro
 
 const Container = styled.div`
   width: 100vw;
-  height: 67px;
+  height: 75px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,7 +61,7 @@ const GoBackButton = styled.div`
   align-items: center;
   position: absolute;
   left: 22px;
-  top: calc((67px) / 2 - 9px);
+  top: calc((75px) / 2 - 9px);
 
   svg {
     font-size: 18px;
@@ -85,7 +85,7 @@ const IconsWrapper = styled.div`
   gap: 40px;
   position: fixed;
   right: 15px;
-  top: 20px;
+  top: 24px;
 
   svg {
     font-size: 24px;

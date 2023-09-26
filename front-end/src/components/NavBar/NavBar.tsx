@@ -46,15 +46,14 @@ export default function NavBar({ onPersonIconClick }: NavbarProps) {
 
 const Container = styled.div`
   width: 100%;
-  height: 68px;
+  height: 75px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: fixed;
   padding: 0 38px;
   background-color: #ffffff;
-  /* box-shadow: 0px 1px 5px rgba(71, 71, 71, 0.15); */
-  border-bottom: solid 1px rgba(71, 71, 71, 0.15);
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.1);
   top: 0;
   left: 0;
   z-index: 10;
@@ -67,8 +66,8 @@ const Container = styled.div`
 const LeftContent = styled.div`
   width: 30%;
   display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  justify-content: flex-start;
+  gap: 90px;
 `
 
 const LogoImg = styled.img`
@@ -77,9 +76,8 @@ const LogoImg = styled.img`
 `;
 
 const Menu = styled.ul`
-width: 80%;
+  width: 80%;
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 45px;
 `;
