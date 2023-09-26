@@ -13,14 +13,13 @@ export default function SearchBar() {
 
 const Container = styled.div`
   width: 25%;
-  height: 40px;
+  height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: solid 1px #e2e2e2;
-  border-radius: 10px;
+  border-radius: 24px;
   background-color: #F7F8F9;
-  padding: 10px;
+  padding: 20px;
 
   input {
     width: 90%;

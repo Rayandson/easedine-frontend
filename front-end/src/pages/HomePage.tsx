@@ -81,13 +81,13 @@ export default function HomePage() {
 
 const Container = styled.div<ContainerProps>`
   width: 100vw;
-  min-height: calc(100vh - 68px);
+  min-height: calc(100vh - 75px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   padding-top: 40px;
-  margin-top: 68px;
+  margin-top: 75px;
   background: #F9FAFB;
 
   @media (max-width: 758px) {

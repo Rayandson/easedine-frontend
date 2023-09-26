@@ -75,12 +75,12 @@ const LoadingContainer = styled.div`
 
 const Container = styled.div`
   width: 100vw;
-  min-height: calc(100vh - 63px);
+  min-height: calc(100vh - 75px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 68px;
+  margin-top: 75px;
   padding: 50px 0;
   background: #f9fafb;
 
