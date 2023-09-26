@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import CloseToYouSection from "../components/CloseToYouSession/CloseToYouSection";
+import NearYouSection from "../components/NearYouSession/NearYouSection";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import MobileSearchBar from "../components/SearchBar/MobileSearchBar";
@@ -60,7 +60,7 @@ export default function HomePage() {
           <Triangle
             height="50"
             width="50"
-            color="#5836bc"
+            color="#2065D1"
             ariaLabel="triangle-loading"
             wrapperStyle={{}}
             visible={true}
@@ -70,7 +70,7 @@ export default function HomePage() {
         <>
           <Header />
           <MobileSearchBar />
-          <CloseToYouSection restaurants={restaurants} />
+          <NearYouSection restaurants={restaurants} />
         </>
       )}
       <Footer setDisableScrolling={setDisableScrolling} setScrollPosition={setScrollPosition}/>
@@ -81,13 +81,14 @@ export default function HomePage() {
 
 const Container = styled.div<ContainerProps>`
   width: 100vw;
-  height: auto;
+  min-height: calc(100vh - 68px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   padding-top: 40px;
   margin-top: 68px;
+  background: #F9FAFB;
 
   @media (max-width: 758px) {
     height: calc(100% - 63px);

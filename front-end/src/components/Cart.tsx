@@ -105,7 +105,7 @@ const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #5e2bc4;
+  background: linear-gradient(120deg, #0177ff 0%, #2065D1 100%);
   text-align: center;
   margin-bottom: 20px;
 `;
@@ -253,7 +253,7 @@ const OrderButton = styled.button`
   width: 80%;
   max-width: 500px;
   height: 45px;
-  background-color: #5e2bc4;
+  background: linear-gradient(120deg, #0177ff 0%, #2065D1 100%);
   border: none;
   border-radius: 5px;
   font-family: 'Work Sans';

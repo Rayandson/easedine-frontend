@@ -70,7 +70,8 @@ const Container = styled.div`
   justify-content: center;
   gap: 15px;
   margin-bottom: 20px;
-  background-color: #f9f9f9;
+  background-color: #fff;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
 
   @media (max-width: 758px) {

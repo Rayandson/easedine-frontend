@@ -32,10 +32,18 @@ const Container = styled.div`
     outline: none;
     background-color: #F7F8F9;
 
+    &::placeholder {
+    font-family: "Work Sans";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    align-items: center;
+    color: #99a3ad;
+  }
   }
 
   svg {
     font-size: 19px;
-    color: grey;
+    color: #99a3ad;
   }
 `;

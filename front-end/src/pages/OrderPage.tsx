@@ -80,7 +80,7 @@ export default function OrderPage() {
           <Triangle
             height="50"
             width="50"
-            color="#5836bc"
+            color="#2065D1"
             ariaLabel="triangle-loading"
             wrapperStyle={{}}
             visible={true}
@@ -100,7 +100,7 @@ export default function OrderPage() {
 
 const Container = styled.div`
   width: 100vw;
-  min-height: calc(100vh - 63px);
+  min-height: calc(100vh - 68px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

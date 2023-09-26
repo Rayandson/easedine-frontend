@@ -125,14 +125,14 @@ const OutsideCircle = styled.div`
   height: 72px;
   left: calc(50vw - 36px);
   bottom: 7px;
-  background: #f6f5f8;
+  background: #f0f0f0;
   border-radius: 50%;
 `;
 
 const CartButton = styled.button`
   width: 60px;
   height: 60px;
-  background: linear-gradient(180deg, #9570dd 0%, #4508bb 100%);
+  background: linear-gradient(180deg, #62A0F4 0%, #0D58CD 85%);
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(7.5px);
   border-radius: 50%;
@@ -148,7 +148,7 @@ const ItemsQuantityDiv = styled.div<ItemsQuantityDivProps>`
   justify-content: center;
   align-items: center;
   background-color: #ffffff;
-  border: solid 1px #5e2bc4;
+  border: solid 1px #0D58CD;
   border-radius: 50%;
   position: absolute;
   bottom: 0;
@@ -161,5 +161,5 @@ const ItemsQuantity = styled.p`
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
-  color: #5836bc;
+  color: #0D58CD;
 `;

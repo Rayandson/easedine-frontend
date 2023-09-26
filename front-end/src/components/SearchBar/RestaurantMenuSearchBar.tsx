@@ -11,13 +11,10 @@ interface Theme {
   themeColor: string | undefined;
 }
 
-export default function RestaurantMenuSearchBar({
-  restaurantName,
-  themeColor
-}: SearchBarProps) {
+export default function RestaurantMenuSearchBar({ restaurantName, themeColor }: SearchBarProps) {
   return (
     <Container themeColor={themeColor}>
-      <SearchInput placeholder={`Pesquisar em ${restaurantName}`}/>
+      <SearchInput placeholder={`Pesquisar em ${restaurantName}`} />
       <IoSearch />
     </Container>
   );
@@ -29,14 +26,15 @@ const Container = styled.div<Theme>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f7f7f7;
+  background: #f9fafb;
   border-radius: 24px;
   padding-left: 20px;
   padding-right: 20px;
 
   svg {
     font-size: 17px;
-    color: ${props => props.themeColor};
+    /* color: ${(props) => props.themeColor}; */
+    color: #99a3ad;
   }
 
   @media (max-width: 758px) {
@@ -53,7 +51,7 @@ const SearchInput = styled.input`
   font-weight: 400;
   font-size: 14px;
   align-items: center;
-  background: #f7f7f7;
+  background: #f9fafb;
   outline: none;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -65,6 +63,6 @@ const SearchInput = styled.input`
     font-weight: 400;
     font-size: 14px;
     align-items: center;
-    color: #525252;
+    color: #99a3ad;
   }
 `;

@@ -36,10 +36,11 @@ const ItemContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-  background: #f7f7f7;
+  background: #fff;
   border-radius: 10px;
   margin-bottom: 35px;
   padding: 15px 15px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
 
   @media (max-width: 1200px) {
     width: 100%;
@@ -128,7 +129,7 @@ const ButtonsContainer = styled.div`
   font-style: normal;
   font-weight: 600;
   font-size: 15px;
-  color: #5e2bc4;
+  color: #2065D1;
 
   &:hover {
     cursor: pointer;

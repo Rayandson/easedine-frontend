@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { IoBagOutline, IoPersonOutline } from "react-icons/io5";
-import Logo from "../../assets/images/logofood.png";
+import Logo from "../../assets/images/logo-blue.svg";
 import SearchBar from "../SearchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from '../../contexts/CartContext';
@@ -72,8 +72,8 @@ const LeftContent = styled.div`
 `
 
 const LogoImg = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
 `;
 
 const Menu = styled.ul`
@@ -92,7 +92,7 @@ const MenuItem = styled.li`
 
   svg {
     font-size: 24px;
-    color: #5836bc;
+    color: #103996;
   }
 
   &:hover {
@@ -120,7 +120,7 @@ const IconsWrapper = styled.div`
 
   svg {
     font-size: 24px;
-    color: #5836bc;
+    color: #2065D1;
   }
 
   &:hover {
@@ -138,7 +138,7 @@ const ItemsQuantityDiv = styled.div<ItemsQuantityDivProps>`
   display: ${props => props.quantity !=null && props.quantity > 0 ? 'flex' : 'none'};
   justify-content: center;
   align-items: center;
-  background-color: #5836bc;
+  background-color: #103996;
   border-radius: 50%;
   /* border: solid 1px #5836bc; */
   position: absolute;
