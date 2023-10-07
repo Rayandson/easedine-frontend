@@ -10,7 +10,7 @@ export default function ProgressBar() {
           width: '30%',
         },
         '@media (min-width: 960px)': {
-          width: '20%',
+          width: '276px',
         },
       }}>
       <LinearProgress />
