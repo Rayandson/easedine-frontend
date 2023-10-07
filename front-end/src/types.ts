@@ -174,10 +174,25 @@ export type OrderResponse = {
   total: number;
   status: string;
   userId: number | null;
-  restaurantId: number;
   tableId: number;
+  isPaid: boolean;
   createdAt: Date;
   updatedAt: Date;
+  items: {
+    quantity: number;
+    itemInfo: {
+      id: number;
+      itemName: string;
+      price: number;
+      image: string;
+      description: string;
+    }
+  }[];
+  Restaurant: {
+    id: number,
+    name: string,
+    picture: string,
+  };
 };
 
 export type HistoryItemType = {

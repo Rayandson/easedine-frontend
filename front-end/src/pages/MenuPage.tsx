@@ -51,7 +51,7 @@ export default function MenuPage() {
   const categoriesRef = useRef<HTMLDivElement>(null);
   const restaurantContext = useContext(RestaurantContext);
   const [isAtTop, setIsAtTop] = useState(false);
-  const [activeCategory, setActiveCategory] = useState("OS MAIS PEDIDOS");
+  const [activeCategory, setActiveCategory] = useState("Os mais pedidos");
   const [isLoading, setIsLoading] = useState(true);
   const [isScreenUp, setIsScreenUp] = useState(false);
   const [disableScrolling, setDisableScrolling] = useState(false);
@@ -157,15 +157,15 @@ export default function MenuPage() {
                     if (restaurantContext?.restaurant?.mostOrdered) {
                       setItemsToShow(restaurantContext?.restaurant.mostOrdered);
                     }
-                    setActiveCategory("OS MAIS PEDIDOS");
+                    setActiveCategory("Os mais pedidos");
                   }}
                 >
                   <CategoryName
                     themeColor={restaurantContext?.restaurant?.restaurantInfo.themeColor}
                     activeCategory={activeCategory}
-                    categoryName="OS MAIS PEDIDOS"
+                    categoryName="Os mais pedidos"
                   >
-                    OS MAIS PEDIDOS
+                    Os mais pedidos
                   </CategoryName>
                 </CategoryDiv>
                 {restaurantContext?.restaurant?.restaurantInfo.itemCategories.map((c, i) => {
@@ -401,7 +401,7 @@ const CategoryName = styled.p<Theme>`
   font-family: "Work Sans";
   font-style: normal;
   font-weight: 600;
-  font-size: 13.5px;
+  font-size: 14.5px;
   color: ${(props) => (props.categoryName === props.activeCategory ? `${props.themeColor}` : "#6D6D6D")};
 `;
 
@@ -424,10 +424,10 @@ const MenuItemsContainer = styled.div`
 const Title = styled.h2<Theme>`
   font-family: "Work Sans";
   font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  /* color: ${(props) => props.themeColor}; */
-  color: #2b2b2b;
+  font-weight: 600;
+  font-size: 17px;
+  color: ${(props) => props.themeColor};
+  /* color: #2b2b2b; */
   margin-top: 80px;
   margin-left: 30px;
 
