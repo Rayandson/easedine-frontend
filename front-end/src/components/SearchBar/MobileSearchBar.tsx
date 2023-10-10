@@ -70,6 +70,9 @@ const FilterButton = styled.button`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
   border-radius: 16px;
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   svg {
     font-size: 18px;
