@@ -139,6 +139,10 @@ const CartButton = styled.button`
   border: none;
   font-size: 25px;
   color: #f1f1f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 3px;
 `;
 
 const ItemsQuantityDiv = styled.div<ItemsQuantityDivProps>`

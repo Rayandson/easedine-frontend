@@ -5,7 +5,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 export default function ProgressBar() {
   return (
     <Box sx={{
-        width: '40%',
+        width: '43%',
         '@media (min-width: 600px)': {
           width: '30%',
         },
