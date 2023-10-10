@@ -93,7 +93,7 @@ export default function OrderPage() {
         <>
           <Header>Acompanhe o seu pedido</Header>
           {status()}
-          <div className="w-[554px] mt-[50px] flex flex-col px-[40px] py-[40px] bg-white rounded-[10px] shadow-custom">
+          <div className="w-[90%] md:w-[554px] mt-[50px] mb-[60px] flex flex-col px-[20px] md:px-[40px] py-[30px] md:py-[40px] bg-white rounded-[10px] shadow-custom">
             <div className="w-full flex gap-[10px] items-center mb-[26px]">
               <img
                 className="w-[45px] rounded-[50%] border border-black border-opacity-10"
@@ -200,10 +200,14 @@ const ProgressBarWrapper = styled.div`
   display: flex;
   justify-content: center;
   gap: 3px;
+
+  @media(max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const EmptyProgressBar = styled.div`
-  width: 40%;
+  width: 43%;
   height: 4px;
   background-color: #d6d6d6;
 
@@ -217,7 +221,7 @@ const EmptyProgressBar = styled.div`
 `;
 
 const FullProgressBar = styled.div`
-  width: 40%;
+  width: 43%;
   height: 4px;
   background-color: #1976d2;
 
